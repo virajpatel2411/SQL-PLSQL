@@ -1,0 +1,365 @@
+SQL> 
+SQL> 
+SQL> cl scr
+
+SQL> select first_name,salary from employees where salary>10000;
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Michael                   13000                                                                                                                                                     
+Shelley                   12008                                                                                                                                                     
+Steven                    24000                                                                                                                                                     
+Neena                     17000                                                                                                                                                     
+Lex                       17000                                                                                                                                                     
+Nancy                     12008                                                                                                                                                     
+Den                       11000                                                                                                                                                     
+John                      14000                                                                                                                                                     
+Karen                     13500                                                                                                                                                     
+Alberto                   12000                                                                                                                                                     
+Gerald                    11000                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Eleni                     10500                                                                                                                                                     
+Clara                     10500                                                                                                                                                     
+Lisa                      11500                                                                                                                                                     
+Ellen                     11000                                                                                                                                                     
+
+15 rows selected.
+
+SQL> cl scr
+
+SQL> select first_name,salary from employees where salary>(select salary from employees where first_name='Den');
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Michael                   13000                                                                                                                                                     
+Shelley                   12008                                                                                                                                                     
+Steven                    24000                                                                                                                                                     
+Neena                     17000                                                                                                                                                     
+Lex                       17000                                                                                                                                                     
+Nancy                     12008                                                                                                                                                     
+John                      14000                                                                                                                                                     
+Karen                     13500                                                                                                                                                     
+Alberto                   12000                                                                                                                                                     
+Lisa                      11500                                                                                                                                                     
+
+10 rows selected.
+
+SQL> select first_name,salary from employees where salary>(select salary from employees where first_name='Kevin');
+select first_name,salary from employees where salary>(select salary from employees where first_name='Kevin')
+                                                      *
+ERROR at line 1:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> select first_name,salary from employees where salary in (select salary from employees where first_name='Kevin');
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Kevin                      5800                                                                                                                                                     
+Kevin                      3000                                                                                                                                                     
+Anthony                    3000                                                                                                                                                     
+
+SQL> select first_name,salary from employees where salary >all(select salary from employees where first_name='Kevin');
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Pat                        6000                                                                                                                                                     
+Bruce                      6000                                                                                                                                                     
+Sundita                    6100                                                                                                                                                     
+Amit                       6200                                                                                                                                                     
+Charles                    6200                                                                                                                                                     
+Sundar                     6400                                                                                                                                                     
+Shanta                     6500                                                                                                                                                     
+Susan                      6500                                                                                                                                                     
+David                      6800                                                                                                                                                     
+Luis                       6900                                                                                                                                                     
+Oliver                     7000                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Kimberely                  7000                                                                                                                                                     
+Sarath                     7000                                                                                                                                                     
+Mattea                     7200                                                                                                                                                     
+Elizabeth                  7300                                                                                                                                                     
+William                    7400                                                                                                                                                     
+Nanette                    7500                                                                                                                                                     
+Louise                     7500                                                                                                                                                     
+Ismael                     7700                                                                                                                                                     
+Jose Manuel                7800                                                                                                                                                     
+Payam                      7900                                                                                                                                                     
+Lindsey                    8000                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Christopher                8000                                                                                                                                                     
+Matthew                    8000                                                                                                                                                     
+Adam                       8200                                                                                                                                                     
+John                       8200                                                                                                                                                     
+William                    8300                                                                                                                                                     
+Jack                       8400                                                                                                                                                     
+Jonathon                   8600                                                                                                                                                     
+Alyssa                     8800                                                                                                                                                     
+Daniel                     9000                                                                                                                                                     
+Alexander                  9000                                                                                                                                                     
+Peter                      9000                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Allan                      9000                                                                                                                                                     
+Patrick                    9500                                                                                                                                                     
+David                      9500                                                                                                                                                     
+Danielle                   9500                                                                                                                                                     
+Tayler                     9600                                                                                                                                                     
+Hermann                   10000                                                                                                                                                     
+Harrison                  10000                                                                                                                                                     
+Janette                   10000                                                                                                                                                     
+Peter                     10000                                                                                                                                                     
+Clara                     10500                                                                                                                                                     
+Eleni                     10500                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Gerald                    11000                                                                                                                                                     
+Ellen                     11000                                                                                                                                                     
+Den                       11000                                                                                                                                                     
+Lisa                      11500                                                                                                                                                     
+Alberto                   12000                                                                                                                                                     
+Nancy                     12008                                                                                                                                                     
+Shelley                   12008                                                                                                                                                     
+Michael                   13000                                                                                                                                                     
+Karen                     13500                                                                                                                                                     
+John                      14000                                                                                                                                                     
+Lex                       17000                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Neena                     17000                                                                                                                                                     
+Steven                    24000                                                                                                                                                     
+
+57 rows selected.
+
+SQL> select first_name,salary from employees where salary >any(select salary from employees where first_name='Kevin');
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Steven                    24000                                                                                                                                                     
+Neena                     17000                                                                                                                                                     
+Lex                       17000                                                                                                                                                     
+John                      14000                                                                                                                                                     
+Karen                     13500                                                                                                                                                     
+Michael                   13000                                                                                                                                                     
+Shelley                   12008                                                                                                                                                     
+Nancy                     12008                                                                                                                                                     
+Alberto                   12000                                                                                                                                                     
+Lisa                      11500                                                                                                                                                     
+Gerald                    11000                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Ellen                     11000                                                                                                                                                     
+Den                       11000                                                                                                                                                     
+Clara                     10500                                                                                                                                                     
+Eleni                     10500                                                                                                                                                     
+Harrison                  10000                                                                                                                                                     
+Janette                   10000                                                                                                                                                     
+Peter                     10000                                                                                                                                                     
+Hermann                   10000                                                                                                                                                     
+Tayler                     9600                                                                                                                                                     
+David                      9500                                                                                                                                                     
+Patrick                    9500                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Danielle                   9500                                                                                                                                                     
+Alexander                  9000                                                                                                                                                     
+Daniel                     9000                                                                                                                                                     
+Peter                      9000                                                                                                                                                     
+Allan                      9000                                                                                                                                                     
+Alyssa                     8800                                                                                                                                                     
+Jonathon                   8600                                                                                                                                                     
+Jack                       8400                                                                                                                                                     
+William                    8300                                                                                                                                                     
+John                       8200                                                                                                                                                     
+Adam                       8200                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Matthew                    8000                                                                                                                                                     
+Christopher                8000                                                                                                                                                     
+Lindsey                    8000                                                                                                                                                     
+Payam                      7900                                                                                                                                                     
+Jose Manuel                7800                                                                                                                                                     
+Ismael                     7700                                                                                                                                                     
+Louise                     7500                                                                                                                                                     
+Nanette                    7500                                                                                                                                                     
+William                    7400                                                                                                                                                     
+Elizabeth                  7300                                                                                                                                                     
+Mattea                     7200                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Oliver                     7000                                                                                                                                                     
+Sarath                     7000                                                                                                                                                     
+Kimberely                  7000                                                                                                                                                     
+Luis                       6900                                                                                                                                                     
+David                      6800                                                                                                                                                     
+Shanta                     6500                                                                                                                                                     
+Susan                      6500                                                                                                                                                     
+Sundar                     6400                                                                                                                                                     
+Amit                       6200                                                                                                                                                     
+Charles                    6200                                                                                                                                                     
+Sundita                    6100                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Pat                        6000                                                                                                                                                     
+Bruce                      6000                                                                                                                                                     
+Kevin                      5800                                                                                                                                                     
+Valli                      4800                                                                                                                                                     
+David                      4800                                                                                                                                                     
+Jennifer                   4400                                                                                                                                                     
+Diana                      4200                                                                                                                                                     
+Nandita                    4200                                                                                                                                                     
+Alexis                     4100                                                                                                                                                     
+Sarah                      4000                                                                                                                                                     
+Britney                    3900                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Kelly                      3800                                                                                                                                                     
+Renske                     3600                                                                                                                                                     
+Jennifer                   3600                                                                                                                                                     
+Trenna                     3500                                                                                                                                                     
+Julia                      3400                                                                                                                                                     
+Jason                      3300                                                                                                                                                     
+Laura                      3300                                                                                                                                                     
+Samuel                     3200                                                                                                                                                     
+Julia                      3200                                                                                                                                                     
+Stephen                    3200                                                                                                                                                     
+Winston                    3200                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Jean                       3100                                                                                                                                                     
+Alana                      3100                                                                                                                                                     
+Curtis                     3100                                                                                                                                                     
+Alexander                  3100                                                                                                                                                     
+
+81 rows selected.
+
+SQL> cl scr
+
+SQL> sys as sysdba
+SP2-0734: unknown command beginning "sys as sys..." - rest of line ignored.
+SQL> select first_name,salary from employees where salary >any(select salary from employees where first_name='Kevin');
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Steven                    24000                                                                                                                                                     
+Neena                     17000                                                                                                                                                     
+Lex                       17000                                                                                                                                                     
+John                      14000                                                                                                                                                     
+Karen                     13500                                                                                                                                                     
+Michael                   13000                                                                                                                                                     
+Shelley                   12008                                                                                                                                                     
+Nancy                     12008                                                                                                                                                     
+Alberto                   12000                                                                                                                                                     
+Lisa                      11500                                                                                                                                                     
+Gerald                    11000                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Ellen                     11000                                                                                                                                                     
+Den                       11000                                                                                                                                                     
+Clara                     10500                                                                                                                                                     
+Eleni                     10500                                                                                                                                                     
+Harrison                  10000                                                                                                                                                     
+Janette                   10000                                                                                                                                                     
+Peter                     10000                                                                                                                                                     
+Hermann                   10000                                                                                                                                                     
+Tayler                     9600                                                                                                                                                     
+David                      9500                                                                                                                                                     
+Patrick                    9500                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Danielle                   9500                                                                                                                                                     
+Alexander                  9000                                                                                                                                                     
+Daniel                     9000                                                                                                                                                     
+Peter                      9000                                                                                                                                                     
+Allan                      9000                                                                                                                                                     
+Alyssa                     8800                                                                                                                                                     
+Jonathon                   8600                                                                                                                                                     
+Jack                       8400                                                                                                                                                     
+William                    8300                                                                                                                                                     
+John                       8200                                                                                                                                                     
+Adam                       8200                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Matthew                    8000                                                                                                                                                     
+Christopher                8000                                                                                                                                                     
+Lindsey                    8000                                                                                                                                                     
+Payam                      7900                                                                                                                                                     
+Jose Manuel                7800                                                                                                                                                     
+Ismael                     7700                                                                                                                                                     
+Louise                     7500                                                                                                                                                     
+Nanette                    7500                                                                                                                                                     
+William                    7400                                                                                                                                                     
+Elizabeth                  7300                                                                                                                                                     
+Mattea                     7200                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Oliver                     7000                                                                                                                                                     
+Sarath                     7000                                                                                                                                                     
+Kimberely                  7000                                                                                                                                                     
+Luis                       6900                                                                                                                                                     
+David                      6800                                                                                                                                                     
+Shanta                     6500                                                                                                                                                     
+Susan                      6500                                                                                                                                                     
+Sundar                     6400                                                                                                                                                     
+Amit                       6200                                                                                                                                                     
+Charles                    6200                                                                                                                                                     
+Sundita                    6100                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Pat                        6000                                                                                                                                                     
+Bruce                      6000                                                                                                                                                     
+Kevin                      5800                                                                                                                                                     
+Valli                      4800                                                                                                                                                     
+David                      4800                                                                                                                                                     
+Jennifer                   4400                                                                                                                                                     
+Diana                      4200                                                                                                                                                     
+Nandita                    4200                                                                                                                                                     
+Alexis                     4100                                                                                                                                                     
+Sarah                      4000                                                                                                                                                     
+Britney                    3900                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Kelly                      3800                                                                                                                                                     
+Renske                     3600                                                                                                                                                     
+Jennifer                   3600                                                                                                                                                     
+Trenna                     3500                                                                                                                                                     
+Julia                      3400                                                                                                                                                     
+Jason                      3300                                                                                                                                                     
+Laura                      3300                                                                                                                                                     
+Samuel                     3200                                                                                                                                                     
+Julia                      3200                                                                                                                                                     
+Stephen                    3200                                                                                                                                                     
+Winston                    3200                                                                                                                                                     
+
+FIRST_NAME               SALARY                                                                                                                                                     
+-------------------- ----------                                                                                                                                                     
+Jean                       3100                                                                                                                                                     
+Alana                      3100                                                                                                                                                     
+Curtis                     3100                                                                                                                                                     
+Alexander                  3100                                                                                                                                                     
+
+81 rows selected.
+
+SQL> spool off

@@ -1,0 +1,339 @@
+SQL> 
+SQL> 
+SQL> 
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+COUNTRIES                      TABLE                                            
+DEPARTMENTS                    TABLE                                            
+EMPLOYEES                      TABLE                                            
+EMPLOYEE_DETAILS               TABLE                                            
+EMP_DETAILS_VIEW               VIEW                                             
+JOBS                           TABLE                                            
+JOB_HISTORY                    TABLE                                            
+LOCATIONS                      TABLE                                            
+REGIONS                        TABLE                                            
+ROYAL                          TABLE                                            
+
+10 rows selected.
+
+SQL> desc royal
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                               VARCHAR2(32)
+ HIREDATE                                           DATE
+
+SQL> alter table royal add (salary number(8,2) default 1000);
+
+Table altered.
+
+SQL> desc royal;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                               VARCHAR2(32)
+ HIREDATE                                           DATE
+ SALARY                                             NUMBER(8,2)
+
+SQL> select * from royal;
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       201 Michael Hartstein                17-FEB-04       1000                
+       205 Shelley Higgins                  07-JUN-02       1000                
+       100 Steven King                      17-JUN-03       1000                
+       101 Neena Kochhar                    21-SEP-05       1000                
+       102 Lex De Haan                      13-JAN-01       1000                
+       108 Nancy Greenberg                  17-AUG-02       1000                
+       114 Den Raphaely                     07-DEC-02       1000                
+       145 John Russell                     01-OCT-04       1000                
+       146 Karen Partners                   05-JAN-05       1000                
+       147 Alberto Errazuriz                10-MAR-05       1000                
+       148 Gerald Cambrault                 15-OCT-07       1000                
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       149 Eleni Zlotkey                    29-JAN-08       1000                
+       162 Clara Vishney                    11-NOV-05       1000                
+       168 Lisa Ozer                        11-MAR-05       1000                
+       174 Ellen Abel                       11-MAY-04       1000                
+
+15 rows selected.
+
+SQL> insert into royal values(165,'Viraj Patel',sysdate,120000);
+
+1 row created.
+
+SQL> select * from royal;
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       201 Michael Hartstein                17-FEB-04       1000                
+       205 Shelley Higgins                  07-JUN-02       1000                
+       100 Steven King                      17-JUN-03       1000                
+       101 Neena Kochhar                    21-SEP-05       1000                
+       102 Lex De Haan                      13-JAN-01       1000                
+       108 Nancy Greenberg                  17-AUG-02       1000                
+       114 Den Raphaely                     07-DEC-02       1000                
+       145 John Russell                     01-OCT-04       1000                
+       146 Karen Partners                   05-JAN-05       1000                
+       147 Alberto Errazuriz                10-MAR-05       1000                
+       148 Gerald Cambrault                 15-OCT-07       1000                
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       149 Eleni Zlotkey                    29-JAN-08       1000                
+       162 Clara Vishney                    11-NOV-05       1000                
+       168 Lisa Ozer                        11-MAR-05       1000                
+       174 Ellen Abel                       11-MAY-04       1000                
+       165 Viraj Patel                      24-MAR-19     120000                
+
+16 rows selected.
+
+SQL> insert into royal values(125,'DUDISSUIH',sysdate);
+insert into royal values(125,'DUDISSUIH',sysdate)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> rem define which para,ters you are entering
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> insert into royal(no,name,hiredate) values(125,'DUDISSUIH',sysdate);
+
+1 row created.
+
+SQL> select * from royal;
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       201 Michael Hartstein                17-FEB-04       1000                
+       205 Shelley Higgins                  07-JUN-02       1000                
+       100 Steven King                      17-JUN-03       1000                
+       101 Neena Kochhar                    21-SEP-05       1000                
+       102 Lex De Haan                      13-JAN-01       1000                
+       108 Nancy Greenberg                  17-AUG-02       1000                
+       114 Den Raphaely                     07-DEC-02       1000                
+       145 John Russell                     01-OCT-04       1000                
+       146 Karen Partners                   05-JAN-05       1000                
+       147 Alberto Errazuriz                10-MAR-05       1000                
+       148 Gerald Cambrault                 15-OCT-07       1000                
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       149 Eleni Zlotkey                    29-JAN-08       1000                
+       162 Clara Vishney                    11-NOV-05       1000                
+       168 Lisa Ozer                        11-MAR-05       1000                
+       174 Ellen Abel                       11-MAY-04       1000                
+       165 Viraj Patel                      24-MAR-19     120000                
+       125 DUDISSUIH                        24-MAR-19       1000                
+
+17 rows selected.
+
+SQL> insert into royal(no,name) values(125,'DUDISSUIH');
+
+1 row created.
+
+SQL> select * from royal;
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       201 Michael Hartstein                17-FEB-04       1000                
+       205 Shelley Higgins                  07-JUN-02       1000                
+       100 Steven King                      17-JUN-03       1000                
+       101 Neena Kochhar                    21-SEP-05       1000                
+       102 Lex De Haan                      13-JAN-01       1000                
+       108 Nancy Greenberg                  17-AUG-02       1000                
+       114 Den Raphaely                     07-DEC-02       1000                
+       145 John Russell                     01-OCT-04       1000                
+       146 Karen Partners                   05-JAN-05       1000                
+       147 Alberto Errazuriz                10-MAR-05       1000                
+       148 Gerald Cambrault                 15-OCT-07       1000                
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       149 Eleni Zlotkey                    29-JAN-08       1000                
+       162 Clara Vishney                    11-NOV-05       1000                
+       168 Lisa Ozer                        11-MAR-05       1000                
+       174 Ellen Abel                       11-MAY-04       1000                
+       165 Viraj Patel                      24-MAR-19     120000                
+       125 DUDISSUIH                        24-MAR-19       1000                
+       125 DUDISSUIH                                        1000                
+
+18 rows selected.
+
+SQL> alter table royal modify (hiredate date default sysdate);
+
+Table altered.
+
+SQL> select * from royal;
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       201 Michael Hartstein                17-FEB-04       1000                
+       205 Shelley Higgins                  07-JUN-02       1000                
+       100 Steven King                      17-JUN-03       1000                
+       101 Neena Kochhar                    21-SEP-05       1000                
+       102 Lex De Haan                      13-JAN-01       1000                
+       108 Nancy Greenberg                  17-AUG-02       1000                
+       114 Den Raphaely                     07-DEC-02       1000                
+       145 John Russell                     01-OCT-04       1000                
+       146 Karen Partners                   05-JAN-05       1000                
+       147 Alberto Errazuriz                10-MAR-05       1000                
+       148 Gerald Cambrault                 15-OCT-07       1000                
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       149 Eleni Zlotkey                    29-JAN-08       1000                
+       162 Clara Vishney                    11-NOV-05       1000                
+       168 Lisa Ozer                        11-MAR-05       1000                
+       174 Ellen Abel                       11-MAY-04       1000                
+       165 Viraj Patel                      24-MAR-19     120000                
+       125 DUDISSUIH                        24-MAR-19       1000                
+       125 DUDISSUIH                                        1000                
+
+18 rows selected.
+
+SQL> insert into royal(no,name) values(125,'DUDISSUIH');
+
+1 row created.
+
+SQL> select * from royal;
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       201 Michael Hartstein                17-FEB-04       1000                
+       205 Shelley Higgins                  07-JUN-02       1000                
+       100 Steven King                      17-JUN-03       1000                
+       101 Neena Kochhar                    21-SEP-05       1000                
+       102 Lex De Haan                      13-JAN-01       1000                
+       108 Nancy Greenberg                  17-AUG-02       1000                
+       114 Den Raphaely                     07-DEC-02       1000                
+       145 John Russell                     01-OCT-04       1000                
+       146 Karen Partners                   05-JAN-05       1000                
+       147 Alberto Errazuriz                10-MAR-05       1000                
+       148 Gerald Cambrault                 15-OCT-07       1000                
+
+        NO NAME                             HIREDATE      SALARY                
+---------- -------------------------------- --------- ----------                
+       149 Eleni Zlotkey                    29-JAN-08       1000                
+       162 Clara Vishney                    11-NOV-05       1000                
+       168 Lisa Ozer                        11-MAR-05       1000                
+       174 Ellen Abel                       11-MAY-04       1000                
+       165 Viraj Patel                      24-MAR-19     120000                
+       125 DUDISSUIH                        24-MAR-19       1000                
+       125 DUDISSUIH                                        1000                
+       125 DUDISSUIH                        24-MAR-19       1000                
+
+19 rows selected.
+
+SQL> alter table royal modify (name varchar(33) NOT NULL);
+
+Table altered.
+
+SQL> insert into royal(no,hiredate) values(168,sysdate);
+insert into royal(no,hiredate) values(168,sysdate)
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("HR"."ROYAL"."NAME") 
+
+
+SQL> desc royal
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(33)
+ HIREDATE                                           DATE
+ SALARY                                             NUMBER(8,2)
+
+SQL> desc royal
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(33)
+ HIREDATE                                           DATE
+ SALARY                                             NUMBER(8,2)
+
+SQL> alter table royal rename to royal_new;
+
+Table altered.
+
+SQL> desc royal
+ERROR:
+ORA-04043: object royal does not exist 
+
+
+SQL> desc royal_new
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(33)
+ HIREDATE                                           DATE
+ SALARY                                             NUMBER(8,2)
+
+SQL> alter tabel royal_new rename column salary to sal;
+alter tabel royal_new rename column salary to sal
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> alter table royal_new rename column salary to sal;
+
+Table altered.
+
+SQL> alter table royal_new drop sal;
+alter table royal_new drop sal
+                           *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> alter table royal_new drop (sal);
+
+Table altered.
+
+SQL> desc royal_new
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(33)
+ HIREDATE                                           DATE
+
+SQL> show recyclebin
+SQL> '
+SP2-0042: unknown command "'" - rest of line ignored.
+SQL> show recyclebin;
+SQL> drop table royal_new
+  2  ;
+
+Table dropped.
+
+SQL> show recyclebin
+ORIGINAL NAME    RECYCLEBIN NAME                OBJECT TYPE  DROP TIME          
+---------------- ------------------------------ ------------ -------------------
+ROYAL_NEW        BIN$lnpt0X5bRHiWdMZFGHUaUA==$0 TABLE        2019-03-24:12:54:53
+SQL> flashback table royal_new to before drop;
+
+Flashback complete.
+
+SQL> show recyclebin
+SQL> desc royal_new
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(33)
+ HIREDATE                                           DATE
+
+SQL> spool off

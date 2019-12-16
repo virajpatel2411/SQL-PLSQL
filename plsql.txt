@@ -1,0 +1,500 @@
+SQL> 
+SQL> 
+SQL> 
+SQL> conn hr/hr
+Connected.
+SQL> begin
+  2  	dbms_output.put_line('Hello!');
+  3  end;
+  4  
+  5  /
+
+PL/SQL procedure successfully completed.
+
+SQL> set serveroutput on
+SQL> /
+Hello!                                                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  	x integer := 10;
+  3  	y integer := 5;
+  4  begin
+  5  	dbms_output.put_line('Addition : ' || (x+y));
+  6  	dbms_output.put_line('Subtraction : '|| (x-y));
+  7  	dbms_output.put_line('Multiplication : '|| (x*y));
+  8  	dbms_output.put_line('Division : '|| (x/y));
+  9  	dbms_output.put_line('X : '|| x || ' Y : '|| y);
+ 10  end
+ 11  /
+end
+  *
+ERROR at line 10:
+ORA-06550: line 10, column 3: 
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the 
+following: 
+; <an identifier> <a double-quoted delimited-identifier> 
+The symbol ";" was substituted for "end-of-file" to continue. 
+
+
+SQL> declare
+  2  	x integer := 10;
+  3  	y integer := 5;
+  4  begin
+  5  	dbms_output.put_line('Addition : ' || (x+y));
+  6  	dbms_output.put_line('Subtraction : '|| (x-y));
+  7  	dbms_output.put_line('Multiplication : '|| (x*y));
+  8  	dbms_output.put_line('Division : '|| (x/y));
+  9  	dbms_output.put_line('X : '|| x || ' Y : '|| y);
+ 10  end;
+ 11  /
+Addition : 15                                                                   
+Subtraction : 5                                                                 
+Multiplication : 50                                                             
+Division : 2                                                                    
+X : 10 Y : 5                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  	x integer := 10;
+  3  	y integer := 0;
+  4  begin
+  5  	dbms_output.put_line('Division : '|| (x/y));
+  6  end;
+  7  /
+declare
+*
+ERROR at line 1:
+ORA-01476: divisor is equal to zero 
+ORA-06512: at line 5 
+
+
+SQL> declare
+  2  	x integer := 10;
+  3  	y integer := 0;
+  4  begin
+  5  	dbms_output.put_line('Division : '|| (x/y));
+  6  exception when zero_divide
+  7  then
+  8  	dbms_output.put_line('Division with 0.Try another.');
+  9  end;
+ 10  /
+Division with 0.Try another.                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  	x integer := 10;
+  3  	y integer := 0;
+  4  begin
+  5  	dbms_output.put_line('Division : '|| (x/y));
+  6  exception when others then
+  7  	dbms_output.put_line('Hi');
+  8  end;
+  9  /
+Hi                                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> begin
+  2  	dbms_output.put_line('Division : '|| (x/y));
+  3  
+  4  
+  5  
+  6  /
+begin
+*
+ERROR at line 1:
+ORA-06550: line 5, column 0: 
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the 
+following: 
+( begin case declare end exception exit for goto if loop mod 
+null pragma raise return select update while with 
+<an identifier> <a double-quoted delimited-identifier> 
+<a bind variable> << continue close current delete fetch lock 
+insert open rollback savepoint set sql execute commit forall 
+merge pipe purge 
+
+
+SQL> begin
+  2  	x integer := 10;
+  3  	y integer := 0;
+  4  begin
+  5  	dbms_output.put_line('Division : '|| (x/y));
+  6  exception when others then
+  7  	dbms_output.put_line('Hi');
+  8  	dbms_output.put_line(sqlerrm);
+  9  end;
+ 10  /
+	x integer := 10;
+	  *
+ERROR at line 2:
+ORA-06550: line 2, column 4: 
+PLS-00103: Encountered the symbol "INTEGER" when expecting one of the 
+following: 
+:= . ( @ % ; 
+The symbol "." was substituted for "INTEGER" to continue. 
+ORA-06550: line 3, column 4: 
+PLS-00103: Encountered the symbol "INTEGER" when expecting one of the 
+following: 
+:= . ( @ % ; 
+The symbol "." was substituted for "INTEGER" to continue. 
+ORA-06550: line 9, column 4: 
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the 
+following: 
+( begin case declare end exception exit for goto if loop mod 
+null pragma raise return select update while with 
+<an identifier> <a double-quoted  
+
+
+SQL> declare
+  2  	x integer := 10;
+  3  	y integer := 0;
+  4  begin
+  5  	dbms_output.put_line('Division : '|| (x/y));
+  6  exception when others then
+  7  	dbms_output.put_line('Hi');
+  8  	dbms_output.put_line(sqlerrm);
+  9  end;
+ 10  /
+Hi                                                                              
+ORA-01476: divisor is equal to zero                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> select &cn from &tn where &con;
+Enter value for cn: first_name,salary
+Enter value for tn: employees
+Enter value for con: salary>10000
+old   1: select &cn from &tn where &con
+new   1: select first_name,salary from employees where salary>10000
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Ellen                     11000                                                 
+Gerald                    11000                                                 
+Lex                       17000                                                 
+Alberto                   12000                                                 
+Nancy                     12008                                                 
+Michael                   13000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+Neena                     17000                                                 
+Lisa                      11500                                                 
+Karen                     13500                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Den                       11000                                                 
+John                      14000                                                 
+Clara                     10500                                                 
+Eleni                     10500                                                 
+
+15 rows selected.
+
+SQL> 
+SQL> 
+SQL> declare
+  2  	firstname varchar2(30);
+  3  begin
+  4  	select first_name from employees where department_id = &did;
+  5  	dbms_output.put_line(firstname);
+  6  end;
+  7  /
+Enter value for did: 10
+old   4: 	select first_name from employees where department_id = &did;
+new   4: 	select first_name from employees where department_id = 10;
+	select first_name from employees where department_id = 10;
+	*
+ERROR at line 4:
+ORA-06550: line 4, column 2: 
+PLS-00428: an INTO clause is expected in this SELECT statement 
+
+
+SQL> declare
+  2  	firstname varchar2(30);
+  3  begin
+  4  	select first_name into firstname from employees where department_id = &did;
+  5  	dbms_output.put_line(firstname);
+  6  end;
+  7  /
+Enter value for did: 10
+old   4: 	select first_name into firstname from employees where department_id = &did;
+new   4: 	select first_name into firstname from employees where department_id = 10;
+Jennifer                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> set verify off;
+SQL> /
+Enter value for did: 10
+Jennifer                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> desc employees
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                               NOT NULL NUMBER(6)
+ FIRST_NAME                                         VARCHAR2(20)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ EMAIL                                     NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                       VARCHAR2(20)
+ HIRE_DATE                                 NOT NULL DATE
+ JOB_ID                                    NOT NULL VARCHAR2(10)
+ SALARY                                             NUMBER(8,2)
+ COMMISSION_PCT                                     NUMBER(2,2)
+ MANAGER_ID                                         NUMBER(6)
+ DEPARTMENT_ID                                      NUMBER(4)
+
+SQL> desc departments;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPARTMENT_ID                             NOT NULL NUMBER(4)
+ DEPARTMENT_NAME                           NOT NULL VARCHAR2(30)
+ MANAGER_ID                                         NUMBER(6)
+ LOCATION_ID                                        NUMBER(4)
+
+SQL> declare
+  2  	fn varchar(30);
+  3  	eid = &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 13  end;
+ 14  /
+Enter value for eid: 101
+	eid = 101;
+	    *
+ERROR at line 3:
+ORA-06550: line 3, column 6: 
+PLS-00103: Encountered the symbol "=" when expecting one of the following: 
+constant exception <an identifier> 
+<a double-quoted delimited-identifier> table long double ref 
+char time timestamp interval date binary national character 
+nchar 
+
+
+SQL> save "d:\pl.sql"
+Created file d:\pl.sql
+SQL> run
+  1  declare
+  2  	fn varchar(30);
+  3  	eid = &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 13* end;
+Enter value for eid: 101
+	eid = 101;
+	    *
+ERROR at line 3:
+ORA-06550: line 3, column 6: 
+PLS-00103: Encountered the symbol "=" when expecting one of the following: 
+constant exception <an identifier> 
+<a double-quoted delimited-identifier> table long double ref 
+char time timestamp interval date binary national character 
+nchar 
+
+
+SQL> run "d:\pl.sql"
+  1  declare
+  2  	fn varchar(30);
+  3  	eid = &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 13* end;
+Enter value for eid: 101
+	eid = 101;
+	    *
+ERROR at line 3:
+ORA-06550: line 3, column 6: 
+PLS-00103: Encountered the symbol "=" when expecting one of the following: 
+constant exception <an identifier> 
+<a double-quoted delimited-identifier> table long double ref 
+char time timestamp interval date binary national character 
+nchar 
+
+
+SQL> save "d:\pl.sql"
+SP2-0540: File "d:\pl.sql" already exists.
+Use "SAVE filename[.ext] REPLACE".
+SQL> run "d:\pl.sql"
+  1  declare
+  2  	fn varchar(30);
+  3  	eid = &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 13* end;
+Enter value for eid: 010
+	eid = 010;
+	    *
+ERROR at line 3:
+ORA-06550: line 3, column 6: 
+PLS-00103: Encountered the symbol "=" when expecting one of the following: 
+constant exception <an identifier> 
+<a double-quoted delimited-identifier> table long double ref 
+char time timestamp interval date binary national character 
+nchar 
+
+
+SQL> save pl.sql
+SP2-0110: Cannot create save file "pl.sql"
+SQL> save pl.sql replace
+SP2-0110: Cannot create save file "pl.sql"
+SQL> save "d:\pl.sql" replace
+Wrote file d:\pl.sql
+SQL> run "d:\pl.sql"
+  1  declare
+  2  	fn varchar(30);
+  3  	eid = &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 13* end;
+Enter value for eid: save "d:\pl.sql"2
+	eid = save "d:\pl.sql"2;
+	    *
+ERROR at line 3:
+ORA-06550: line 3, column 6: 
+PLS-00103: Encountered the symbol "=" when expecting one of the following: 
+constant exception <an identifier> 
+<a double-quoted delimited-identifier> table long double ref 
+char time timestamp interval date binary national character 
+nchar 
+
+
+SQL> 0
+SP2-0226: Invalid line number 
+SQL> declare
+  2  	fn varchar(30);
+  3  	eid number := &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 13  end;
+ 14  /
+Enter value for eid: 101
+	dbms_output.put_line(fn || ln || salary || hiredate);
+	*
+ERROR at line 12:
+ORA-06550: line 12, column 2: 
+PL/SQL: ORA-00933: SQL command not properly ended 
+ORA-06550: line 8, column 2: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> declare
+  2  	fn varchar(30);
+  3  	eid number := &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  ;
+ 13  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 14  end;
+ 15  /
+Enter value for eid: 101
+NeenaKochhar1700021-SEP-05                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> save "d:\1.sql"
+Created file d:\1.sql
+SQL> run "d:\1.sql"
+  1  declare
+  2  	fn varchar(30);
+  3  	eid number := &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  ;
+ 13  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 14* end;
+Enter value for eid: 110
+JohnChen820028-SEP-05                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> run "d:\1.sql"
+  1  declare
+  2  	fn varchar(30);
+  3  	eid number := &eid;
+  4  	ln varchar(30);
+  5  	hiredate date;
+  6  	salary number;
+  7  begin
+  8  	select first_name,salary,hire_date,last_name into
+  9  		fn,salary,hiredate,ln from employees
+ 10  	join departments using(department_id)
+ 11  	where employee_id = eid
+ 12  ;
+ 13  	dbms_output.put_line(fn || ln || salary || hiredate);
+ 14* end;
+Enter value for eid: 110
+JohnChen820028-SEP-05                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> start "d:\1.sql"
+Enter value for eid: 101
+	dbms_output.put_line(fn || ln || salary || hiredate);
+	*
+ERROR at line 12:
+ORA-06550: line 12, column 2: 
+PL/SQL: ORA-00933: SQL command not properly ended 
+ORA-06550: line 8, column 2: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> spool off

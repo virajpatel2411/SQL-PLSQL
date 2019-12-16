@@ -1,0 +1,1136 @@
+SQL> set lines 300
+SQL> set pages 20
+SQL> set serveroutput on
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DECLARE
+  2    v_lname VARCHAR2(15);
+  3  BEGIN
+  4    SELECT last_name INTO v_lname FROM employees WHERE
+  5    first_name='John';
+  6    DBMS_OUTPUT.PUT_LINE ('John''s last name is : ' ||v_lname);
+  7  END;
+  8  /
+DECLARE
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows 
+ORA-06512: at line 4 
+
+
+SQL> 
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2    v_lname VARCHAR2(15);
+  3  BEGIN
+  4    SELECT last_name INTO v_lname FROM employees WHERE
+  5    first_name='Taylor';
+  6    DBMS_OUTPUT.PUT_LINE ('John''s last name is : ' ||v_lname);
+  7* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 4 
+
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DECLARE
+  2   e_insert_excep EXCEPTION;
+  3   PRAGMA EXCEPTION_INIT   (e_insert_excep, -01400);
+  4  BEGIN
+  5   INSERT INTO departments (department_id, department_name) VALUES (280,
+  6   NULL);
+  7  EXCEPTION
+  8   WHEN e_insert_excep THEN
+  9     DBMS_OUTPUT.PUT_LINE('INSERT OPERATION FAILED');
+ 10     DBMS_OUTPUT.PUT_LINE(SQLERRM);
+ 11     DBMS_OUTPUT.PUT_LINE(SQLCODE);
+ 12  END;
+ 13  /
+INSERT OPERATION FAILED                                                                                                                                                                                                                                                                                     
+ORA-01400: cannot insert NULL into ("HR"."DEPARTMENTS"."DEPARTMENT_NAME")                                                                                                                                                                                                                                   
+-1400                                                                                                                                                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2   INSERT INTO departments (department_id, department_name) VALUES (280,
+  3   NULL);
+  4* END;
+  5  /
+BEGIN
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("HR"."DEPARTMENTS"."DEPARTMENT_NAME") 
+ORA-06512: at line 2 
+
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DECLARE
+  2   e_insert_excep EXCEPTION;
+  3   PRAGMA EXCEPTION_INIT   (e_insert_excep, -01400);
+  4  BEGIN
+  5   INSERT INTO departments (department_id, department_name) VALUES (280,
+  6   NULL);
+  7  EXCEPTION
+  8   WHEN e_insert_excep THEN
+  9     DBMS_OUTPUT.PUT_LINE('INSERT OPERATION FAILED');
+ 10     DBMS_OUTPUT.PUT_LINE(SQLERRM);
+ 11     DBMS_OUTPUT.PUT_LINE(SQLCODE);
+ 12  END;
+ 13  /
+INSERT OPERATION FAILED                                                                                                                                                                                                                                                                                     
+ORA-01400: cannot insert NULL into ("HR"."DEPARTMENTS"."DEPARTMENT_NAME")                                                                                                                                                                                                                                   
+-1400                                                                                                                                                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2   e1 EXCEPTION;
+  3   PRAGMA EXCEPTION_INIT   (e1, -01400);
+  4  BEGIN
+  5   INSERT INTO departments (department_id, department_name) VALUES (280,
+  6   NULL);
+  7  EXCEPTION
+  8   WHEN e1 THEN
+  9     DBMS_OUTPUT.PUT_LINE('INSERT OPERATION FAILED');
+ 10     DBMS_OUTPUT.PUT_LINE(SQLERRM);
+ 11     DBMS_OUTPUT.PUT_LINE(SQLCODE);
+ 12* END;
+SQL> /
+INSERT OPERATION FAILED                                                                                                                                                                                                                                                                                     
+ORA-01400: cannot insert NULL into ("HR"."DEPARTMENTS"."DEPARTMENT_NAME")                                                                                                                                                                                                                                   
+-1400                                                                                                                                                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DECLARE
+  2   e_insert_excep EXCEPTION;
+  3   PRAGMA EXCEPTION_INIT   (e_insert_excep, -01400);
+  4  BEGIN
+  5   INSERT INTO departments (department_id, department_name) VALUES (280,
+  6   NULL);
+  7  EXCEPTION
+  8   WHEN e_insert_excep THEN
+  9     DBMS_OUTPUT.PUT_LINE('INSERT OPERATION FAILED');
+ 10     DBMS_OUTPUT.PUT_LINE(SQLERRM);
+ 11     DBMS_OUTPUT.PUT_LINE(SQLCODE);
+ 12  END;
+ 13  /
+INSERT OPERATION FAILED                                                                                                                                                                                                                                                                                     
+ORA-01400: cannot insert NULL into ("HR"."DEPARTMENTS"."DEPARTMENT_NAME")                                                                                                                                                                                                                                   
+-1400                                                                                                                                                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2   e_insert_excep EXCEPTION;
+  3   PRAGMA EXCEPTION_INIT   (e_insert_excep, -01400);
+  4  errno number;
+  5  errmsg varchar2(200);
+  6  BEGIN
+  7   INSERT INTO departments (department_id, department_name) VALUES (280,
+  8   NULL);
+  9  EXCEPTION
+ 10   WHEN e_insert_excep THEN
+ 11     errno:=SQLCODE;
+ 12  errmsg:=SQLERRM;
+ 13  insert into my values(user,sysdate,errno,errmsg);
+ 14* END;
+SQL> /
+insert into my values(user,sysdate,errno,errmsg);
+            *
+ERROR at line 13:
+ORA-06550: line 13, column 13: 
+PL/SQL: ORA-00913: too many values 
+ORA-06550: line 13, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> create table my(username varchare2(20),cur_date date,errorno number,errormsg varchar2(200));
+create table my(username varchare2(20),cur_date date,errorno number,errormsg varchar2(200))
+                                  *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* create table my(username varchar2(20),cur_date date,errorno number,errormsg varchar2(200))
+SQL> /
+create table my(username varchar2(20),cur_date date,errorno number,errormsg varchar2(200))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> drop table my;
+
+Table dropped.
+
+SQL> create table my(username varchare2(20),cur_date date,errorno number,errormsg varchar2(200));
+create table my(username varchare2(20),cur_date date,errorno number,errormsg varchar2(200))
+                                  *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* create table my(username varchar2(20),cur_date date,errorno number,errormsg varchar2(200))
+SQL> /
+
+Table created.
+
+SQL>  DECLARE
+  2    e_insert_excep EXCEPTION;
+  3    PRAGMA EXCEPTION_INIT   (e_insert_excep, -01400);
+  4   errno number;
+  5   errmsg varchar2(200);
+  6   BEGIN
+  7    INSERT INTO departments (department_id, department_name) VALUES (280,
+  8    NULL);
+  9   EXCEPTION
+ 10    WHEN e_insert_excep THEN
+ 11      errno:=SQLCODE;
+ 12   errmsg:=SQLERRM;
+ 13   insert into my values(user,sysdate,errno,errmsg);
+ 14   END;
+ 15   /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from my;
+
+USERNAME             CUR_DATE     ERRORNO ERRORMSG                                                                                                                                                                                                                                                          
+-------------------- --------- ---------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                                                          
+HR                   18-FEB-17      -1400 ORA-01400: cannot insert NULL into ("HR"."DEPARTMENTS"."DEPARTMENT_NAME")                                                                                                                                                                                         
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> SET verify off
+SQL> DECLARE
+  2    v_deptno NUMBER := 500;
+  3    v_name VARCHAR2(20) := 'Testing';
+  4    e_invalid_department EXCEPTION;
+  5  BEGIN
+  6    UPDATE departments
+  7    SET department_name = v_name
+  8    WHERE department_id = v_deptno;
+  9    IF SQL % NOTFOUND THEN
+ 10      RAISE e_invalid_department;
+ 11    END IF;
+ 12    COMMIT;
+ 13  EXCEPTION
+ 14  WHEN e_invalid_department THEN
+ 15    DBMS_OUTPUT.PUT_LINE('No such department id.');
+ 16  END;
+ 17  /
+No such department id.                                                                                                                                                                                                                                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2    UPDATE departments
+  3    SET department_name = 'Testing' where department_id=500;
+  4* END;
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN
+  2    delete from departments where department_id=500;
+  3* END;
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE 
+  2    v_deptno NUMBER := 500;
+  3    no_such_department EXCEPTION;
+  4  BEGIN
+  5    delete form departments
+  6    WHERE department_id = v_deptno;
+  7    IF SQL % NOTFOUND THEN
+  8      RAISE no_such_department;
+  9    END IF;
+ 10    COMMIT;
+ 11  EXCEPTION
+ 12  WHEN no_such_department THEN
+ 13    DBMS_OUTPUT.PUT_LINE('This department id does not exist');
+ 14* END;
+ 15  /
+  delete form departments
+         *
+ERROR at line 5:
+ORA-06550: line 5, column 10: 
+PL/SQL: ORA-00942: table or view does not exist 
+ORA-06550: line 5, column 3: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE 
+  2    v_deptno NUMBER := 500;
+  3    no_such_department EXCEPTION;
+  4  BEGIN
+  5    delete from departments
+  6    WHERE department_id = v_deptno;
+  7    IF SQL % NOTFOUND THEN
+  8      RAISE no_such_department;
+  9    END IF;
+ 10    COMMIT;
+ 11  EXCEPTION
+ 12  WHEN no_such_department THEN
+ 13    DBMS_OUTPUT.PUT_LINE('This department id does not exist');
+ 14* END;
+SQL> /
+This department id does not exist                                                                                                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE 
+  2    v_deptno NUMBER := 500;
+  3    no_such_department EXCEPTION;
+  4  BEGIN
+  5    delete from departments
+  6    WHERE department_id = v_deptno;
+  7    IF SQL % NOTFOUND THEN
+  8      RAISE no_such_department;
+  9    END IF;
+ 10    COMMIT;
+ 11  EXCEPTION
+ 12  WHEN no_such_department THEN
+ 13    DBMS_OUTPUT.PUT_LINE('This department id does not exist');
+ 14  	raise no_such_department;
+ 15* END;
+SQL> /
+This department id does not exist                                                                                                                                                                                                                                                                           
+DECLARE 
+*
+ERROR at line 1:
+ORA-06510: PL/SQL: unhandled user-defined exception 
+ORA-06512: at line 14 
+ORA-06510: PL/SQL: unhandled user-defined exception 
+
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DECLARE
+  2    v_lname VARCHAR2(15);
+  3  BEGIN
+  4    SELECT last_name INTO v_lname FROM employees WHERE
+  5    first_name='John';
+  6    DBMS_OUTPUT.PUT_LINE ('John''s last name is : ' ||v_lname);
+  7  END;
+  8  /
+DECLARE
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows 
+ORA-06512: at line 4 
+
+
+SQL> 
+SQL> 
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2    v_lname VARCHAR2(15);
+  3  BEGIN
+  4    SELECT last_name INTO v_lname FROM employees WHERE
+  5    first_name='Taylor';
+  6    DBMS_OUTPUT.PUT_LINE ('John''s last name is : ' ||v_lname);
+  7* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 4 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2    v_lname VARCHAR2(15);
+  3  BEGIN
+  4    SELECT last_name INTO v_lname FROM employees WHERE
+  5    first_name='Taylor';
+  6    DBMS_OUTPUT.PUT_LINE ('John''s last name is : ' ||v_lname);
+  7  exception
+  8  when others then
+  9  dbms_output.put_line(sqlcode);
+ 10* END;
+SQL> /
+100                                                                                                                                                                                                                                                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> exit
+SQL> set lines 300
+SQL> set pages 20
+SQL> set serveroutput on
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> SET verify off
+SQL> DECLARE
+  2    v_deptno NUMBER := 500;
+  3    v_name VARCHAR2(20) := 'Testing';
+  4    e_invalid_department EXCEPTION;
+  5  BEGIN
+  6    UPDATE departments
+  7    SET department_name = v_name
+  8    WHERE department_id = v_deptno;
+  9    IF SQL % NOTFOUND THEN
+ 10      RAISE e_invalid_department;
+ 11    END IF;
+ 12    COMMIT;
+ 13  EXCEPTION
+ 14  WHEN e_invalid_department THEN
+ 15    DBMS_OUTPUT.PUT_LINE('No such department id.');
+ 16  END;
+ 17  /
+No such department id.                                                                                                                                                                                                                                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> DECLARE
+  2    v_lname VARCHAR2(15);
+  3  BEGIN
+  4    SELECT last_name INTO v_lname FROM employees WHERE
+  5    first_name='John';
+  6    DBMS_OUTPUT.PUT_LINE ('John''s last name is : ' ||v_lname);
+  7  END;
+  8  /
+DECLARE
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows 
+ORA-06512: at line 4 
+
+
+SQL> 
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> SET verify off
+SQL> DECLARE
+  2    v_deptno NUMBER := 500;
+  3    v_name VARCHAR2(20) := 'Testing';
+  4    e_invalid_department EXCEPTION;
+  5  BEGIN
+  6    UPDATE departments
+  7    SET department_name = v_name
+  8    WHERE department_id = v_deptno;
+  9    IF SQL % NOTFOUND THEN
+ 10      RAISE e_invalid_department;
+ 11    END IF;
+ 12    COMMIT;
+ 13  EXCEPTION
+ 14  WHEN e_invalid_department THEN
+ 15    DBMS_OUTPUT.PUT_LINE('No such department id.');
+ 16  END;
+ 17  /
+No such department id.                                                                                                                                                                                                                                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2    v_deptno NUMBER := 500;
+  3    v_name VARCHAR2(20) := 'Testing';
+  4    e_invalid_department EXCEPTION;
+  5  BEGIN
+  6    UPDATE departments
+  7    SET department_name = v_name
+  8    WHERE department_id = v_deptno;
+  9    IF SQL % NOTFOUND THEN
+ 10      RAISE e_invalid_department;
+ 11    END IF;
+ 12    COMMIT;
+ 13  EXCEPTION
+ 14  WHEN e_invalid_department THEN
+ 15    RAISE_APPLICATION_ERROR(-20115,'ID DEOS NOT EXITS');
+ 16* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-20115: ID DEOS NOT EXITS 
+ORA-06512: at line 15 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2    v_deptno NUMBER := 500;
+  3    v_name VARCHAR2(20) := 'Testing';
+  4    e_invalid_department EXCEPTION;
+  5  BEGIN
+  6    UPDATE departments
+  7    SET department_name = v_name
+  8    WHERE department_id = v_deptno;
+  9    IF SQL % NOTFOUND THEN
+ 10      RAISE_APPLICATION_ERROR(-20115,'ID DEOS NOT EXITS');
+ 11    END IF;
+ 12    COMMIT;
+ 13  --EXCEPTION
+ 14  --WHEN e_invalid_department THEN
+ 15* END;
+ 16  /
+DECLARE
+*
+ERROR at line 1:
+ORA-20115: ID DEOS NOT EXITS 
+ORA-06512: at line 10 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  DEPTID NUMBER:=50;
+  3  BEGIN
+  4    SELECT * FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+  5  	DECLARE
+  6  		DEPTID NUMBER:=50;
+  7  	BEGIN
+  8  		SELECT * FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+  9  		DECLARE
+ 10  			DEPTID NUMBER:=500;
+ 11  		BEGIN
+ 12  			SELECT * FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 13  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 14  		END;
+ 15  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 16  	END;
+ 17  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 18  --EXCEPTION
+ 19  --WHEN e_invalid_department THEN
+ 20* END;
+ 21  /
+  SELECT * FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+  *
+ERROR at line 4:
+ORA-06550: line 4, column 3: 
+PLS-00428: an INTO clause is expected in this SELECT statement 
+ORA-06550: line 8, column 3: 
+PLS-00428: an INTO clause is expected in this SELECT statement 
+ORA-06550: line 12, column 4: 
+PLS-00428: an INTO clause is expected in this SELECT statement 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  DEPTID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+  6  	DECLARE
+  7  		DEPTID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		END;
+ 16  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 17  	END;
+ 18  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 19  --EXCEPTION
+ 20  --WHEN e_invalid_department THEN
+ 21* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows 
+ORA-06512: at line 5 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		END;
+ 16  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 17  	END;
+ 18  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 19  --EXCEPTION
+ 20  --WHEN e_invalid_department THEN
+ 21* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 5 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		END;
+ 16  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 17  	END;
+ 18  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 19  EXCEPTION
+ 20  WHEN OTHERS THEN
+ 21  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 22* END;
+SQL> /
+EXCEPTION IS HANDLED BY 1ST BLOCK                                                                                                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		END;
+ 16  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 17  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 18  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  	END;
+ 22  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 23  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 24  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 25  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  EXCEPTION
+ 28  WHEN OTHERS THEN
+ 29  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 30* END;
+SQL> /
+EXCEPTION IS HANDLED BY 1ST BLOCK                                                                                                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN OTHERS THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  EXCEPTION
+ 31  WHEN OTHERS THEN
+ 32  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+EXCEPTION IS HANDLED BY 1ST BLOCK                                                                                                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN OTHERS THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  EXCEPTION
+ 31  WHEN OTHERS THEN
+ 32  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+EXCEPTION IS HANDLED BY 1ST BLOCK                                                                                                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN OTHERS THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  --EXCEPTION
+ 31  --WHEN OTHERS THEN
+ 32  --	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 5 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN no_data_found THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  --EXCEPTION
+ 31  --WHEN OTHERS THEN
+ 32  --	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 5 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=50;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=50;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN no_data_found THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  EXCEPTION
+ 31  WHEN OTHERS THEN
+ 32  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+EXCEPTION IS HANDLED BY 1ST BLOCK                                                                                                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=100;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=100;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=500;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE DEPARTMENT_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN no_data_found THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  EXCEPTION
+ 31  WHEN OTHERS THEN
+ 32  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+EXCEPTION IS HANDLED BY 3RD BLOCK                                                                                                                                                                                                                                                                           
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ST BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=100;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=1000;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=100;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN no_data_found THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  EXCEPTION
+ 31  WHEN OTHERS THEN
+ 32  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+3RD BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ST BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=100;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=1000;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=100;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN no_data_found THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  EXCEPTION
+ 31  WHEN OTHERS THEN
+ 32  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+3RD BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+2ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ST BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+1ND BLOCK                                                                                                                                                                                                                                                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=100;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=10000;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=100;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN no_data_found THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  EXCEPTION
+ 31  WHEN OTHERS THEN
+ 32  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> /
+EXCEPTION IS HANDLED BY 1ST BLOCK                                                                                                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  EMPID NUMBER:=100;
+  3  EMP_RECORD EMPLOYEES%ROWTYPE;
+  4  BEGIN
+  5    SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+  6  	DECLARE
+  7  		EMPID NUMBER:=10000;
+  8  	BEGIN
+  9  		SELECT * INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=EMPID;
+ 10  		DECLARE
+ 11  			DEPTID NUMBER:=100;
+ 12  		BEGIN
+ 13  			SELECT *  INTO EMP_RECORD FROM EMPLOYEES WHERE EMPLOYEE_ID=DEPTID;
+ 14  			DBMS_OUTPUT.PUT_LINE('3RD BLOCK');
+ 15  		EXCEPTION
+ 16  			WHEN no_data_found THEN
+ 17  				DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 3RD BLOCK');
+ 18  		END;
+ 19  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 20  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 21  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 22  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 23  		DBMS_OUTPUT.PUT_LINE('2ND BLOCK');
+ 24  	END;
+ 25  	DBMS_OUTPUT.PUT_LINE('1ST BLOCK');
+ 26  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 27  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 28  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 29  	DBMS_OUTPUT.PUT_LINE('1ND BLOCK');
+ 30  EXCEPTION
+ 31  WHEN OTHERS THEN
+ 32  	DBMS_OUTPUT.PUT_LINE('EXCEPTION IS HANDLED BY 1ST BLOCK');
+ 33* END;
+SQL> EXIT

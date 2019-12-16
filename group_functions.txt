@@ -1,0 +1,171 @@
+SQL> select sum(salary) from employees;
+
+SUM(SALARY)                                                                     
+-----------                                                                     
+     691416                                                                     
+
+SQL> rem many rows -- >>  one row so generates summary row
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select sum(salary),avg(salary),min(salary),max(salary) from employees;
+
+SUM(SALARY) AVG(SALARY) MIN(SALARY) MAX(SALARY)                                 
+----------- ----------- ----------- -----------                                 
+     691416  6461.83178        2100       24000                                 
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem group functions are called aggregate functions
+SQL> 
+SQL> 
+SQL> 
+SQL> select sum(salary),avg(salary),min(salary),max(salary),count(*) from employees;
+
+SUM(SALARY) AVG(SALARY) MIN(SALARY) MAX(SALARY)   COUNT(*)                      
+----------- ----------- ----------- ----------- ----------                      
+     691416  6461.83178        2100       24000        107                      
+
+SQL> 
+SQL> 
+SQL> 
+SQL> rem displays no of rows
+SQL> 
+SQL> 
+SQL> 
+SQL> select sum(salary),avg(salary),min(salary),max(salary),count(first_name) from employees;
+
+SUM(SALARY) AVG(SALARY) MIN(SALARY) MAX(SALARY) COUNT(FIRST_NAME)               
+----------- ----------- ----------- ----------- -----------------               
+     691416  6461.83178        2100       24000               107               
+
+SQL> select sum(salary),avg(salary),min(salary),max(salary),count(commission_pct) from employees;
+
+SUM(SALARY) AVG(SALARY) MIN(SALARY) MAX(SALARY) COUNT(COMMISSION_PCT)           
+----------- ----------- ----------- ----------- ---------------------           
+     691416  6461.83178        2100       24000                    35           
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem count does not consider null as a value
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select department_id,sum(salary),max(salary) from employees;
+select department_id,sum(salary),max(salary) from employees
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> 
+SQL> 
+SQL> 
+SQL> rem no of rows does not match
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem no of rows does not match so it can never be printed
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select department_id,sum(salary),max(salary) from employees group by department_id;
+
+DEPARTMENT_ID SUM(SALARY) MAX(SALARY)                                           
+------------- ----------- -----------                                           
+          100       51608       12008                                           
+           30       24900       11000                                           
+                     7000        7000                                           
+           20       19000       13000                                           
+           70       10000       10000                                           
+           90       58000       24000                                           
+          110       20308       12008                                           
+           50      156400        8200                                           
+           40        6500        6500                                           
+           80      304500       14000                                           
+           10        4400        4400                                           
+
+DEPARTMENT_ID SUM(SALARY) MAX(SALARY)                                           
+------------- ----------- -----------                                           
+           60       28800        9000                                           
+
+12 rows selected.
+
+SQL> select department_id,sum(salary),max(salary) from employees group by department_id order by 1;
+
+DEPARTMENT_ID SUM(SALARY) MAX(SALARY)                                           
+------------- ----------- -----------                                           
+           10        4400        4400                                           
+           20       19000       13000                                           
+           30       24900       11000                                           
+           40        6500        6500                                           
+           50      156400        8200                                           
+           60       28800        9000                                           
+           70       10000       10000                                           
+           80      304500       14000                                           
+           90       58000       24000                                           
+          100       51608       12008                                           
+          110       20308       12008                                           
+
+DEPARTMENT_ID SUM(SALARY) MAX(SALARY)                                           
+------------- ----------- -----------                                           
+                     7000        7000                                           
+
+12 rows selected.
+
+SQL> select department_id,sum(salary),max(salary),min(salary),avg(salary),count(*) from employees group by department_id order by 1;
+
+DEPARTMENT_ID SUM(SALARY) MAX(SALARY) MIN(SALARY) AVG(SALARY)   COUNT(*)        
+------------- ----------- ----------- ----------- ----------- ----------        
+           10        4400        4400        4400        4400          1        
+           20       19000       13000        6000        9500          2        
+           30       24900       11000        2500        4150          6        
+           40        6500        6500        6500        6500          1        
+           50      156400        8200        2100  3475.55556         45        
+           60       28800        9000        4200        5760          5        
+           70       10000       10000       10000       10000          1        
+           80      304500       14000        6100  8955.88235         34        
+           90       58000       24000       17000  19333.3333          3        
+          100       51608       12008        6900  8601.33333          6        
+          110       20308       12008        8300       10154          2        
+
+DEPARTMENT_ID SUM(SALARY) MAX(SALARY) MIN(SALARY) AVG(SALARY)   COUNT(*)        
+------------- ----------- ----------- ----------- ----------- ----------        
+                     7000        7000        7000        7000          1        
+
+12 rows selected.
+
+SQL> rem this all above rows are summary rows not actual rows
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem where use group by where can't be used so use having
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select department_id,sum(salary),max(salary),min(salary),avg(salary),count(*) from employees group by department_id having max(salary)>15000;
+
+DEPARTMENT_ID SUM(SALARY) MAX(SALARY) MIN(SALARY) AVG(SALARY)   COUNT(*)        
+------------- ----------- ----------- ----------- ----------- ----------        
+           90       58000       24000       17000  19333.3333          3        
+
+SQL> 
+SQL> 
+SQL> 
+SQL> rem where is used for restrictions in actual rows and having used for restrictions in summary row made by group by clause
+SQL> 
+SQL> rem query sequence --- select column name,, from table_name where group by having order by
+SQL> 
+SQL> 
+SQL> spool off

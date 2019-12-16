@@ -1,0 +1,953 @@
+SQL> 
+SQL> 
+SQL> create table dept as select department_id,department_name from departments;
+
+Table created.
+
+SQL> select * from dept;
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+           10 Administration                                                    
+           20 Marketing                                                         
+           30 Purchasing                                                        
+           40 Human Resources                                                   
+           50 Shipping                                                          
+           60 IT                                                                
+           70 Public Relations                                                  
+           80 Sales                                                             
+           90 Executive                                                         
+          100 Finance                                                           
+          110 Accounting                                                        
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          120 Treasury                                                          
+          130 Corporate Tax                                                     
+          140 Control And Credit                                                
+          150 Shareholder Services                                              
+          160 Benefits                                                          
+          170 Manufacturing                                                     
+          180 Construction                                                      
+          190 Contracting                                                       
+          200 Operations                                                        
+          210 IT Support                                                        
+          220 NOC                                                               
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          230 IT Helpdesk                                                       
+          240 Government Sales                                                  
+          250 Retail Sales                                                      
+          260 Recruiting                                                        
+          270 Payroll                                                           
+
+27 rows selected.
+
+SQL> select distinct department_id from employees;
+
+DEPARTMENT_ID                                                                   
+-------------                                                                   
+          100                                                                   
+           30                                                                   
+                                                                                
+           20                                                                   
+           70                                                                   
+           90                                                                   
+          110                                                                   
+           50                                                                   
+           40                                                                   
+           80                                                                   
+           10                                                                   
+
+DEPARTMENT_ID                                                                   
+-------------                                                                   
+           60                                                                   
+
+12 rows selected.
+
+SQL> create procedure add_dept is
+  2  	did = %did
+  3  
+  4  /
+
+Warning: Procedure created with compilation errors.
+
+SQL> create procedure add_dept is
+  2  	did := &did;
+  3  /
+Enter value for did: 
+old   2: 	did := &did;
+new   2: 	did := ;
+create procedure add_dept is
+                 *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create procedure add_dept is
+  2  	did dept.department_id%type;
+  3  	dname dept.department_name%type;
+  4  begin
+  5  	did := &did;
+  6  	dname := &dname;
+  7  insert into dept values(did,dname);
+  8  dbms_output.put_line('Inserted'||sql%rowcount||'rows');
+  9  end;
+ 10  /
+Enter value for did: 10
+old   5: 	did := &did;
+new   5: 	did := 10;
+Enter value for dname: Market
+old   6: 	dname := &dname;
+new   6: 	dname := Market;
+create procedure add_dept is
+                 *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create procedure add_department_viraj is
+  2  	did dept.department_id%type;
+  3  	dname dept.department_name%type;
+  4  begin
+  5  	did := &did;
+  6  	dname := &dname;
+  7  insert into dept values(did,dname);
+  8  dbms_output.put_line('Inserted'||sql%rowcount||'rows');
+  9  end;
+ 10  /
+Enter value for did: 280
+old   5: 	did := &did;
+new   5: 	did := 280;
+Enter value for dname: gdgyiygsyi
+old   6: 	dname := &dname;
+new   6: 	dname := gdgyiygsyi;
+
+Warning: Procedure created with compilation errors.
+
+SQL> select * from dept;
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+           10 Administration                                                    
+           20 Marketing                                                         
+           30 Purchasing                                                        
+           40 Human Resources                                                   
+           50 Shipping                                                          
+           60 IT                                                                
+           70 Public Relations                                                  
+           80 Sales                                                             
+           90 Executive                                                         
+          100 Finance                                                           
+          110 Accounting                                                        
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          120 Treasury                                                          
+          130 Corporate Tax                                                     
+          140 Control And Credit                                                
+          150 Shareholder Services                                              
+          160 Benefits                                                          
+          170 Manufacturing                                                     
+          180 Construction                                                      
+          190 Contracting                                                       
+          200 Operations                                                        
+          210 IT Support                                                        
+          220 NOC                                                               
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          230 IT Helpdesk                                                       
+          240 Government Sales                                                  
+          250 Retail Sales                                                      
+          260 Recruiting                                                        
+          270 Payroll                                                           
+
+27 rows selected.
+
+SQL> execute add_department_viraj;
+BEGIN add_department_viraj; END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7: 
+PLS-00905: object HR.ADD_DEPARTMENT_VIRAJ is invalid 
+ORA-06550: line 1, column 7: 
+PL/SQL: Statement ignored 
+
+
+SQL> create procedure addViraj is
+  2  	did dept.department_id%type;
+  3  	dname dept.department_name%type;
+  4  begin
+  5  	did := &did;
+  6  	dname := &dname;
+  7  insert into dept values(did,dname);
+  8  dbms_output.put_line('Inserted'||sql%rowcount||'rows');
+  9  /
+Enter value for did: ucbvfb
+old   5: 	did := &did;
+new   5: 	did := ucbvfb;
+Enter value for dname: jsfbb
+old   6: 	dname := &dname;
+new   6: 	dname := jsfbb;
+
+Warning: Procedure created with compilation errors.
+
+SQL> create procedure addViraj is
+  2  	did dept.department_id%type;
+  3  	dname dept.department_name%type;
+  4  begin
+  5  	did := &did;
+  6  	dname := &dname;
+  7  insert into dept values(did,dname);
+  8  dbms_output.put_line('Inserted'||sql%rowcount||'rows');
+  9  end;
+ 10  /
+Enter value for did: 280
+old   5: 	did := &did;
+new   5: 	did := 280;
+Enter value for dname: Viraj
+old   6: 	dname := &dname;
+new   6: 	dname := Viraj;
+create procedure addViraj is
+                 *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create or replace procedure addViraj is
+  2  	did dept.department_id%type;
+  3  	dname dept.department_name%type;
+  4  begin
+  5  	did := &did;
+  6  	dname := &dname;
+  7  insert into dept values(did,dname);
+  8  dbms_output.put_line('Inserted'||sql%rowcount||'rows');
+  9  end;
+ 10  /
+Enter value for did: 280
+old   5: 	did := &did;
+new   5: 	did := 280;
+Enter value for dname: Viraj
+old   6: 	dname := &dname;
+new   6: 	dname := Viraj;
+
+Warning: Procedure created with compilation errors.
+
+SQL> execute addViraj;
+BEGIN addViraj; END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7: 
+PLS-00905: object HR.ADDVIRAJ is invalid 
+ORA-06550: line 1, column 7: 
+PL/SQL: Statement ignored 
+
+
+SQL> create procedure Viraj is
+  2  	did dept.department_id%type;
+  3  	dname dept.department_name%type;
+  4  begin
+  5  	did := 280;
+  6  	dname := 'Viraj';
+  7  insert into dept values(did,dname);
+  8  dbms_output.put_line('Inserted'||sql%rowcount||'rows');
+  9  end;
+ 10  /
+create procedure Viraj is
+*
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create procedure earth is
+  2  	did dept.department_id%type;
+  3  	dname dept.department_name%type;
+  4  begin
+  5  	did := 280;
+  6  	dname := 'Viraj';
+  7  insert into dept values(did,dname);
+  8  dbms_output.put_line('Inserted'||sql%rowcount||'rows');
+  9  end;
+ 10  /
+
+Procedure created.
+
+SQL> execute earth;
+Inserted1rows                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from dept;
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+           10 Administration                                                    
+           20 Marketing                                                         
+           30 Purchasing                                                        
+           40 Human Resources                                                   
+           50 Shipping                                                          
+           60 IT                                                                
+           70 Public Relations                                                  
+           80 Sales                                                             
+           90 Executive                                                         
+          100 Finance                                                           
+          110 Accounting                                                        
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          120 Treasury                                                          
+          130 Corporate Tax                                                     
+          140 Control And Credit                                                
+          150 Shareholder Services                                              
+          160 Benefits                                                          
+          170 Manufacturing                                                     
+          180 Construction                                                      
+          190 Contracting                                                       
+          200 Operations                                                        
+          210 IT Support                                                        
+          220 NOC                                                               
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          230 IT Helpdesk                                                       
+          240 Government Sales                                                  
+          250 Retail Sales                                                      
+          260 Recruiting                                                        
+          270 Payroll                                                           
+          280 Viraj                                                             
+
+28 rows selected.
+
+SQL> create procedure universe(did dept.department_id%type,dname dept.department_name%type) is
+  2  begin
+  3  	insert into dept values(did,dname);
+  4  	dbms_output.put_line('Inserted '|| sql%rowcount ||' rows');
+  5  end;
+  6  /
+
+Procedure created.
+
+SQL> execute universe(290,Patel)
+BEGIN universe(290,Patel); END;
+
+                   *
+ERROR at line 1:
+ORA-06550: line 1, column 20: 
+PLS-00201: identifier 'PATEL' must be declared 
+ORA-06550: line 1, column 7: 
+PL/SQL: Statement ignored 
+
+
+SQL> execute universe(290,Patel);
+BEGIN universe(290,Patel); END;
+
+                   *
+ERROR at line 1:
+ORA-06550: line 1, column 20: 
+PLS-00201: identifier 'PATEL' must be declared 
+ORA-06550: line 1, column 7: 
+PL/SQL: Statement ignored 
+
+
+SQL> execute universe(290,'Patel');
+Inserted 1 rows                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from dept;
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+           10 Administration                                                    
+           20 Marketing                                                         
+           30 Purchasing                                                        
+           40 Human Resources                                                   
+           50 Shipping                                                          
+           60 IT                                                                
+           70 Public Relations                                                  
+           80 Sales                                                             
+           90 Executive                                                         
+          100 Finance                                                           
+          110 Accounting                                                        
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          120 Treasury                                                          
+          130 Corporate Tax                                                     
+          140 Control And Credit                                                
+          150 Shareholder Services                                              
+          160 Benefits                                                          
+          170 Manufacturing                                                     
+          180 Construction                                                      
+          190 Contracting                                                       
+          200 Operations                                                        
+          210 IT Support                                                        
+          220 NOC                                                               
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                   
+------------- ------------------------------                                    
+          230 IT Helpdesk                                                       
+          240 Government Sales                                                  
+          250 Retail Sales                                                      
+          260 Recruiting                                                        
+          270 Payroll                                                           
+          280 Viraj                                                             
+          290 Patel                                                             
+
+29 rows selected.
+
+SQL> select object_name,object_type from user_objects;
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+T                                                                               
+TABLE                                                                           
+                                                                                
+SQ1                                                                             
+SEQUENCE                                                                        
+                                                                                
+V                                                                               
+SYNONYM                                                                         
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+C                                                                               
+SYNONYM                                                                         
+                                                                                
+D                                                                               
+SYNONYM                                                                         
+                                                                                
+J                                                                               
+SYNONYM                                                                         
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+JH                                                                              
+SYNONYM                                                                         
+                                                                                
+L                                                                               
+SYNONYM                                                                         
+                                                                                
+R                                                                               
+SYNONYM                                                                         
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+IND_EMP                                                                         
+INDEX                                                                           
+                                                                                
+REGIONS                                                                         
+TABLE                                                                           
+                                                                                
+REG_ID_PK                                                                       
+INDEX                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+COUNTRIES                                                                       
+TABLE                                                                           
+                                                                                
+COUNTRY_C_ID_PK                                                                 
+INDEX                                                                           
+                                                                                
+LOCATIONS                                                                       
+TABLE                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+LOC_ID_PK                                                                       
+INDEX                                                                           
+                                                                                
+LOC_CITY_IX                                                                     
+INDEX                                                                           
+                                                                                
+LOC_STATE_PROVINCE_IX                                                           
+INDEX                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+LOC_COUNTRY_IX                                                                  
+INDEX                                                                           
+                                                                                
+DEPARTMENTS                                                                     
+TABLE                                                                           
+                                                                                
+DEPT_ID_PK                                                                      
+INDEX                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+DEPT_LOCATION_IX                                                                
+INDEX                                                                           
+                                                                                
+JOBS                                                                            
+TABLE                                                                           
+                                                                                
+JOB_ID_PK                                                                       
+INDEX                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+EMPLOYEES                                                                       
+TABLE                                                                           
+                                                                                
+EMP_EMAIL_UK                                                                    
+INDEX                                                                           
+                                                                                
+EMP_EMP_ID_PK                                                                   
+INDEX                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+EMP_DEPARTMENT_IX                                                               
+INDEX                                                                           
+                                                                                
+EMP_JOB_IX                                                                      
+INDEX                                                                           
+                                                                                
+EMP_MANAGER_IX                                                                  
+INDEX                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+EMP_NAME_IX                                                                     
+INDEX                                                                           
+                                                                                
+JOB_HISTORY                                                                     
+TABLE                                                                           
+                                                                                
+JHIST_EMP_ID_ST_DATE_PK                                                         
+INDEX                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+JHIST_JOB_IX                                                                    
+INDEX                                                                           
+                                                                                
+JHIST_EMPLOYEE_IX                                                               
+INDEX                                                                           
+                                                                                
+JHIST_DEPARTMENT_IX                                                             
+INDEX                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+LOCATIONS_SEQ                                                                   
+SEQUENCE                                                                        
+                                                                                
+DEPARTMENTS_SEQ                                                                 
+SEQUENCE                                                                        
+                                                                                
+EMPLOYEES_SEQ                                                                   
+SEQUENCE                                                                        
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+EMP_DETAILS_VIEW                                                                
+VIEW                                                                            
+                                                                                
+SECURE_DML                                                                      
+PROCEDURE                                                                       
+                                                                                
+SECURE_EMPLOYEES                                                                
+TRIGGER                                                                         
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+ADD_JOB_HISTORY                                                                 
+PROCEDURE                                                                       
+                                                                                
+UPDATE_JOB_HISTORY                                                              
+TRIGGER                                                                         
+                                                                                
+VIRAJ                                                                           
+TABLE                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+VEMP                                                                            
+VIEW                                                                            
+                                                                                
+EMP_SAL                                                                         
+VIEW                                                                            
+                                                                                
+COUNT_DEPART                                                                    
+VIEW                                                                            
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+ROYAL_NEW                                                                       
+TABLE                                                                           
+                                                                                
+EMPLOYEE_DETAILS                                                                
+TABLE                                                                           
+                                                                                
+S1                                                                              
+SEQUENCE                                                                        
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+D10                                                                             
+VIEW                                                                            
+                                                                                
+S2                                                                              
+SEQUENCE                                                                        
+                                                                                
+DEPT                                                                            
+TABLE                                                                           
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+ADD_DEPT                                                                        
+PROCEDURE                                                                       
+                                                                                
+ADD_DEPARTMENT_VIRAJ                                                            
+PROCEDURE                                                                       
+                                                                                
+ADDVIRAJ                                                                        
+PROCEDURE                                                                       
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+OBJECT_TYPE                                                                     
+-------------------                                                             
+EARTH                                                                           
+PROCEDURE                                                                       
+                                                                                
+UNIVERSE                                                                        
+PROCEDURE                                                                       
+                                                                                
+
+59 rows selected.
+
+SQL> set lines 180
+SQL> select object_name,object_type from user_objects;
+
+OBJECT_NAME                                                                                                                      OBJECT_TYPE                                        
+-------------------------------------------------------------------------------------------------------------------------------- -------------------                                
+UNIVERSE                                                                                                                         PROCEDURE                                          
+EARTH                                                                                                                            PROCEDURE                                          
+ADDVIRAJ                                                                                                                         PROCEDURE                                          
+ADD_DEPARTMENT_VIRAJ                                                                                                             PROCEDURE                                          
+ADD_DEPT                                                                                                                         PROCEDURE                                          
+DEPT                                                                                                                             TABLE                                              
+S2                                                                                                                               SEQUENCE                                           
+D10                                                                                                                              VIEW                                               
+S1                                                                                                                               SEQUENCE                                           
+EMPLOYEE_DETAILS                                                                                                                 TABLE                                              
+ROYAL_NEW                                                                                                                        TABLE                                              
+
+OBJECT_NAME                                                                                                                      OBJECT_TYPE                                        
+-------------------------------------------------------------------------------------------------------------------------------- -------------------                                
+COUNT_DEPART                                                                                                                     VIEW                                               
+EMP_SAL                                                                                                                          VIEW                                               
+VEMP                                                                                                                             VIEW                                               
+VIRAJ                                                                                                                            TABLE                                              
+UPDATE_JOB_HISTORY                                                                                                               TRIGGER                                            
+ADD_JOB_HISTORY                                                                                                                  PROCEDURE                                          
+SECURE_EMPLOYEES                                                                                                                 TRIGGER                                            
+SECURE_DML                                                                                                                       PROCEDURE                                          
+EMP_DETAILS_VIEW                                                                                                                 VIEW                                               
+EMPLOYEES_SEQ                                                                                                                    SEQUENCE                                           
+DEPARTMENTS_SEQ                                                                                                                  SEQUENCE                                           
+
+OBJECT_NAME                                                                                                                      OBJECT_TYPE                                        
+-------------------------------------------------------------------------------------------------------------------------------- -------------------                                
+LOCATIONS_SEQ                                                                                                                    SEQUENCE                                           
+JHIST_DEPARTMENT_IX                                                                                                              INDEX                                              
+JHIST_EMPLOYEE_IX                                                                                                                INDEX                                              
+JHIST_JOB_IX                                                                                                                     INDEX                                              
+JHIST_EMP_ID_ST_DATE_PK                                                                                                          INDEX                                              
+JOB_HISTORY                                                                                                                      TABLE                                              
+EMP_NAME_IX                                                                                                                      INDEX                                              
+EMP_MANAGER_IX                                                                                                                   INDEX                                              
+EMP_JOB_IX                                                                                                                       INDEX                                              
+EMP_DEPARTMENT_IX                                                                                                                INDEX                                              
+EMP_EMP_ID_PK                                                                                                                    INDEX                                              
+
+OBJECT_NAME                                                                                                                      OBJECT_TYPE                                        
+-------------------------------------------------------------------------------------------------------------------------------- -------------------                                
+EMP_EMAIL_UK                                                                                                                     INDEX                                              
+EMPLOYEES                                                                                                                        TABLE                                              
+JOB_ID_PK                                                                                                                        INDEX                                              
+JOBS                                                                                                                             TABLE                                              
+DEPT_LOCATION_IX                                                                                                                 INDEX                                              
+DEPT_ID_PK                                                                                                                       INDEX                                              
+DEPARTMENTS                                                                                                                      TABLE                                              
+LOC_COUNTRY_IX                                                                                                                   INDEX                                              
+LOC_STATE_PROVINCE_IX                                                                                                            INDEX                                              
+LOC_CITY_IX                                                                                                                      INDEX                                              
+LOC_ID_PK                                                                                                                        INDEX                                              
+
+OBJECT_NAME                                                                                                                      OBJECT_TYPE                                        
+-------------------------------------------------------------------------------------------------------------------------------- -------------------                                
+LOCATIONS                                                                                                                        TABLE                                              
+COUNTRY_C_ID_PK                                                                                                                  INDEX                                              
+COUNTRIES                                                                                                                        TABLE                                              
+REG_ID_PK                                                                                                                        INDEX                                              
+REGIONS                                                                                                                          TABLE                                              
+IND_EMP                                                                                                                          INDEX                                              
+R                                                                                                                                SYNONYM                                            
+L                                                                                                                                SYNONYM                                            
+JH                                                                                                                               SYNONYM                                            
+J                                                                                                                                SYNONYM                                            
+D                                                                                                                                SYNONYM                                            
+
+OBJECT_NAME                                                                                                                      OBJECT_TYPE                                        
+-------------------------------------------------------------------------------------------------------------------------------- -------------------                                
+C                                                                                                                                SYNONYM                                            
+V                                                                                                                                SYNONYM                                            
+SQ1                                                                                                                              SEQUENCE                                           
+T                                                                                                                                TABLE                                              
+
+59 rows selected.
+
+SQL> select object_name,object_type from user_objects where object_type='PROCEDURE';
+
+OBJECT_NAME                                                                                                                      OBJECT_TYPE                                        
+-------------------------------------------------------------------------------------------------------------------------------- -------------------                                
+UNIVERSE                                                                                                                         PROCEDURE                                          
+SECURE_DML                                                                                                                       PROCEDURE                                          
+EARTH                                                                                                                            PROCEDURE                                          
+ADD_JOB_HISTORY                                                                                                                  PROCEDURE                                          
+ADD_DEPT                                                                                                                         PROCEDURE                                          
+ADD_DEPARTMENT_VIRAJ                                                                                                             PROCEDURE                                          
+ADDVIRAJ                                                                                                                         PROCEDURE                                          
+
+7 rows selected.
+
+SQL> desc user_source
+ Name                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------
+ NAME                                                                                                           VARCHAR2(30)
+ TYPE                                                                                                           VARCHAR2(12)
+ LINE                                                                                                           NUMBER
+ TEXT                                                                                                           VARCHAR2(4000)
+
+SQL> select name,text from user_source where name = 'universe';
+
+no rows selected
+
+SQL> select object_name,object_type from user_objects where object_type='procedure';
+
+no rows selected
+
+SQL> select name,text from user_source where name = 'UNIVERSE';
+
+NAME                                                                                                                                                                                
+------------------------------                                                                                                                                                      
+TEXT                                                                                                                                                                                
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+UNIVERSE                                                                                                                                                                            
+procedure universe(did dept.department_id%type,dname dept.department_name%type) is                                                                                                  
+                                                                                                                                                                                    
+UNIVERSE                                                                                                                                                                            
+begin                                                                                                                                                                               
+                                                                                                                                                                                    
+UNIVERSE                                                                                                                                                                            
+	insert into dept values(did,dname);                                                                                                                                                
+                                                                                                                                                                                    
+
+NAME                                                                                                                                                                                
+------------------------------                                                                                                                                                      
+TEXT                                                                                                                                                                                
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+UNIVERSE                                                                                                                                                                            
+	dbms_output.put_line('Inserted '|| sql%rowcount ||' rows');                                                                                                                        
+                                                                                                                                                                                    
+UNIVERSE                                                                                                                                                                            
+end;                                                                                                                                                                                
+                                                                                                                                                                                    
+
+SQL> set lines
+SP2-0267: linesize option 0 out of range (1 through 32767)
+SQL> set lines 100
+SQL> select name,text from user_source where name = 'UNIVERSE';
+
+NAME                                                                                                
+------------------------------                                                                      
+TEXT                                                                                                
+----------------------------------------------------------------------------------------------------
+UNIVERSE                                                                                            
+procedure universe(did dept.department_id%type,dname dept.department_name%type) is                  
+                                                                                                    
+UNIVERSE                                                                                            
+begin                                                                                               
+                                                                                                    
+UNIVERSE                                                                                            
+	insert into dept values(did,dname);                                                                
+                                                                                                    
+
+NAME                                                                                                
+------------------------------                                                                      
+TEXT                                                                                                
+----------------------------------------------------------------------------------------------------
+UNIVERSE                                                                                            
+	dbms_output.put_line('Inserted '|| sql%rowcount ||' rows');                                        
+                                                                                                    
+UNIVERSE                                                                                            
+end;                                                                                                
+                                                                                                    
+
+SQL> se
+SP2-0042: unknown command "se" - rest of line ignored.
+SQL> col name for a15
+SQL> /
+
+NAME                                                                                                
+---------------                                                                                     
+TEXT                                                                                                
+----------------------------------------------------------------------------------------------------
+UNIVERSE                                                                                            
+procedure universe(did dept.department_id%type,dname dept.department_name%type) is                  
+                                                                                                    
+UNIVERSE                                                                                            
+begin                                                                                               
+                                                                                                    
+UNIVERSE                                                                                            
+	insert into dept values(did,dname);                                                                
+                                                                                                    
+
+NAME                                                                                                
+---------------                                                                                     
+TEXT                                                                                                
+----------------------------------------------------------------------------------------------------
+UNIVERSE                                                                                            
+	dbms_output.put_line('Inserted '|| sql%rowcount ||' rows');                                        
+                                                                                                    
+UNIVERSE                                                                                            
+end;                                                                                                
+                                                                                                    
+
+SQL> col text for a60
+SQL> /
+
+NAME            TEXT                                                                                
+--------------- ------------------------------------------------------------                        
+UNIVERSE        procedure universe(did dept.department_id%type,dname dept.de                        
+                partment_name%type) is                                                              
+                                                                                                    
+UNIVERSE        begin                                                                               
+UNIVERSE        	insert into dept values(did,dname);                                                
+UNIVERSE        	dbms_output.put_line('Inserted '|| sql%rowcount ||' rows');                        
+                                                                                                    
+                                                                                                    
+UNIVERSE        end;                                                                                
+
+SQL> begin
+  2  universe(300,'VP');
+  3  end;
+  4  /
+Inserted 1 rows                                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from dept;
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                                       
+------------- ------------------------------                                                        
+           10 Administration                                                                        
+           20 Marketing                                                                             
+           30 Purchasing                                                                            
+           40 Human Resources                                                                       
+           50 Shipping                                                                              
+           60 IT                                                                                    
+           70 Public Relations                                                                      
+           80 Sales                                                                                 
+           90 Executive                                                                             
+          100 Finance                                                                               
+          110 Accounting                                                                            
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                                       
+------------- ------------------------------                                                        
+          120 Treasury                                                                              
+          130 Corporate Tax                                                                         
+          140 Control And Credit                                                                    
+          150 Shareholder Services                                                                  
+          160 Benefits                                                                              
+          170 Manufacturing                                                                         
+          180 Construction                                                                          
+          190 Contracting                                                                           
+          200 Operations                                                                            
+          210 IT Support                                                                            
+          220 NOC                                                                                   
+
+DEPARTMENT_ID DEPARTMENT_NAME                                                                       
+------------- ------------------------------                                                        
+          230 IT Helpdesk                                                                           
+          240 Government Sales                                                                      
+          250 Retail Sales                                                                          
+          260 Recruiting                                                                            
+          270 Payroll                                                                               
+          280 Viraj                                                                                 
+          290 Patel                                                                                 
+          300 VP                                                                                    
+
+30 rows selected.
+
+SQL> ed
+SP2-0110: Cannot create save file "afiedt.buf"
+SQL> ed
+SP2-0110: Cannot create save file "afiedt.buf"
+SQL> spool off

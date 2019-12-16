@@ -1,0 +1,76 @@
+SQL> 
+SQL> 
+SQL> conn hr/hr
+Connected.
+SQL> declare
+  2  	cursor c is select first_name,employee_id from employees where department_id = 30;
+  3  	eid employees.employee_id%type;
+  4  	fn employees.first_name%type;
+  5  begin
+  6  	open c;
+  7  	fetch c into eid, fn;
+  8  	dbms_output.put_line(eid || ' ' || fn);
+  9  end;
+ 10  /
+declare
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: character to number conversion error 
+ORA-06512: at line 7 
+
+
+SQL> declare
+  2  	cursor c is select first_name,employee_id from employees where department_id = 30;
+  3  	eid employees.employee_id%type;
+  4  	fn employees.first_name%type;
+  5  begin
+  6  	open c;
+  7  	fetch c into fn,eid;
+  8  	dbms_output.put_line(eid || ' ' || fn);
+  9  end;
+ 10  /
+114 Den                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  	cursor c is select * from employees where department_id = 30;
+  3  	eid employees.employee_id%type;
+  4  	fn employees.first_name%type;
+  5  begin
+  6  	open c;
+  7  	fetch c into fn,eid;
+  8  	dbms_output.put_line(eid || ' ' || fn);
+  9  end;
+ 10  /
+	fetch c into fn,eid;
+	*
+ERROR at line 7:
+ORA-06550: line 7, column 2: 
+PLS-00394: wrong number of values in the INTO list of a FETCH statement 
+ORA-06550: line 7, column 2: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> declare
+  2  	cursor c is select first_name,employee_id from employees where department_id = 30;
+  3  	eid employees.employee_id%type;
+  4  	fn employees.first_name%type;
+  5  begin
+  6  	open c;
+  7  	loop
+  8  	fetch c into fn,eid;
+  9  	exit when c%notfound;
+ 10  	dbms_output.put_line(eid || ' ' || fn);
+ 11  end;
+ 12  end loop
+ 13  /
+end;
+   *
+ERROR at line 11:
+ORA-06550: line 11, column 4: 
+PLS-00103: Encountered the symbol ";" when expecting one of the following: 
+loop 
+
+
+SQL> spool off;

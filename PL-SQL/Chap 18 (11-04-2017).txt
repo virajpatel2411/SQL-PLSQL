@@ -1,0 +1,239 @@
+SQL> set lines 300
+SQL> set pages 20
+SQL> CREATE OR REPLACE TRIGGER check_salary
+  2    BEFORE INSERT OR UPDATE OF salary, job_id
+  3    ON employees
+  4    FOR EACH ROW
+  5    WHEN (NEW.job_id <> 'AD_PRES')
+  6  DECLARE
+  7    v_minsalary employees.salary%TYPE;
+  8    v_maxsalary employees.salary%TYPE;
+  9  BEGIN
+ 10    SELECT MIN(salary), MAX(salary)
+ 11     INTO	v_minsalary, v_maxsalary
+ 12     FROM	employees
+ 13     WHERE job_id = :NEW.job_id;
+ 14    IF :NEW.salary < v_minsalary OR
+ 15       :NEW.salary > v_maxsalary THEN
+ 16       RAISE_APPLICATION_ERROR(-20505,'Out of range');
+ 17    END IF;
+ 18  END;
+ 19  /
+
+Trigger created.
+
+SQL> UPDATE employees
+  2  SET salary = 3400
+  3  WHERE last_name = 'Stiles';
+UPDATE employees
+       *
+ERROR at line 1:
+ORA-04091: table HR.EMPLOYEES is mutating, trigger/function may not see it 
+ORA-06512: at "HR.CHECK_SALARY", line 5 
+ORA-04088: error during execution of trigger 'HR.CHECK_SALARY' 
+
+
+SQL> desc employees;
+ Name                                                                                                                                                                          Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ EMPLOYEE_ID                                                                                                                                                                   NOT NULL NUMBER(6)
+ FIRST_NAME                                                                                                                                                                             VARCHAR2(20)
+ LAST_NAME                                                                                                                                                                     NOT NULL VARCHAR2(25)
+ EMAIL                                                                                                                                                                         NOT NULL VARCHAR2(50)
+ PHONE_NUMBER                                                                                                                                                                           VARCHAR2(20)
+ HIRE_DATE                                                                                                                                                                     NOT NULL DATE
+ JOB_ID                                                                                                                                                                        NOT NULL VARCHAR2(10)
+ SALARY                                                                                                                                                                                 NUMBER(8,2)
+ COMMISSION_PCT                                                                                                                                                                         NUMBER(2,2)
+ MANAGER_ID                                                                                                                                                                             NUMBER(6)
+ DEPARTMENT_ID                                                                                                                                                                          NUMBER(4)
+
+SQL> insert into employees values(2345,'dfd','sfs','dfsd',234,sysdate,'SA_REP',25000,.2,100,50);
+insert into employees values(2345,'dfd','sfs','dfsd',234,sysdate,'SA_REP',25000,.2,100,50)
+            *
+ERROR at line 1:
+ORA-20505: Out of range 
+ORA-06512: at "HR.CHECK_SALARY", line 11 
+ORA-04088: error during execution of trigger 'HR.CHECK_SALARY' 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into employees values(2345,'dfd','sfs','dfsd',234,sysdate,'SA_REP',8000,.2,100,50)
+SQL> ed
+Wrote file afiedt.buf
+
+  1* insert into employees values(23456,'dfd','sfs','dfsd2',234,sysdate,'SA_REP',8000,.2,100,50)
+SQL> /
+
+1 row created.
+
+SQL> CREATE OR REPLACE TRIGGER check_salary
+  2    FOR INSERT OR UPDATE OF salary, job_id
+  3    ON employees
+  4    WHEN (NEW.job_id <> 'AD_PRES')
+  5    COMPOUND TRIGGER
+  6  
+  7    TYPE salaries_t            IS TABLE OF employees.salary%TYPE;
+  8    min_salaries               salaries_t;
+  9    max_salaries               salaries_t;
+ 10  
+ 11    TYPE department_ids_t       IS TABLE OF employees.department_id%TYPE;
+ 12    department_ids              department_ids_t;
+ 13  
+ 14    TYPE department_salaries_t  IS TABLE OF employees.salary%TYPE
+ 15                                  INDEX BY VARCHAR2(80);
+ 16    department_min_salaries     department_salaries_t;
+ 17    department_max_salaries     department_salaries_t;
+ 18  
+ 19    BEFORE STATEMENT IS
+ 20    BEGIN
+ 21    SELECT MIN(salary), MAX(salary), NVL(department_id, -1)
+ 22        BULK COLLECT INTO  min_Salaries, max_salaries, department_ids
+ 23     FROM    employees
+ 24     GROUP BY department_id;
+ 25  
+ 26     FOR j IN 1..department_ids.COUNT() LOOP
+ 27      department_min_salaries(department_ids(j)) := min_salaries(j);
+ 28      department_max_salaries(department_ids(j)) := max_salaries(j);
+ 29     END LOOP;
+ 30    END BEFORE STATEMENT;
+ 31  
+ 32    AFTER EACH ROW IS
+ 33    BEGIN
+ 34    IF :NEW.salary < department_min_salaries(:NEW.department_id)
+ 35       OR :NEW.salary > department_max_salaries(:NEW.department_id) THEN
+ 36      RAISE_APPLICATION_ERROR(-20505,'New Salary is out of acceptable range');
+ 37    END IF;
+ 38    END AFTER EACH ROW;
+ 39  
+ 40  END check_salary;
+ 41  /
+
+Trigger created.
+
+SQL> UPDATE employees
+  2  SET salary = 3400
+  3  WHERE last_name = 'Stiles';
+UPDATE employees
+       *
+ERROR at line 1:
+ORA-20505: New Salary is out of acceptable range 
+ORA-06512: at "HR.CHECK_SALARY", line 32 
+ORA-04088: error during execution of trigger 'HR.CHECK_SALARY' 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  UPDATE employees
+  2  SET salary = 8000
+  3* WHERE last_name = 'Stiles'
+SQL> /
+
+1 row updated.
+
+SQL> select * from employees where last_name='Stiles';
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                 EMAIL                                              PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                                                                                  
+----------- -------------------- ------------------------- -------------------------------------------------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                                                                                  
+        138 Stephen              Stiles                    SSTILES                                            650.121.2034         26-OCT-05 ST_CLERK         8000                       123            50                                                                                                  
+
+SQL> select min(salary),max(salary) from employees where department_id=50;
+
+MIN(SALARY) MAX(SALARY)                                                                                                                                                                                                                                                                                     
+----------- -----------                                                                                                                                                                                                                                                                                     
+    3660.25       14520                                                                                                                                                                                                                                                                                     
+
+SQL> CREATE OR REPLACE TRIGGER logon_trig
+  2  AFTER LOGON  ON  SCHEMA
+  3  BEGIN
+  4   INSERT INTO log_trig_table(user_id,log_date,action)
+  5   VALUES (USER, SYSDATE, 'Logging on');
+  6  END;
+  7  /
+
+Trigger created.
+
+SQL> CREATE OR REPLACE TRIGGER logoff_trig
+  2  BEFORE LOGOFF  ON  SCHEMA
+  3  BEGIN
+  4   INSERT INTO log_trig_table(user_id,log_date,action)
+  5   VALUES (USER, SYSDATE, 'Logging off');
+  6  END;
+  7  /
+
+Trigger created.
+
+SQL> CREATE TABLE log_trig_table(
+  2    user_id  VARCHAR2(30),
+  3    log_date DATE,
+  4     action  VARCHAR2(40))
+  5  /
+CREATE TABLE log_trig_table(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> truncate table log_trig_table;
+
+Table truncated.
+
+SQL> exit
+SQL> set lines 300
+SQL> set pages 20
+SQL> set serveroutput on
+SQL> CREATE OR REPLACE PROCEDURE log_execution IS
+  2  BEGIN
+  3    DBMS_OUTPUT.PUT_LINE('log_exection: Employee Inserted');
+  4  END;
+  5  /
+
+Procedure created.
+
+SQL> CREATE OR REPLACE TRIGGER log_employee
+  2  BEFORE INSERT ON EMPLOYEES
+  3  CALL log_execution
+  4  /
+
+Trigger created.
+
+SQL> CREATE OR REPLACE TRIGGER salary_check
+  2  BEFORE UPDATE OF salary, job_id ON employees
+  3  FOR EACH ROW
+  4  WHEN (NEW.job_id <> 'AD_PRES')
+  5  CALL check_salary(:NEW.job_id, :NEW.salary)
+  6  /
+
+Warning: Trigger created with compilation errors.
+
+SQL> show errors
+Errors for TRIGGER SALARY_CHECK:
+
+LINE/COL ERROR                                                                                                                                                                                                                                                                                              
+-------- -----------------------------------------------------------------                                                                                                                                                                                                                                  
+1/1      PL/SQL: Statement ignored                                                                                                                                                                                                                                                                          
+1/1      PLS-00201: identifier 'CHECK_SALARY' must be declared                                                                                                                                                                                                                                              
+SQL> desc employees;
+ Name                                                                                                                                                                          Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ EMPLOYEE_ID                                                                                                                                                                   NOT NULL NUMBER(6)
+ FIRST_NAME                                                                                                                                                                             VARCHAR2(20)
+ LAST_NAME                                                                                                                                                                     NOT NULL VARCHAR2(25)
+ EMAIL                                                                                                                                                                         NOT NULL VARCHAR2(50)
+ PHONE_NUMBER                                                                                                                                                                           VARCHAR2(20)
+ HIRE_DATE                                                                                                                                                                     NOT NULL DATE
+ JOB_ID                                                                                                                                                                        NOT NULL VARCHAR2(10)
+ SALARY                                                                                                                                                                                 NUMBER(8,2)
+ COMMISSION_PCT                                                                                                                                                                         NUMBER(2,2)
+ MANAGER_ID                                                                                                                                                                             NUMBER(6)
+ DEPARTMENT_ID                                                                                                                                                                          NUMBER(4)
+
+SQL> insert into employees values(4567,'df','dfd','dfds',454,sysdate,'SA_REP',5000,.2,100,50);
+log_exection: Employee Inserted                                                                                                                                                                                                                                                                             
+
+1 row created.
+
+SQL> exit

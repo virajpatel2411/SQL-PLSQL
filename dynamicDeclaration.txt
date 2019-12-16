@@ -1,0 +1,285 @@
+SQL> 
+SQL> 
+SQL> 
+SQL> declare
+  2  	v_sal employees.salary%type;
+  3  	v_empid employees.employee_id%type;
+  4  
+  5  begin
+  6  	select salary from employees where v_empid = &eid;
+  7  	dbms_output.put_line('Salary of '||v_empid || ' is Rs.'||v_sal);
+  8  end;
+  9  /
+Enter value for eid: 110
+old   6: 	select salary from employees where v_empid = &eid;
+new   6: 	select salary from employees where v_empid = 110;
+	select salary from employees where v_empid = 110;
+	*
+ERROR at line 6:
+ORA-06550: line 6, column 2: 
+PLS-00428: an INTO clause is expected in this SELECT statement 
+
+
+SQL> save "d:/1.sql"
+SP2-0540: File "d:/1.sql" already exists.
+Use "SAVE filename[.ext] REPLACE".
+SQL> save "d:/2.sql"
+Created file d:/2.sql
+SQL> start "d:/2.sql";
+Enter value for eid: 110
+old   6: 	select salary into v_sal from employees where v_empid = &eid;
+new   6: 	select salary into v_sal from employees where v_empid = 110;
+declare
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 6 
+
+
+SQL> start "d:/2.sql";
+Enter value for eid: 110
+old   3: 	v_empid employees.employee_id%type := &eid;
+new   3: 	v_empid employees.employee_id%type := 110;
+	select salary into v_sal from employees where v_empid;
+	                                                     *
+ERROR at line 6:
+ORA-06550: line 6, column 55: 
+PL/SQL: ORA-00920: invalid relational operator 
+ORA-06550: line 6, column 2: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> start "d:/2.sql";
+Enter value for eid: 11
+old   3: 	v_empid employees.employee_id%type := &eid;
+new   3: 	v_empid employees.employee_id%type := 11;
+declare
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 6 
+
+
+SQL> start "d:/2.sql";
+Enter value for eid: 110
+old   3: 	v_empid employees.employee_id%type := &eid;
+new   3: 	v_empid employees.employee_id%type := 110;
+Salary of 110 is Rs.8200                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  	x integer := &x;
+  3  	y integer := &y;
+  4  begin
+  5  	if(x>y)
+  6  	then	dbms_output.put_line(x+' is greater.');
+  7  	else
+  8  		dbms_output.put_line(y+' is greater.');
+  9  	end if;
+ 10  end;
+ 11  /
+Enter value for x: 10
+old   2: 	x integer := &x;
+new   2: 	x integer := 10;
+Enter value for y: 5
+old   3: 	y integer := &y;
+new   3: 	y integer := 5;
+declare
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: character to number conversion error 
+ORA-06512: at line 6 
+
+
+SQL> declare
+  2  	x integer := &x;
+  3  	y integer := &y;
+  4  begin
+  5  	if(x>y)
+  6  	then	dbms_output.put_line(x||' is greater.');
+  7  	else
+  8  		dbms_output.put_line(y||' is greater.');
+  9  	end if;
+ 10  end;
+ 11  /
+Enter value for x: 10
+old   2: 	x integer := &x;
+new   2: 	x integer := 10;
+Enter value for y: 6
+old   3: 	y integer := &y;
+new   3: 	y integer := 6;
+10 is greater.                                                                  
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for x: 10
+old   2: 	x integer := &x;
+new   2: 	x integer := 10;
+Enter value for y: 20
+old   3: 	y integer := &y;
+new   3: 	y integer := 20;
+20 is greater.                                                                  
+
+PL/SQL procedure successfully completed.
+
+SQL> -- hhghhg
+SQL> declare
+  2  	percent number(5,2) := trunc(&percent,2);
+  3  	grade varchar2(50);
+  4  begin
+  5  	if percent not between 0 and 100 then
+  6  		grade := 'Wrong value inserted.';
+  7  	elsif percent>80
+  8  	then 	grade := 'Distinction';
+  9  	elsif percent>60
+ 10  	then    grade := 'Average';
+ 11  	elsif percent>33
+ 12  	then    grade := 'Pass';
+ 13  	end if;
+ 14  end;
+ 15  /
+Enter value for percent: 25
+old   2: 	percent number(5,2) := trunc(&percent,2);
+new   2: 	percent number(5,2) := trunc(25,2);
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  	percent number(5,2) := trunc(&percent,2);
+  3  	grade varchar2(50);
+  4  begin
+  5  	if percent not between 0 and 100 then
+  6  		grade := 'Wrong value inserted.';
+  7  	elsif percent>80
+  8  	then 	grade := 'Distinction';
+  9  	elsif percent>60
+ 10  	then    grade := 'Average';
+ 11  	elsif percent>33
+ 12  	then    grade := 'Pass';
+ 13  	end if;
+ 14  	dbms_output.put_line(grade);
+ 15  end;
+ 16  /
+Enter value for percent: 26
+old   2: 	percent number(5,2) := trunc(&percent,2);
+new   2: 	percent number(5,2) := trunc(26,2);
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for percent: 45
+old   2: 	percent number(5,2) := trunc(&percent,2);
+new   2: 	percent number(5,2) := trunc(45,2);
+Pass                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  	dob date := to_date('&DOB_dd:mm:yyyy','DD:MM:YYYY');
+  3  	gender char := upper('&gender');
+  4     amount number(10,2) := &noOfTickets;
+  5  	age integer;
+  6  	disc integer;
+  7  	net integer;
+  8     disc_amt integer;
+  9  begin
+ 10  	age = trunc(months_between(sysdate,dob)/12);
+ 11  	if gender = 'M' then
+ 12  		if age<=60
+ 13  		then disc := 5;
+ 14  		else
+ 15  			disc := 10;
+ 16  		end if;
+ 17     else
+ 18  		disc := 25;
+ 19  	end if;
+ 20  	disc_amt := amount*disc/100;
+ 21  	net := amount - disc_amt;
+ 22  	dbms_output.put_line('Age:'||age);
+ 23  	dbms_output.put_line('Gender:'||gender);
+ 24  	dbms_output.put_line('Discount:'||disc_amt);
+ 25  	dbms_output.put_line('Net Amount:'||net);
+ 26   end;
+ 27  /
+Enter value for dob_dd: 24-11-1999
+old   2: 	dob date := to_date('&DOB_dd:mm:yyyy','DD:MM:YYYY');
+new   2: 	dob date := to_date('24-11-1999:mm:yyyy','DD:MM:YYYY');
+Enter value for gender: m
+old   3: 	gender char := upper('&gender');
+new   3: 	gender char := upper('m');
+Enter value for nooftickets: 2500
+old   4:    amount number(10,2) := &noOfTickets;
+new   4:    amount number(10,2) := 2500;
+	age = trunc(months_between(sysdate,dob)/12);
+	    *
+ERROR at line 10:
+ORA-06550: line 10, column 6: 
+PLS-00103: Encountered the symbol "=" when expecting one of the following: 
+:= . ( @ % ; 
+ORA-06550: line 10, column 45: 
+PLS-00103: Encountered the symbol ";" when expecting one of the following: 
+. ( ) , * % & - + / at mod remainder rem <an exponent (**)> 
+and or || multiset 
+ORA-06550: line 26, column 5: 
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the 
+following: 
+end not pragma final instantiable order overriding static 
+member constructor map 
+
+
+SQL> save "d:/3.sql"
+Created file d:/3.sql
+SQL> start "d:/3.sql"
+Enter value for dob_dd: 24-11-1999
+old   2: 	dob date := to_date('&DOB_dd:mm:yyyy','DD:MM:YYYY');
+new   2: 	dob date := to_date('24-11-1999:mm:yyyy','DD:MM:YYYY');
+Enter value for gender: m
+old   3: 	gender char := upper('&gender');
+new   3: 	gender char := upper('m');
+Enter value for nooftickets: 2500
+old   4:    amount number(10,2) := &noOfTickets;
+new   4:    amount number(10,2) := 2500;
+declare
+*
+ERROR at line 1:
+ORA-01830: date format picture ends before converting entire input string 
+ORA-06512: at line 2 
+
+
+SQL> start "d:/3.sql"
+Enter value for dob_dd: 24:11:1999
+old   2: 	dob date := to_date('&DOB_dd:mm:yyyy','DD:MM:YYYY');
+new   2: 	dob date := to_date('24:11:1999:mm:yyyy','DD:MM:YYYY');
+Enter value for gender: m
+old   3: 	gender char := upper('&gender');
+new   3: 	gender char := upper('m');
+Enter value for nooftickets: 2500
+old   4:    amount number(10,2) := &noOfTickets;
+new   4:    amount number(10,2) := 2500;
+declare
+*
+ERROR at line 1:
+ORA-01830: date format picture ends before converting entire input string 
+ORA-06512: at line 2 
+
+
+SQL> start "d:/3.sql"
+Enter value for dob_ddmmyyyy: 24:11:1999
+old   2: 	dob date := to_date('&DOB_ddmmyyyy','DD:MM:YYYY');
+new   2: 	dob date := to_date('24:11:1999','DD:MM:YYYY');
+Enter value for gender: m
+old   3: 	gender char := upper('&gender');
+new   3: 	gender char := upper('m');
+Enter value for nooftickets: 2500
+old   4:    amount number(10,2) := &noOfTickets;
+new   4:    amount number(10,2) := 2500;
+Age:19                                                                          
+Gender:M                                                                        
+Discount:125                                                                    
+Net Amount:2375                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> spool off;

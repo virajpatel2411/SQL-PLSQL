@@ -1,0 +1,971 @@
+SQL> select * from tab
+  2  ;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+COUNTRIES                      TABLE                                            
+DEPARTMENTS                    TABLE                                            
+EMPLOYEES                      TABLE                                            
+EMP_DETAILS_VIEW               VIEW                                             
+JOBS                           TABLE                                            
+JOB_HISTORY                    TABLE                                            
+LOCATIONS                      TABLE                                            
+REGIONS                        TABLE                                            
+
+8 rows selected.
+
+SQL> desc employees
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                               NOT NULL NUMBER(6)
+ FIRST_NAME                                         VARCHAR2(20)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ EMAIL                                     NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                       VARCHAR2(20)
+ HIRE_DATE                                 NOT NULL DATE
+ JOB_ID                                    NOT NULL VARCHAR2(10)
+ SALARY                                             NUMBER(8,2)
+ COMMISSION_PCT                                     NUMBER(2,2)
+ MANAGER_ID                                         NUMBER(6)
+ DEPARTMENT_ID                                      NUMBER(4)
+
+SQL> desc departments
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPARTMENT_ID                             NOT NULL NUMBER(4)
+ DEPARTMENT_NAME                           NOT NULL VARCHAR2(30)
+ MANAGER_ID                                         NUMBER(6)
+ LOCATION_ID                                        NUMBER(4)
+
+SQL> desc countries
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COUNTRY_ID                                NOT NULL CHAR(2)
+ COUNTRY_NAME                                       VARCHAR2(40)
+ REGION_ID                                          NUMBER
+
+SQL> desc locations
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ LOCATION_ID                               NOT NULL NUMBER(4)
+ STREET_ADDRESS                                     VARCHAR2(40)
+ POSTAL_CODE                                        VARCHAR2(12)
+ CITY                                      NOT NULL VARCHAR2(30)
+ STATE_PROVINCE                                     VARCHAR2(25)
+ COUNTRY_ID                                         CHAR(2)
+
+SQL> desc regions
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGION_ID                                 NOT NULL NUMBER
+ REGION_NAME                                        VARCHAR2(25)
+
+SQL> select * from regions
+  2  ;
+
+ REGION_ID REGION_NAME                                                          
+---------- -------------------------                                            
+         1 Europe                                                               
+         2 Americas                                                             
+         3 Asia                                                                 
+         4 Middle East and Africa                                               
+
+SQL> select * from regions
+  2  
+SQL> desc employees
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                               NOT NULL NUMBER(6)
+ FIRST_NAME                                         VARCHAR2(20)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ EMAIL                                     NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                       VARCHAR2(20)
+ HIRE_DATE                                 NOT NULL DATE
+ JOB_ID                                    NOT NULL VARCHAR2(10)
+ SALARY                                             NUMBER(8,2)
+ COMMISSION_PCT                                     NUMBER(2,2)
+ MANAGER_ID                                         NUMBER(6)
+ DEPARTMENT_ID                                      NUMBER(4)
+
+SQL> select first_name,salary from employees;
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Donald                     2600                                                 
+Douglas                    2600                                                 
+Jennifer                   4400                                                 
+Michael                   13000                                                 
+Pat                        6000                                                 
+Susan                      6500                                                 
+Hermann                   10000                                                 
+Shelley                   12008                                                 
+William                    8300                                                 
+Steven                    24000                                                 
+Neena                     17000                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Lex                       17000                                                 
+Alexander                  9000                                                 
+Bruce                      6000                                                 
+David                      4800                                                 
+Valli                      4800                                                 
+Diana                      4200                                                 
+Nancy                     12008                                                 
+Daniel                     9000                                                 
+John                       8200                                                 
+Ismael                     7700                                                 
+Jose Manuel                7800                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Luis                       6900                                                 
+Den                       11000                                                 
+Alexander                  3100                                                 
+Shelli                     2900                                                 
+Sigal                      2800                                                 
+Guy                        2600                                                 
+Karen                      2500                                                 
+Matthew                    8000                                                 
+Adam                       8200                                                 
+Payam                      7900                                                 
+Shanta                     6500                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Kevin                      5800                                                 
+Julia                      3200                                                 
+Irene                      2700                                                 
+James                      2400                                                 
+Steven                     2200                                                 
+Laura                      3300                                                 
+Mozhe                      2800                                                 
+James                      2500                                                 
+TJ                         2100                                                 
+Jason                      3300                                                 
+Michael                    2900                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Ki                         2400                                                 
+Hazel                      2200                                                 
+Renske                     3600                                                 
+Stephen                    3200                                                 
+John                       2700                                                 
+Joshua                     2500                                                 
+Trenna                     3500                                                 
+Curtis                     3100                                                 
+Randall                    2600                                                 
+Peter                      2500                                                 
+John                      14000                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Karen                     13500                                                 
+Alberto                   12000                                                 
+Gerald                    11000                                                 
+Eleni                     10500                                                 
+Peter                     10000                                                 
+David                      9500                                                 
+Peter                      9000                                                 
+Christopher                8000                                                 
+Nanette                    7500                                                 
+Oliver                     7000                                                 
+Janette                   10000                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Patrick                    9500                                                 
+Allan                      9000                                                 
+Lindsey                    8000                                                 
+Louise                     7500                                                 
+Sarath                     7000                                                 
+Clara                     10500                                                 
+Danielle                   9500                                                 
+Mattea                     7200                                                 
+David                      6800                                                 
+Sundar                     6400                                                 
+Amit                       6200                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Lisa                      11500                                                 
+Harrison                  10000                                                 
+Tayler                     9600                                                 
+William                    7400                                                 
+Elizabeth                  7300                                                 
+Sundita                    6100                                                 
+Ellen                     11000                                                 
+Alyssa                     8800                                                 
+Jonathon                   8600                                                 
+Jack                       8400                                                 
+Kimberely                  7000                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Charles                    6200                                                 
+Winston                    3200                                                 
+Jean                       3100                                                 
+Martha                     2500                                                 
+Girard                     2800                                                 
+Nandita                    4200                                                 
+Alexis                     4100                                                 
+Julia                      3400                                                 
+Anthony                    3000                                                 
+Kelly                      3800                                                 
+Jennifer                   3600                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Timothy                    2900                                                 
+Randall                    2500                                                 
+Sarah                      4000                                                 
+Britney                    3900                                                 
+Samuel                     3200                                                 
+Vance                      2800                                                 
+Alana                      3100                                                 
+Kevin                      3000                                                 
+
+107 rows selected.
+
+SQL> select first_name,salary from employees where salary>10000;
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Michael                   13000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+Neena                     17000                                                 
+Lex                       17000                                                 
+Nancy                     12008                                                 
+Den                       11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Alberto                   12000                                                 
+Gerald                    11000                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Eleni                     10500                                                 
+Clara                     10500                                                 
+Lisa                      11500                                                 
+Ellen                     11000                                                 
+
+15 rows selected.
+
+SQL> select first_name,salary from employees where first_name='Lex';
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Lex                       17000                                                 
+
+SQL> select * from employees where first_name='Lex';
+
+EMPLOYEE_ID FIRST_NAME           LAST_NAME                                      
+----------- -------------------- -------------------------                      
+EMAIL                     PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY  
+------------------------- -------------------- --------- ---------- ----------  
+COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                         
+-------------- ---------- -------------                                         
+        102 Lex                  De Haan                                        
+LDEHAAN                   515.123.4569         13-JAN-01 AD_VP           17000  
+                      100            90                                         
+                                                                                
+
+SQL> select * from employees where first_name='lex';
+
+no rows selected
+
+SQL> select * from employees where first_nam='lex';
+select * from employees where first_nam='lex'
+                              *
+ERROR at line 1:
+ORA-00904: "FIRST_NAM": invalid identifier 
+
+
+SQL> select first_name fn,salary sal from employees where first_name='Lex';
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Lex                       17000                                                 
+
+SQL> select first_name fn,salary "sa" from employees where first_name='Lex';
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Lex                       17000                                                 
+
+SQL> select first_name fn,salary "sa" from employees;
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Donald                     2600                                                 
+Douglas                    2600                                                 
+Jennifer                   4400                                                 
+Michael                   13000                                                 
+Pat                        6000                                                 
+Susan                      6500                                                 
+Hermann                   10000                                                 
+Shelley                   12008                                                 
+William                    8300                                                 
+Steven                    24000                                                 
+Neena                     17000                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Lex                       17000                                                 
+Alexander                  9000                                                 
+Bruce                      6000                                                 
+David                      4800                                                 
+Valli                      4800                                                 
+Diana                      4200                                                 
+Nancy                     12008                                                 
+Daniel                     9000                                                 
+John                       8200                                                 
+Ismael                     7700                                                 
+Jose Manuel                7800                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Luis                       6900                                                 
+Den                       11000                                                 
+Alexander                  3100                                                 
+Shelli                     2900                                                 
+Sigal                      2800                                                 
+Guy                        2600                                                 
+Karen                      2500                                                 
+Matthew                    8000                                                 
+Adam                       8200                                                 
+Payam                      7900                                                 
+Shanta                     6500                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Kevin                      5800                                                 
+Julia                      3200                                                 
+Irene                      2700                                                 
+James                      2400                                                 
+Steven                     2200                                                 
+Laura                      3300                                                 
+Mozhe                      2800                                                 
+James                      2500                                                 
+TJ                         2100                                                 
+Jason                      3300                                                 
+Michael                    2900                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Ki                         2400                                                 
+Hazel                      2200                                                 
+Renske                     3600                                                 
+Stephen                    3200                                                 
+John                       2700                                                 
+Joshua                     2500                                                 
+Trenna                     3500                                                 
+Curtis                     3100                                                 
+Randall                    2600                                                 
+Peter                      2500                                                 
+John                      14000                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Karen                     13500                                                 
+Alberto                   12000                                                 
+Gerald                    11000                                                 
+Eleni                     10500                                                 
+Peter                     10000                                                 
+David                      9500                                                 
+Peter                      9000                                                 
+Christopher                8000                                                 
+Nanette                    7500                                                 
+Oliver                     7000                                                 
+Janette                   10000                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Patrick                    9500                                                 
+Allan                      9000                                                 
+Lindsey                    8000                                                 
+Louise                     7500                                                 
+Sarath                     7000                                                 
+Clara                     10500                                                 
+Danielle                   9500                                                 
+Mattea                     7200                                                 
+David                      6800                                                 
+Sundar                     6400                                                 
+Amit                       6200                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Lisa                      11500                                                 
+Harrison                  10000                                                 
+Tayler                     9600                                                 
+William                    7400                                                 
+Elizabeth                  7300                                                 
+Sundita                    6100                                                 
+Ellen                     11000                                                 
+Alyssa                     8800                                                 
+Jonathon                   8600                                                 
+Jack                       8400                                                 
+Kimberely                  7000                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Charles                    6200                                                 
+Winston                    3200                                                 
+Jean                       3100                                                 
+Martha                     2500                                                 
+Girard                     2800                                                 
+Nandita                    4200                                                 
+Alexis                     4100                                                 
+Julia                      3400                                                 
+Anthony                    3000                                                 
+Kelly                      3800                                                 
+Jennifer                   3600                                                 
+
+FN                           sa                                                 
+-------------------- ----------                                                 
+Timothy                    2900                                                 
+Randall                    2500                                                 
+Sarah                      4000                                                 
+Britney                    3900                                                 
+Samuel                     3200                                                 
+Vance                      2800                                                 
+Alana                      3100                                                 
+Kevin                      3000                                                 
+
+107 rows selected.
+
+SQL> select first_name f n,salary "sa" from employees where salary>10000;
+select first_name f n,salary "sa" from employees where salary>10000
+                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select first_name "f n",salary "sa" from employees where salary>10000;
+
+f n                          sa                                                 
+-------------------- ----------                                                 
+Michael                   13000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+Neena                     17000                                                 
+Lex                       17000                                                 
+Nancy                     12008                                                 
+Den                       11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Alberto                   12000                                                 
+Gerald                    11000                                                 
+
+f n                          sa                                                 
+-------------------- ----------                                                 
+Eleni                     10500                                                 
+Clara                     10500                                                 
+Lisa                      11500                                                 
+Ellen                     11000                                                 
+
+15 rows selected.
+
+SQL> select first_name "f n",salary sa from employees where salary>10000;
+
+f n                          SA                                                 
+-------------------- ----------                                                 
+Michael                   13000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+Neena                     17000                                                 
+Lex                       17000                                                 
+Nancy                     12008                                                 
+Den                       11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Alberto                   12000                                                 
+Gerald                    11000                                                 
+
+f n                          SA                                                 
+-------------------- ----------                                                 
+Eleni                     10500                                                 
+Clara                     10500                                                 
+Lisa                      11500                                                 
+Ellen                     11000                                                 
+
+15 rows selected.
+
+SQL> select first_name "f n",salary 1sa from employees where salary>10000;
+select first_name "f n",salary 1sa from employees where salary>10000
+                               *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select first_name "f n",salary "1sa" from employees where salary>10000;
+
+f n                         1sa                                                 
+-------------------- ----------                                                 
+Michael                   13000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+Neena                     17000                                                 
+Lex                       17000                                                 
+Nancy                     12008                                                 
+Den                       11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Alberto                   12000                                                 
+Gerald                    11000                                                 
+
+f n                         1sa                                                 
+-------------------- ----------                                                 
+Eleni                     10500                                                 
+Clara                     10500                                                 
+Lisa                      11500                                                 
+Ellen                     11000                                                 
+
+15 rows selected.
+
+SQL> select first_name "f n",salary "@sa" from employees where salary>10000;
+
+f n                         @sa                                                 
+-------------------- ----------                                                 
+Michael                   13000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+Neena                     17000                                                 
+Lex                       17000                                                 
+Nancy                     12008                                                 
+Den                       11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Alberto                   12000                                                 
+Gerald                    11000                                                 
+
+f n                         @sa                                                 
+-------------------- ----------                                                 
+Eleni                     10500                                                 
+Clara                     10500                                                 
+Lisa                      11500                                                 
+Ellen                     11000                                                 
+
+15 rows selected.
+
+SQL> cl scr
+
+SQL> select first_name,salary from employees where salary>10000 order by first_name asc;
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Alberto                   12000                                                 
+Clara                     10500                                                 
+Den                       11000                                                 
+Eleni                     10500                                                 
+Ellen                     11000                                                 
+Gerald                    11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Lex                       17000                                                 
+Lisa                      11500                                                 
+Michael                   13000                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Nancy                     12008                                                 
+Neena                     17000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+
+15 rows selected.
+
+SQL> rem default asc
+SQL> rem first Capital then small  letters
+SQL> rem for descending dsc
+SQL> rem always use order by at the end
+SQL> select first_name,salary from employees where salary>10000 order by first_name desc;
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Steven                    24000                                                 
+Shelley                   12008                                                 
+Neena                     17000                                                 
+Nancy                     12008                                                 
+Michael                   13000                                                 
+Lisa                      11500                                                 
+Lex                       17000                                                 
+Karen                     13500                                                 
+John                      14000                                                 
+Gerald                    11000                                                 
+Ellen                     11000                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Eleni                     10500                                                 
+Den                       11000                                                 
+Clara                     10500                                                 
+Alberto                   12000                                                 
+
+15 rows selected.
+
+SQL> select first_name,salary from employees where salary>10000 order by first_name;
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Alberto                   12000                                                 
+Clara                     10500                                                 
+Den                       11000                                                 
+Eleni                     10500                                                 
+Ellen                     11000                                                 
+Gerald                    11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Lex                       17000                                                 
+Lisa                      11500                                                 
+Michael                   13000                                                 
+
+FIRST_NAME               SALARY                                                 
+-------------------- ----------                                                 
+Nancy                     12008                                                 
+Neena                     17000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+
+15 rows selected.
+
+SQL> select first_name fn,salary sal from employees where salary>10000 order by first_name;
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Alberto                   12000                                                 
+Clara                     10500                                                 
+Den                       11000                                                 
+Eleni                     10500                                                 
+Ellen                     11000                                                 
+Gerald                    11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Lex                       17000                                                 
+Lisa                      11500                                                 
+Michael                   13000                                                 
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Nancy                     12008                                                 
+Neena                     17000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+
+15 rows selected.
+
+SQL> select first_name fn,salary sal from employees where salary>10000 order by fn;
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Alberto                   12000                                                 
+Clara                     10500                                                 
+Den                       11000                                                 
+Eleni                     10500                                                 
+Ellen                     11000                                                 
+Gerald                    11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Lex                       17000                                                 
+Lisa                      11500                                                 
+Michael                   13000                                                 
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Nancy                     12008                                                 
+Neena                     17000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+
+15 rows selected.
+
+SQL> rem in order by we can write alias name also or the number of column i.e for first_name write order by 1
+SQL> select first_name fn,salary sal from employees where salary>10000 order by 1;
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Alberto                   12000                                                 
+Clara                     10500                                                 
+Den                       11000                                                 
+Eleni                     10500                                                 
+Ellen                     11000                                                 
+Gerald                    11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Lex                       17000                                                 
+Lisa                      11500                                                 
+Michael                   13000                                                 
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Nancy                     12008                                                 
+Neena                     17000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+
+15 rows selected.
+
+SQL> select first_name fn,salary sal from employees where salary>10000 order by 1,2;
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Alberto                   12000                                                 
+Clara                     10500                                                 
+Den                       11000                                                 
+Eleni                     10500                                                 
+Ellen                     11000                                                 
+Gerald                    11000                                                 
+John                      14000                                                 
+Karen                     13500                                                 
+Lex                       17000                                                 
+Lisa                      11500                                                 
+Michael                   13000                                                 
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Nancy                     12008                                                 
+Neena                     17000                                                 
+Shelley                   12008                                                 
+Steven                    24000                                                 
+
+15 rows selected.
+
+SQL> select first_name fn,salary sal from employees where salary>10000 order by 2,1;
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+Clara                     10500                                                 
+Eleni                     10500                                                 
+Den                       11000                                                 
+Ellen                     11000                                                 
+Gerald                    11000                                                 
+Lisa                      11500                                                 
+Alberto                   12000                                                 
+Nancy                     12008                                                 
+Shelley                   12008                                                 
+Michael                   13000                                                 
+Karen                     13500                                                 
+
+FN                          SAL                                                 
+-------------------- ----------                                                 
+John                      14000                                                 
+Lex                       17000                                                 
+Neena                     17000                                                 
+Steven                    24000                                                 
+
+15 rows selected.
+
+SQL> rem order by of two things then first is prioritized and then only it is ordered so order one only
+SQL> select first_name,salary monthly,salary*12 yearly from employees where salary>10000 order by 2,1;
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Clara                     10500     126000                                      
+Eleni                     10500     126000                                      
+Den                       11000     132000                                      
+Ellen                     11000     132000                                      
+Gerald                    11000     132000                                      
+Lisa                      11500     138000                                      
+Alberto                   12000     144000                                      
+Nancy                     12008     144096                                      
+Shelley                   12008     144096                                      
+Michael                   13000     156000                                      
+Karen                     13500     162000                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+John                      14000     168000                                      
+Lex                       17000     204000                                      
+Neena                     17000     204000                                      
+Steven                    24000     288000                                      
+
+15 rows selected.
+
+SQL> 
+SQL> 
+SQL> cl scr
+
+SQL> rem dual
+SQL> select 4+5 from dual;
+
+       4+5                                                                      
+----------                                                                      
+         9                                                                      
+
+SQL> desc dual
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DUMMY                                              VARCHAR2(1)
+
+SQL> select 45000000*58220144110000001122 from dual;
+
+45000000*58220144110000001122                                                   
+-----------------------------                                                   
+                   2.6199E+27                                                   
+
+SQL> rem for today's date
+SQL> select sysdate fromdual;
+select sysdate fromdual
+                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                         
+---------                                                                       
+03-MAR-19                                                                       
+
+SQL> rem projection,selection,order by, column alias, dual table(calculator)
+SQL> select first_name,salary monthly,salary*12 yearly from employees where monthly>10000 order by 2,1;
+select first_name,salary monthly,salary*12 yearly from employees where monthly>10000 order by 2,1
+                                                                       *
+ERROR at line 1:
+ORA-00904: "MONTHLY": invalid identifier 
+
+
+SQL> select first_name,salary monthly,salary*12 yearly from employees where salary*12>10000 order by 2,1;
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+TJ                         2100      25200                                      
+Hazel                      2200      26400                                      
+Steven                     2200      26400                                      
+James                      2400      28800                                      
+Ki                         2400      28800                                      
+James                      2500      30000                                      
+Joshua                     2500      30000                                      
+Karen                      2500      30000                                      
+Martha                     2500      30000                                      
+Peter                      2500      30000                                      
+Randall                    2500      30000                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Donald                     2600      31200                                      
+Douglas                    2600      31200                                      
+Guy                        2600      31200                                      
+Randall                    2600      31200                                      
+Irene                      2700      32400                                      
+John                       2700      32400                                      
+Girard                     2800      33600                                      
+Mozhe                      2800      33600                                      
+Sigal                      2800      33600                                      
+Vance                      2800      33600                                      
+Michael                    2900      34800                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Shelli                     2900      34800                                      
+Timothy                    2900      34800                                      
+Anthony                    3000      36000                                      
+Kevin                      3000      36000                                      
+Alana                      3100      37200                                      
+Alexander                  3100      37200                                      
+Curtis                     3100      37200                                      
+Jean                       3100      37200                                      
+Julia                      3200      38400                                      
+Samuel                     3200      38400                                      
+Stephen                    3200      38400                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Winston                    3200      38400                                      
+Jason                      3300      39600                                      
+Laura                      3300      39600                                      
+Julia                      3400      40800                                      
+Trenna                     3500      42000                                      
+Jennifer                   3600      43200                                      
+Renske                     3600      43200                                      
+Kelly                      3800      45600                                      
+Britney                    3900      46800                                      
+Sarah                      4000      48000                                      
+Alexis                     4100      49200                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Diana                      4200      50400                                      
+Nandita                    4200      50400                                      
+Jennifer                   4400      52800                                      
+David                      4800      57600                                      
+Valli                      4800      57600                                      
+Kevin                      5800      69600                                      
+Bruce                      6000      72000                                      
+Pat                        6000      72000                                      
+Sundita                    6100      73200                                      
+Amit                       6200      74400                                      
+Charles                    6200      74400                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Sundar                     6400      76800                                      
+Shanta                     6500      78000                                      
+Susan                      6500      78000                                      
+David                      6800      81600                                      
+Luis                       6900      82800                                      
+Kimberely                  7000      84000                                      
+Oliver                     7000      84000                                      
+Sarath                     7000      84000                                      
+Mattea                     7200      86400                                      
+Elizabeth                  7300      87600                                      
+William                    7400      88800                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Louise                     7500      90000                                      
+Nanette                    7500      90000                                      
+Ismael                     7700      92400                                      
+Jose Manuel                7800      93600                                      
+Payam                      7900      94800                                      
+Christopher                8000      96000                                      
+Lindsey                    8000      96000                                      
+Matthew                    8000      96000                                      
+Adam                       8200      98400                                      
+John                       8200      98400                                      
+William                    8300      99600                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Jack                       8400     100800                                      
+Jonathon                   8600     103200                                      
+Alyssa                     8800     105600                                      
+Alexander                  9000     108000                                      
+Allan                      9000     108000                                      
+Daniel                     9000     108000                                      
+Peter                      9000     108000                                      
+Danielle                   9500     114000                                      
+David                      9500     114000                                      
+Patrick                    9500     114000                                      
+Tayler                     9600     115200                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Harrison                  10000     120000                                      
+Hermann                   10000     120000                                      
+Janette                   10000     120000                                      
+Peter                     10000     120000                                      
+Clara                     10500     126000                                      
+Eleni                     10500     126000                                      
+Den                       11000     132000                                      
+Ellen                     11000     132000                                      
+Gerald                    11000     132000                                      
+Lisa                      11500     138000                                      
+Alberto                   12000     144000                                      
+
+FIRST_NAME              MONTHLY     YEARLY                                      
+-------------------- ---------- ----------                                      
+Nancy                     12008     144096                                      
+Shelley                   12008     144096                                      
+Michael                   13000     156000                                      
+Karen                     13500     162000                                      
+John                      14000     168000                                      
+Lex                       17000     204000                                      
+Neena                     17000     204000                                      
+Steven                    24000     288000                                      
+
+107 rows selected.
+
+SQL> spool off

@@ -1,0 +1,2596 @@
+SQL> select round(45.567) from dual;
+
+ROUND(45.567)                                                                   
+-------------                                                                   
+           46                                                                   
+
+SQL> select round(45,567) from dual;
+
+ROUND(45,567)                                                                   
+-------------                                                                   
+           45                                                                   
+
+SQL> select round(45c567) from dual;
+select round(45c567) from dual
+               *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select round(45'c'567) from dual;
+select round(45'c'567) from dual
+               *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select round(45.567,2) from dual;
+
+ROUND(45.567,2)                                                                 
+---------------                                                                 
+          45.57                                                                 
+
+SQL> select round(45.564,2) from dual;
+
+ROUND(45.564,2)                                                                 
+---------------                                                                 
+          45.56                                                                 
+
+SQL> select round(45.565,2) from dual;
+
+ROUND(45.565,2)                                                                 
+---------------                                                                 
+          45.57                                                                 
+
+SQL> select trunc(45.567) from dual;
+
+TRUNC(45.567)                                                                   
+-------------                                                                   
+           45                                                                   
+
+SQL> select trunc(45.56,27) from dual;
+
+TRUNC(45.56,27)                                                                 
+---------------                                                                 
+          45.56                                                                 
+
+SQL> select trunc(45.567,2) from dual;
+
+TRUNC(45.567,2)                                                                 
+---------------                                                                 
+          45.56                                                                 
+
+SQL> select mod(3,2) from dual;
+
+  MOD(3,2)                                                                      
+----------                                                                      
+         1                                                                      
+
+SQL> select mod(3,3) from dual;
+
+  MOD(3,3)                                                                      
+----------                                                                      
+         0                                                                      
+
+SQL> select first_name,employee_id from employees where mod(employee_id,2)=0;
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+Ellen                        174                                                
+Sundar                       166                                                
+Mozhe                        130                                                
+Hermann                      204                                                
+Shelli                       116                                                
+Elizabeth                    172                                                
+Sarah                        192                                                
+Gerald                       148                                                
+Nanette                      154                                                
+John                         110                                                
+Kelly                        188                                                
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+Curtis                       142                                                
+Lex                          102                                                
+Julia                        186                                                
+Louise                       160                                                
+Bruce                        104                                                
+Pat                          202                                                
+Tayler                       170                                                
+Timothy                      190                                                
+William                      206                                                
+Kimberely                    178                                                
+Nancy                        108                                                
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+Peter                        152                                                
+Guy                          118                                                
+Payam                        122                                                
+Janette                      156                                                
+Steven                       100                                                
+Steven                       128                                                
+Mattea                       164                                                
+Samuel                       194                                                
+Allan                        158                                                
+Irene                        126                                                
+Kevin                        124                                                
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+Donald                       198                                                
+TJ                           132                                                
+Lisa                         168                                                
+Karen                        146                                                
+Valli                        106                                                
+Joshua                       140                                                
+Hazel                        136                                                
+Den                          114                                                
+Michael                      134                                                
+Nandita                      184                                                
+Stephen                      138                                                
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+Martha                       182                                                
+Jonathon                     176                                                
+Winston                      180                                                
+Peter                        150                                                
+Jose Manuel                  112                                                
+Peter                        144                                                
+Clara                        162                                                
+Alana                        196                                                
+Matthew                      120                                                
+Jennifer                     200                                                
+
+54 rows selected.
+
+SQL> select first_name,employee_id from employees where mod(employee_id,2)!=0;
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+David                        105                                                
+Amit                         167                                                
+David                        151                                                
+Laura                        129                                                
+Harrison                     169                                                
+Alexis                       185                                                
+Anthony                      187                                                
+Karen                        119                                                
+Jennifer                     189                                                
+Alberto                      147                                                
+Britney                      193                                                
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+Daniel                       109                                                
+Kevin                        197                                                
+Jean                         181                                                
+Adam                         121                                                
+Ki                           135                                                
+Girard                       183                                                
+Douglas                      199                                                
+Danielle                     163                                                
+Michael                      201                                                
+Shelley                      205                                                
+Alexander                    103                                                
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+Alyssa                       175                                                
+Charles                      179                                                
+Vance                        195                                                
+Alexander                    115                                                
+Neena                        101                                                
+Sundita                      173                                                
+Renske                       137                                                
+James                        127                                                
+David                        165                                                
+Jack                         177                                                
+Diana                        107                                                
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+Jason                        133                                                
+James                        131                                                
+Randall                      143                                                
+Susan                        203                                                
+Julia                        125                                                
+Christopher                  153                                                
+Randall                      191                                                
+Luis                         113                                                
+Trenna                       141                                                
+John                         145                                                
+Ismael                       111                                                
+
+FIRST_NAME           EMPLOYEE_ID                                                
+-------------------- -----------                                                
+John                         139                                                
+Sarath                       161                                                
+Lindsey                      159                                                
+William                      171                                                
+Patrick                      157                                                
+Sigal                        117                                                
+Oliver                       155                                                
+Shanta                       123                                                
+Eleni                        149                                                
+
+53 rows selected.
+
+SQL> select ceil(2.5) from dual;
+
+ CEIL(2.5)                                                                      
+----------                                                                      
+         3                                                                      
+
+SQL> select floor(2.5) from dual;
+
+FLOOR(2.5)                                                                      
+----------                                                                      
+         2                                                                      
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem date functions
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select sysdate from dual;
+
+SYSDATE                                                                         
+---------                                                                       
+19-MAR-19                                                                       
+
+SQL> select current_date from dual;
+
+CURRENT_D                                                                       
+---------                                                                       
+19-MAR-19                                                                       
+
+SQL> select * from nlas_Session_parameters;
+select * from nlas_Session_parameters
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from nls_Session_parameters;
+
+PARAMETER                      VALUE                                            
+------------------------------ ----------------------------------------         
+NLS_LANGUAGE                   AMERICAN                                         
+NLS_TERRITORY                  AMERICA                                          
+NLS_CURRENCY                   $                                                
+NLS_ISO_CURRENCY               AMERICA                                          
+NLS_NUMERIC_CHARACTERS         .,                                               
+NLS_CALENDAR                   GREGORIAN                                        
+NLS_DATE_FORMAT                DD-MON-RR                                        
+NLS_DATE_LANGUAGE              AMERICAN                                         
+NLS_SORT                       BINARY                                           
+NLS_TIME_FORMAT                HH.MI.SSXFF AM                                   
+NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM                         
+
+PARAMETER                      VALUE                                            
+------------------------------ ----------------------------------------         
+NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR                               
+NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR                     
+NLS_DUAL_CURRENCY              $                                                
+NLS_COMP                       BINARY                                           
+NLS_LENGTH_SEMANTICS           BYTE                                             
+NLS_NCHAR_CONV_EXCP            FALSE                                            
+
+17 rows selected.
+
+SQL> select sysdate,sysdate+3,sysdate-5 from dual;
+
+SYSDATE   SYSDATE+3 SYSDATE-5                                                   
+--------- --------- ---------                                                   
+19-MAR-19 22-MAR-19 14-MAR-19                                                   
+
+SQL> select sysdate,sysdate-19 from dual;
+
+SYSDATE   SYSDATE-1                                                             
+--------- ---------                                                             
+19-MAR-19 28-FEB-19                                                             
+
+SQL> select sysdate,sysdate-365 from dual;
+
+SYSDATE   SYSDATE-3                                                             
+--------- ---------                                                             
+19-MAR-19 19-MAR-18                                                             
+
+SQL> select sysdate,sysdate-3650 from dual;
+
+SYSDATE   SYSDATE-3                                                             
+--------- ---------                                                             
+19-MAR-19 21-MAR-09                                                             
+
+SQL> select * from nls_Session_parameters;
+
+PARAMETER                      VALUE                                            
+------------------------------ ----------------------------------------         
+NLS_LANGUAGE                   AMERICAN                                         
+NLS_TERRITORY                  AMERICA                                          
+NLS_CURRENCY                   $                                                
+NLS_ISO_CURRENCY               AMERICA                                          
+NLS_NUMERIC_CHARACTERS         .,                                               
+NLS_CALENDAR                   GREGORIAN                                        
+NLS_DATE_FORMAT                DD-MON-RR                                        
+NLS_DATE_LANGUAGE              AMERICAN                                         
+NLS_SORT                       BINARY                                           
+NLS_TIME_FORMAT                HH.MI.SSXFF AM                                   
+NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM                         
+
+PARAMETER                      VALUE                                            
+------------------------------ ----------------------------------------         
+NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR                               
+NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR                     
+NLS_DUAL_CURRENCY              $                                                
+NLS_COMP                       BINARY                                           
+NLS_LENGTH_SEMANTICS           BYTE                                             
+NLS_NCHAR_CONV_EXCP            FALSE                                            
+
+17 rows selected.
+
+SQL> alter session set nls_date_format = 'DD-MONTH_YYYY HH:MI:SS AM DAY';
+
+Session altered.
+
+SQL> select * from nls_Session_parameters;
+
+PARAMETER                      VALUE                                            
+------------------------------ ----------------------------------------         
+NLS_LANGUAGE                   AMERICAN                                         
+NLS_TERRITORY                  AMERICA                                          
+NLS_CURRENCY                   $                                                
+NLS_ISO_CURRENCY               AMERICA                                          
+NLS_NUMERIC_CHARACTERS         .,                                               
+NLS_CALENDAR                   GREGORIAN                                        
+NLS_DATE_FORMAT                DD-MONTH_YYYY HH:MI:SS AM DAY                    
+NLS_DATE_LANGUAGE              AMERICAN                                         
+NLS_SORT                       BINARY                                           
+NLS_TIME_FORMAT                HH.MI.SSXFF AM                                   
+NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM                         
+
+PARAMETER                      VALUE                                            
+------------------------------ ----------------------------------------         
+NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR                               
+NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR                     
+NLS_DUAL_CURRENCY              $                                                
+NLS_COMP                       BINARY                                           
+NLS_LENGTH_SEMANTICS           BYTE                                             
+NLS_NCHAR_CONV_EXCP            FALSE                                            
+
+17 rows selected.
+
+SQL> select sysdate,sysdate-365 from dual;
+
+SYSDATE                                 SYSDATE-365                             
+--------------------------------------- --------------------------------------- 
+19-MARCH    _2019 11:50:26 AM TUESDAY   19-MARCH    _2018 11:50:26 AM MONDAY    
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem This changes are for a session only, logging out they get again to defalt so called session parameters
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> alter session set nls_date_format = 'DD-MONTH-YYYY HH:MI:SS AM DAY';
+
+Session altered.
+
+SQL> select sysdate,sysdate-365 from dual;
+
+SYSDATE                                 SYSDATE-365                             
+--------------------------------------- --------------------------------------- 
+19-MARCH    -2019 11:51:27 AM TUESDAY   19-MARCH    -2018 11:51:27 AM MONDAY    
+
+SQL> alter session set nls_date_format = 'FMDD-MONTH_YYYY HH:MI:SS AM DAY';
+
+Session altered.
+
+SQL> select sysdate,sysdate-365 from dual;
+
+SYSDATE                                 SYSDATE-365                             
+--------------------------------------- --------------------------------------- 
+19-MARCH_2019 11:51:55 AM TUESDAY       19-MARCH_2018 11:51:55 AM MONDAY        
+
+SQL> 
+SQL> 
+SQL> 
+SQL> rem FM is format model to display same as written
+SQL> 
+SQL> 
+SQL> 
+SQL> select sysdate,sysdate+(3/24) from dual;
+
+SYSDATE                                 SYSDATE+(3/24)                          
+--------------------------------------- --------------------------------------- 
+19-MARCH_2019 11:54:22 AM TUESDAY       19-MARCH_2019 2:54:22 PM TUESDAY        
+
+SQL> 
+SQL> 
+SQL> rem No. of hours / 24 for adding hours for minutes N/(24*60)
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select sysdate,sysdate+(3/24*60*60) from dual;
+
+SYSDATE                                 SYSDATE+(3/24*60*60)                    
+--------------------------------------- --------------------------------------- 
+19-MARCH_2019 11:55:16 AM TUESDAY       11-JUNE_2020 11:55:16 AM THURSDAY       
+
+SQL> select sysdate,sysdate+(3/(24*60*60)) from dual;
+
+SYSDATE                                 SYSDATE+(3/(24*60*60))                  
+--------------------------------------- --------------------------------------- 
+19-MARCH_2019 11:55:36 AM TUESDAY       19-MARCH_2019 11:55:39 AM TUESDAY       
+
+SQL> select sysdate,add_months(sysdate,1) from dual;
+
+SYSDATE                                 ADD_MONTHS(SYSDATE,1)                   
+--------------------------------------- --------------------------------------- 
+19-MARCH_2019 11:58:23 AM TUESDAY       19-APRIL_2019 11:58:23 AM FRIDAY        
+
+SQL> select sysdate,add_months(sysdate,-1) from dual;
+
+SYSDATE                                 ADD_MONTHS(SYSDATE,-1)                  
+--------------------------------------- --------------------------------------- 
+19-MARCH_2019 11:58:49 AM TUESDAY       19-FEBRUARY_2019 11:58:49 AM TUESDAY    
+
+SQL> select sysdate,add_months(sysdate,12) from dual;
+
+SYSDATE                                 ADD_MONTHS(SYSDATE,12)                  
+--------------------------------------- --------------------------------------- 
+19-MARCH_2019 11:59:1 AM TUESDAY        19-MARCH_2020 11:59:1 AM THURSDAY       
+
+SQL> alter session set nls_date_format = 'DD-MON-RR';
+
+Session altered.
+
+SQL> select sysdate,months_between(sysdate,'19-MAR-18') from dual;
+
+SYSDATE   MONTHS_BETWEEN(SYSDATE,'19-MAR-18')                                   
+--------- -----------------------------------                                   
+19-MAR-19                                  12                                   
+
+SQL> select sysdate,months_between(sysdate,'19-MAR-20') from dual;
+
+SYSDATE   MONTHS_BETWEEN(SYSDATE,'19-MAR-20')                                   
+--------- -----------------------------------                                   
+19-MAR-19                                 -12                                   
+
+SQL> select sysdate,months_between(sysdate,'24-NOV-99') from dual;
+
+SYSDATE   MONTHS_BETWEEN(SYSDATE,'24-NOV-99')                                   
+--------- -----------------------------------                                   
+19-MAR-19                          231.854873                                   
+
+SQL> select sysdate,months_between(sysdate,'24-NOV-99')/12 from dual;
+
+SYSDATE   MONTHS_BETWEEN(SYSDATE,'24-NOV-99')/12                                
+--------- --------------------------------------                                
+19-MAR-19                             19.3212401                                
+
+SQL> select round(months_between(sysdate,'24-NOV-99')/12) from dual;
+
+ROUND(MONTHS_BETWEEN(SYSDATE,'24-NOV-99')/12)                                   
+---------------------------------------------                                   
+                                           19                                   
+
+SQL> select round(months_between(sysdate,'24-NOV-99')/12,4) from dual;
+
+ROUND(MONTHS_BETWEEN(SYSDATE,'24-NOV-99')/12,4)                                 
+-----------------------------------------------                                 
+                                        19.3212                                 
+
+SQL> select sysdate,last_day(sysdate) from dual;
+
+SYSDATE   LAST_DAY(                                                             
+--------- ---------                                                             
+19-MAR-19 31-MAR-19                                                             
+
+SQL> select sysdate,last_day(sysdate+3) from dual;
+
+SYSDATE   LAST_DAY(                                                             
+--------- ---------                                                             
+19-MAR-19 31-MAR-19                                                             
+
+SQL> select sysdate,last_day(sysdate+31) from dual;
+
+SYSDATE   LAST_DAY(                                                             
+--------- ---------                                                             
+19-MAR-19 30-APR-19                                                             
+
+SQL> select sysdate,next_day(sysdate,'TUESDAY') from dual;
+
+SYSDATE   NEXT_DAY(                                                             
+--------- ---------                                                             
+19-MAR-19 26-MAR-19                                                             
+
+SQL> select sysdate,next_day(sysdate,'TUE') from dual;
+
+SYSDATE   NEXT_DAY(                                                             
+--------- ---------                                                             
+19-MAR-19 26-MAR-19                                                             
+
+SQL> select sysdate,next_day(sysdate,'WED') from dual;
+
+SYSDATE   NEXT_DAY(                                                             
+--------- ---------                                                             
+19-MAR-19 20-MAR-19                                                             
+
+SQL> select sysdate,next_day(sysdate+7,'TUE') from dual;
+
+SYSDATE   NEXT_DAY(                                                             
+--------- ---------                                                             
+19-MAR-19 02-APR-19                                                             
+
+SQL> select sysdate,next_day(sysdate,'TUE') + 7 from dual;
+
+SYSDATE   NEXT_DAY(                                                             
+--------- ---------                                                             
+19-MAR-19 02-APR-19                                                             
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem concersion fumctions
+SQL> 
+SQL> 
+SQL> 
+SQL> select sysdate,to_char(sysdate,'DD=MON=YYYY HH:MI:SS DAY DY') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'DD=MON=YYYYHH:MI:                                    
+--------- ----------------------------------                                    
+19-MAR-19 19=MAR=2019 12:11:42 TUESDAY   TUE                                    
+
+SQL> select sysdate,to_char(sysdate,'DD=MON=YYYY HH:MI:SS DAY DY W WW') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'DD=MON=YYYYHH:MI:SSDAY                               
+--------- ---------------------------------------                               
+19-MAR-19 19=MAR=2019 12:12:33 TUESDAY   TUE 3 12                               
+
+SQL> select sysdate,to_char(sysdate,'DD=MON=YYYY HH:MI:SS DAY DY W WW Q') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'DD=MON=YYYYHH:MI:SSDAYDY                             
+--------- -----------------------------------------                             
+19-MAR-19 19=MAR=2019 12:13:03 TUESDAY   TUE 3 12 1                             
+
+SQL> select sysdate,to_char(sysdate,'DD=MM=YY') from dual;
+
+SYSDATE   TO_CHAR(                                                              
+--------- --------                                                              
+19-MAR-19 19=03=19                                                              
+
+SQL> select sysdate,to_char(sysdate,'DDsp=MM=YY') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'D                                                    
+--------- ------------------                                                    
+19-MAR-19 NINETEEN=03=19                                                        
+
+SQL> select sysdate,to_char(sysdate,'DDth MONTH YYYY') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'DD                                                   
+--------- -------------------                                                   
+19-MAR-19 19TH MARCH     2019                                                   
+
+SQL> select sysdate,to_char(sysdate,'FMDDth MONTH YYYY') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'FM                                                   
+--------- -------------------                                                   
+19-MAR-19 19TH MARCH 2019                                                       
+
+SQL> select sysdate,to_char(sysdate,'FMDDth MONTH YYYYsp') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'FMDDTHMONTHYYYYSP')                                  
+--------- ---------------------------------------------------------             
+19-MAR-19 19TH MARCH TWO THOUSAND NINETEEN                                      
+
+SQL> select sysdate,to_char(sysdate,'FMDDth MONTH YEAR') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'FMDDTHMONTHYEAR')                                    
+--------- ---------------------------------------------------------             
+19-MAR-19 19TH MARCH TWENTY NINETEEN                                            
+
+SQL> select sysdate,to_char(sysdate,'DATE MONTH YEAR') from dual;
+select sysdate,to_char(sysdate,'DATE MONTH YEAR') from dual
+                               *
+ERROR at line 1:
+ORA-01821: date format not recognized 
+
+
+SQL> select sysdate,to_char(sysdate,'DD MONTH YEAR') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'DDMONTHYEAR')                                        
+--------- -------------------------------------------------------               
+19-MAR-19 19 MARCH     TWENTY NINETEEN                                          
+
+SQL> select sysdate,to_char(sysdate,'DD RM YEAR') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'DDRMYEAR')                                           
+--------- --------------------------------------------------                    
+19-MAR-19 19 III  TWENTY NINETEEN                                               
+
+SQL> select sysdate,to_char(sysdate,'dd month year') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'DDMONTHYEAR')                                        
+--------- -------------------------------------------------------               
+19-MAR-19 19 march     twenty nineteen                                          
+
+SQL> select sysdate,to_char(sysdate,'Dd Month Year') from dual;
+
+SYSDATE   TO_CHAR(SYSDATE,'DDMONTHYEAR')                                        
+--------- -------------------------------------------------------               
+19-MAR-19 19 March     Twenty Nineteen                                          
+
+SQL> select salary,to_char(salary,'9,99,999.99') from employees;
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      2600     2,600.00                                                         
+      2600     2,600.00                                                         
+      4400     4,400.00                                                         
+     13000    13,000.00                                                         
+      6000     6,000.00                                                         
+      6500     6,500.00                                                         
+     10000    10,000.00                                                         
+     12008    12,008.00                                                         
+      8300     8,300.00                                                         
+     24000    24,000.00                                                         
+     17000    17,000.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+     17000    17,000.00                                                         
+      9000     9,000.00                                                         
+      6000     6,000.00                                                         
+      4800     4,800.00                                                         
+      4800     4,800.00                                                         
+      4200     4,200.00                                                         
+     12008    12,008.00                                                         
+      9000     9,000.00                                                         
+      8200     8,200.00                                                         
+      7700     7,700.00                                                         
+      7800     7,800.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      6900     6,900.00                                                         
+     11000    11,000.00                                                         
+      3100     3,100.00                                                         
+      2900     2,900.00                                                         
+      2800     2,800.00                                                         
+      2600     2,600.00                                                         
+      2500     2,500.00                                                         
+      8000     8,000.00                                                         
+      8200     8,200.00                                                         
+      7900     7,900.00                                                         
+      6500     6,500.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      5800     5,800.00                                                         
+      3200     3,200.00                                                         
+      2700     2,700.00                                                         
+      2400     2,400.00                                                         
+      2200     2,200.00                                                         
+      3300     3,300.00                                                         
+      2800     2,800.00                                                         
+      2500     2,500.00                                                         
+      2100     2,100.00                                                         
+      3300     3,300.00                                                         
+      2900     2,900.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      2400     2,400.00                                                         
+      2200     2,200.00                                                         
+      3600     3,600.00                                                         
+      3200     3,200.00                                                         
+      2700     2,700.00                                                         
+      2500     2,500.00                                                         
+      3500     3,500.00                                                         
+      3100     3,100.00                                                         
+      2600     2,600.00                                                         
+      2500     2,500.00                                                         
+     14000    14,000.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+     13500    13,500.00                                                         
+     12000    12,000.00                                                         
+     11000    11,000.00                                                         
+     10500    10,500.00                                                         
+     10000    10,000.00                                                         
+      9500     9,500.00                                                         
+      9000     9,000.00                                                         
+      8000     8,000.00                                                         
+      7500     7,500.00                                                         
+      7000     7,000.00                                                         
+     10000    10,000.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      9500     9,500.00                                                         
+      9000     9,000.00                                                         
+      8000     8,000.00                                                         
+      7500     7,500.00                                                         
+      7000     7,000.00                                                         
+     10500    10,500.00                                                         
+      9500     9,500.00                                                         
+      7200     7,200.00                                                         
+      6800     6,800.00                                                         
+      6400     6,400.00                                                         
+      6200     6,200.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+     11500    11,500.00                                                         
+     10000    10,000.00                                                         
+      9600     9,600.00                                                         
+      7400     7,400.00                                                         
+      7300     7,300.00                                                         
+      6100     6,100.00                                                         
+     11000    11,000.00                                                         
+      8800     8,800.00                                                         
+      8600     8,600.00                                                         
+      8400     8,400.00                                                         
+      7000     7,000.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      6200     6,200.00                                                         
+      3200     3,200.00                                                         
+      3100     3,100.00                                                         
+      2500     2,500.00                                                         
+      2800     2,800.00                                                         
+      4200     4,200.00                                                         
+      4100     4,100.00                                                         
+      3400     3,400.00                                                         
+      3000     3,000.00                                                         
+      3800     3,800.00                                                         
+      3600     3,600.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      2900     2,900.00                                                         
+      2500     2,500.00                                                         
+      4000     4,000.00                                                         
+      3900     3,900.00                                                         
+      3200     3,200.00                                                         
+      2800     2,800.00                                                         
+      3100     3,100.00                                                         
+      3000     3,000.00                                                         
+
+107 rows selected.
+
+SQL> select salary,to_char(salary,'9,99,999.90') from employees;
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      2600     2,600.00                                                         
+      2600     2,600.00                                                         
+      4400     4,400.00                                                         
+     13000    13,000.00                                                         
+      6000     6,000.00                                                         
+      6500     6,500.00                                                         
+     10000    10,000.00                                                         
+     12008    12,008.00                                                         
+      8300     8,300.00                                                         
+     24000    24,000.00                                                         
+     17000    17,000.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+     17000    17,000.00                                                         
+      9000     9,000.00                                                         
+      6000     6,000.00                                                         
+      4800     4,800.00                                                         
+      4800     4,800.00                                                         
+      4200     4,200.00                                                         
+     12008    12,008.00                                                         
+      9000     9,000.00                                                         
+      8200     8,200.00                                                         
+      7700     7,700.00                                                         
+      7800     7,800.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      6900     6,900.00                                                         
+     11000    11,000.00                                                         
+      3100     3,100.00                                                         
+      2900     2,900.00                                                         
+      2800     2,800.00                                                         
+      2600     2,600.00                                                         
+      2500     2,500.00                                                         
+      8000     8,000.00                                                         
+      8200     8,200.00                                                         
+      7900     7,900.00                                                         
+      6500     6,500.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      5800     5,800.00                                                         
+      3200     3,200.00                                                         
+      2700     2,700.00                                                         
+      2400     2,400.00                                                         
+      2200     2,200.00                                                         
+      3300     3,300.00                                                         
+      2800     2,800.00                                                         
+      2500     2,500.00                                                         
+      2100     2,100.00                                                         
+      3300     3,300.00                                                         
+      2900     2,900.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      2400     2,400.00                                                         
+      2200     2,200.00                                                         
+      3600     3,600.00                                                         
+      3200     3,200.00                                                         
+      2700     2,700.00                                                         
+      2500     2,500.00                                                         
+      3500     3,500.00                                                         
+      3100     3,100.00                                                         
+      2600     2,600.00                                                         
+      2500     2,500.00                                                         
+     14000    14,000.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+     13500    13,500.00                                                         
+     12000    12,000.00                                                         
+     11000    11,000.00                                                         
+     10500    10,500.00                                                         
+     10000    10,000.00                                                         
+      9500     9,500.00                                                         
+      9000     9,000.00                                                         
+      8000     8,000.00                                                         
+      7500     7,500.00                                                         
+      7000     7,000.00                                                         
+     10000    10,000.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      9500     9,500.00                                                         
+      9000     9,000.00                                                         
+      8000     8,000.00                                                         
+      7500     7,500.00                                                         
+      7000     7,000.00                                                         
+     10500    10,500.00                                                         
+      9500     9,500.00                                                         
+      7200     7,200.00                                                         
+      6800     6,800.00                                                         
+      6400     6,400.00                                                         
+      6200     6,200.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+     11500    11,500.00                                                         
+     10000    10,000.00                                                         
+      9600     9,600.00                                                         
+      7400     7,400.00                                                         
+      7300     7,300.00                                                         
+      6100     6,100.00                                                         
+     11000    11,000.00                                                         
+      8800     8,800.00                                                         
+      8600     8,600.00                                                         
+      8400     8,400.00                                                         
+      7000     7,000.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      6200     6,200.00                                                         
+      3200     3,200.00                                                         
+      3100     3,100.00                                                         
+      2500     2,500.00                                                         
+      2800     2,800.00                                                         
+      4200     4,200.00                                                         
+      4100     4,100.00                                                         
+      3400     3,400.00                                                         
+      3000     3,000.00                                                         
+      3800     3,800.00                                                         
+      3600     3,600.00                                                         
+
+    SALARY TO_CHAR(SALA                                                         
+---------- ------------                                                         
+      2900     2,900.00                                                         
+      2500     2,500.00                                                         
+      4000     4,000.00                                                         
+      3900     3,900.00                                                         
+      3200     3,200.00                                                         
+      2800     2,800.00                                                         
+      3100     3,100.00                                                         
+      3000     3,000.00                                                         
+
+107 rows selected.
+
+SQL> rem 9 or 0 valid
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> select salary,to_char(salary,'00,000.00') from employees;
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2600  02,600.00                                                           
+      2600  02,600.00                                                           
+      4400  04,400.00                                                           
+     13000  13,000.00                                                           
+      6000  06,000.00                                                           
+      6500  06,500.00                                                           
+     10000  10,000.00                                                           
+     12008  12,008.00                                                           
+      8300  08,300.00                                                           
+     24000  24,000.00                                                           
+     17000  17,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     17000  17,000.00                                                           
+      9000  09,000.00                                                           
+      6000  06,000.00                                                           
+      4800  04,800.00                                                           
+      4800  04,800.00                                                           
+      4200  04,200.00                                                           
+     12008  12,008.00                                                           
+      9000  09,000.00                                                           
+      8200  08,200.00                                                           
+      7700  07,700.00                                                           
+      7800  07,800.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      6900  06,900.00                                                           
+     11000  11,000.00                                                           
+      3100  03,100.00                                                           
+      2900  02,900.00                                                           
+      2800  02,800.00                                                           
+      2600  02,600.00                                                           
+      2500  02,500.00                                                           
+      8000  08,000.00                                                           
+      8200  08,200.00                                                           
+      7900  07,900.00                                                           
+      6500  06,500.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      5800  05,800.00                                                           
+      3200  03,200.00                                                           
+      2700  02,700.00                                                           
+      2400  02,400.00                                                           
+      2200  02,200.00                                                           
+      3300  03,300.00                                                           
+      2800  02,800.00                                                           
+      2500  02,500.00                                                           
+      2100  02,100.00                                                           
+      3300  03,300.00                                                           
+      2900  02,900.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2400  02,400.00                                                           
+      2200  02,200.00                                                           
+      3600  03,600.00                                                           
+      3200  03,200.00                                                           
+      2700  02,700.00                                                           
+      2500  02,500.00                                                           
+      3500  03,500.00                                                           
+      3100  03,100.00                                                           
+      2600  02,600.00                                                           
+      2500  02,500.00                                                           
+     14000  14,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     13500  13,500.00                                                           
+     12000  12,000.00                                                           
+     11000  11,000.00                                                           
+     10500  10,500.00                                                           
+     10000  10,000.00                                                           
+      9500  09,500.00                                                           
+      9000  09,000.00                                                           
+      8000  08,000.00                                                           
+      7500  07,500.00                                                           
+      7000  07,000.00                                                           
+     10000  10,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      9500  09,500.00                                                           
+      9000  09,000.00                                                           
+      8000  08,000.00                                                           
+      7500  07,500.00                                                           
+      7000  07,000.00                                                           
+     10500  10,500.00                                                           
+      9500  09,500.00                                                           
+      7200  07,200.00                                                           
+      6800  06,800.00                                                           
+      6400  06,400.00                                                           
+      6200  06,200.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     11500  11,500.00                                                           
+     10000  10,000.00                                                           
+      9600  09,600.00                                                           
+      7400  07,400.00                                                           
+      7300  07,300.00                                                           
+      6100  06,100.00                                                           
+     11000  11,000.00                                                           
+      8800  08,800.00                                                           
+      8600  08,600.00                                                           
+      8400  08,400.00                                                           
+      7000  07,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      6200  06,200.00                                                           
+      3200  03,200.00                                                           
+      3100  03,100.00                                                           
+      2500  02,500.00                                                           
+      2800  02,800.00                                                           
+      4200  04,200.00                                                           
+      4100  04,100.00                                                           
+      3400  03,400.00                                                           
+      3000  03,000.00                                                           
+      3800  03,800.00                                                           
+      3600  03,600.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2900  02,900.00                                                           
+      2500  02,500.00                                                           
+      4000  04,000.00                                                           
+      3900  03,900.00                                                           
+      3200  03,200.00                                                           
+      2800  02,800.00                                                           
+      3100  03,100.00                                                           
+      3000  03,000.00                                                           
+
+107 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem 0 displays leadind zeroes
+SQL> 
+SQL> 
+SQL> 
+SQL> select salary,to_char(salary,'90G000D00') from employees;
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2600   2,600.00                                                           
+      2600   2,600.00                                                           
+      4400   4,400.00                                                           
+     13000  13,000.00                                                           
+      6000   6,000.00                                                           
+      6500   6,500.00                                                           
+     10000  10,000.00                                                           
+     12008  12,008.00                                                           
+      8300   8,300.00                                                           
+     24000  24,000.00                                                           
+     17000  17,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     17000  17,000.00                                                           
+      9000   9,000.00                                                           
+      6000   6,000.00                                                           
+      4800   4,800.00                                                           
+      4800   4,800.00                                                           
+      4200   4,200.00                                                           
+     12008  12,008.00                                                           
+      9000   9,000.00                                                           
+      8200   8,200.00                                                           
+      7700   7,700.00                                                           
+      7800   7,800.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      6900   6,900.00                                                           
+     11000  11,000.00                                                           
+      3100   3,100.00                                                           
+      2900   2,900.00                                                           
+      2800   2,800.00                                                           
+      2600   2,600.00                                                           
+      2500   2,500.00                                                           
+      8000   8,000.00                                                           
+      8200   8,200.00                                                           
+      7900   7,900.00                                                           
+      6500   6,500.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      5800   5,800.00                                                           
+      3200   3,200.00                                                           
+      2700   2,700.00                                                           
+      2400   2,400.00                                                           
+      2200   2,200.00                                                           
+      3300   3,300.00                                                           
+      2800   2,800.00                                                           
+      2500   2,500.00                                                           
+      2100   2,100.00                                                           
+      3300   3,300.00                                                           
+      2900   2,900.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2400   2,400.00                                                           
+      2200   2,200.00                                                           
+      3600   3,600.00                                                           
+      3200   3,200.00                                                           
+      2700   2,700.00                                                           
+      2500   2,500.00                                                           
+      3500   3,500.00                                                           
+      3100   3,100.00                                                           
+      2600   2,600.00                                                           
+      2500   2,500.00                                                           
+     14000  14,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     13500  13,500.00                                                           
+     12000  12,000.00                                                           
+     11000  11,000.00                                                           
+     10500  10,500.00                                                           
+     10000  10,000.00                                                           
+      9500   9,500.00                                                           
+      9000   9,000.00                                                           
+      8000   8,000.00                                                           
+      7500   7,500.00                                                           
+      7000   7,000.00                                                           
+     10000  10,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      9500   9,500.00                                                           
+      9000   9,000.00                                                           
+      8000   8,000.00                                                           
+      7500   7,500.00                                                           
+      7000   7,000.00                                                           
+     10500  10,500.00                                                           
+      9500   9,500.00                                                           
+      7200   7,200.00                                                           
+      6800   6,800.00                                                           
+      6400   6,400.00                                                           
+      6200   6,200.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     11500  11,500.00                                                           
+     10000  10,000.00                                                           
+      9600   9,600.00                                                           
+      7400   7,400.00                                                           
+      7300   7,300.00                                                           
+      6100   6,100.00                                                           
+     11000  11,000.00                                                           
+      8800   8,800.00                                                           
+      8600   8,600.00                                                           
+      8400   8,400.00                                                           
+      7000   7,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      6200   6,200.00                                                           
+      3200   3,200.00                                                           
+      3100   3,100.00                                                           
+      2500   2,500.00                                                           
+      2800   2,800.00                                                           
+      4200   4,200.00                                                           
+      4100   4,100.00                                                           
+      3400   3,400.00                                                           
+      3000   3,000.00                                                           
+      3800   3,800.00                                                           
+      3600   3,600.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2900   2,900.00                                                           
+      2500   2,500.00                                                           
+      4000   4,000.00                                                           
+      3900   3,900.00                                                           
+      3200   3,200.00                                                           
+      2800   2,800.00                                                           
+      3100   3,100.00                                                           
+      3000   3,000.00                                                           
+
+107 rows selected.
+
+SQL> select salary,to_char(salary,'90g000d00') from employees;
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2600   2,600.00                                                           
+      2600   2,600.00                                                           
+      4400   4,400.00                                                           
+     13000  13,000.00                                                           
+      6000   6,000.00                                                           
+      6500   6,500.00                                                           
+     10000  10,000.00                                                           
+     12008  12,008.00                                                           
+      8300   8,300.00                                                           
+     24000  24,000.00                                                           
+     17000  17,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     17000  17,000.00                                                           
+      9000   9,000.00                                                           
+      6000   6,000.00                                                           
+      4800   4,800.00                                                           
+      4800   4,800.00                                                           
+      4200   4,200.00                                                           
+     12008  12,008.00                                                           
+      9000   9,000.00                                                           
+      8200   8,200.00                                                           
+      7700   7,700.00                                                           
+      7800   7,800.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      6900   6,900.00                                                           
+     11000  11,000.00                                                           
+      3100   3,100.00                                                           
+      2900   2,900.00                                                           
+      2800   2,800.00                                                           
+      2600   2,600.00                                                           
+      2500   2,500.00                                                           
+      8000   8,000.00                                                           
+      8200   8,200.00                                                           
+      7900   7,900.00                                                           
+      6500   6,500.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      5800   5,800.00                                                           
+      3200   3,200.00                                                           
+      2700   2,700.00                                                           
+      2400   2,400.00                                                           
+      2200   2,200.00                                                           
+      3300   3,300.00                                                           
+      2800   2,800.00                                                           
+      2500   2,500.00                                                           
+      2100   2,100.00                                                           
+      3300   3,300.00                                                           
+      2900   2,900.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2400   2,400.00                                                           
+      2200   2,200.00                                                           
+      3600   3,600.00                                                           
+      3200   3,200.00                                                           
+      2700   2,700.00                                                           
+      2500   2,500.00                                                           
+      3500   3,500.00                                                           
+      3100   3,100.00                                                           
+      2600   2,600.00                                                           
+      2500   2,500.00                                                           
+     14000  14,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     13500  13,500.00                                                           
+     12000  12,000.00                                                           
+     11000  11,000.00                                                           
+     10500  10,500.00                                                           
+     10000  10,000.00                                                           
+      9500   9,500.00                                                           
+      9000   9,000.00                                                           
+      8000   8,000.00                                                           
+      7500   7,500.00                                                           
+      7000   7,000.00                                                           
+     10000  10,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      9500   9,500.00                                                           
+      9000   9,000.00                                                           
+      8000   8,000.00                                                           
+      7500   7,500.00                                                           
+      7000   7,000.00                                                           
+     10500  10,500.00                                                           
+      9500   9,500.00                                                           
+      7200   7,200.00                                                           
+      6800   6,800.00                                                           
+      6400   6,400.00                                                           
+      6200   6,200.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+     11500  11,500.00                                                           
+     10000  10,000.00                                                           
+      9600   9,600.00                                                           
+      7400   7,400.00                                                           
+      7300   7,300.00                                                           
+      6100   6,100.00                                                           
+     11000  11,000.00                                                           
+      8800   8,800.00                                                           
+      8600   8,600.00                                                           
+      8400   8,400.00                                                           
+      7000   7,000.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      6200   6,200.00                                                           
+      3200   3,200.00                                                           
+      3100   3,100.00                                                           
+      2500   2,500.00                                                           
+      2800   2,800.00                                                           
+      4200   4,200.00                                                           
+      4100   4,100.00                                                           
+      3400   3,400.00                                                           
+      3000   3,000.00                                                           
+      3800   3,800.00                                                           
+      3600   3,600.00                                                           
+
+    SALARY TO_CHAR(SA                                                           
+---------- ----------                                                           
+      2900   2,900.00                                                           
+      2500   2,500.00                                                           
+      4000   4,000.00                                                           
+      3900   3,900.00                                                           
+      3200   3,200.00                                                           
+      2800   2,800.00                                                           
+      3100   3,100.00                                                           
+      3000   3,000.00                                                           
+
+107 rows selected.
+
+SQL> select * from nls_Session_parameters;
+
+PARAMETER                      VALUE                                            
+------------------------------ ----------------------------------------         
+NLS_LANGUAGE                   AMERICAN                                         
+NLS_TERRITORY                  AMERICA                                          
+NLS_CURRENCY                   $                                                
+NLS_ISO_CURRENCY               AMERICA                                          
+NLS_NUMERIC_CHARACTERS         .,                                               
+NLS_CALENDAR                   GREGORIAN                                        
+NLS_DATE_FORMAT                DD-MON-RR                                        
+NLS_DATE_LANGUAGE              AMERICAN                                         
+NLS_SORT                       BINARY                                           
+NLS_TIME_FORMAT                HH.MI.SSXFF AM                                   
+NLS_TIMESTAMP_FORMAT           DD-MON-RR HH.MI.SSXFF AM                         
+
+PARAMETER                      VALUE                                            
+------------------------------ ----------------------------------------         
+NLS_TIME_TZ_FORMAT             HH.MI.SSXFF AM TZR                               
+NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR                     
+NLS_DUAL_CURRENCY              $                                                
+NLS_COMP                       BINARY                                           
+NLS_LENGTH_SEMANTICS           BYTE                                             
+NLS_NCHAR_CONV_EXCP            FALSE                                            
+
+17 rows selected.
+
+SQL> select salary,to_char(salary,'L90g000d00') from employees;
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+      2600            $2,600.00                                                 
+      2600            $2,600.00                                                 
+      4400            $4,400.00                                                 
+     13000           $13,000.00                                                 
+      6000            $6,000.00                                                 
+      6500            $6,500.00                                                 
+     10000           $10,000.00                                                 
+     12008           $12,008.00                                                 
+      8300            $8,300.00                                                 
+     24000           $24,000.00                                                 
+     17000           $17,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+     17000           $17,000.00                                                 
+      9000            $9,000.00                                                 
+      6000            $6,000.00                                                 
+      4800            $4,800.00                                                 
+      4800            $4,800.00                                                 
+      4200            $4,200.00                                                 
+     12008           $12,008.00                                                 
+      9000            $9,000.00                                                 
+      8200            $8,200.00                                                 
+      7700            $7,700.00                                                 
+      7800            $7,800.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+      6900            $6,900.00                                                 
+     11000           $11,000.00                                                 
+      3100            $3,100.00                                                 
+      2900            $2,900.00                                                 
+      2800            $2,800.00                                                 
+      2600            $2,600.00                                                 
+      2500            $2,500.00                                                 
+      8000            $8,000.00                                                 
+      8200            $8,200.00                                                 
+      7900            $7,900.00                                                 
+      6500            $6,500.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+      5800            $5,800.00                                                 
+      3200            $3,200.00                                                 
+      2700            $2,700.00                                                 
+      2400            $2,400.00                                                 
+      2200            $2,200.00                                                 
+      3300            $3,300.00                                                 
+      2800            $2,800.00                                                 
+      2500            $2,500.00                                                 
+      2100            $2,100.00                                                 
+      3300            $3,300.00                                                 
+      2900            $2,900.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+      2400            $2,400.00                                                 
+      2200            $2,200.00                                                 
+      3600            $3,600.00                                                 
+      3200            $3,200.00                                                 
+      2700            $2,700.00                                                 
+      2500            $2,500.00                                                 
+      3500            $3,500.00                                                 
+      3100            $3,100.00                                                 
+      2600            $2,600.00                                                 
+      2500            $2,500.00                                                 
+     14000           $14,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+     13500           $13,500.00                                                 
+     12000           $12,000.00                                                 
+     11000           $11,000.00                                                 
+     10500           $10,500.00                                                 
+     10000           $10,000.00                                                 
+      9500            $9,500.00                                                 
+      9000            $9,000.00                                                 
+      8000            $8,000.00                                                 
+      7500            $7,500.00                                                 
+      7000            $7,000.00                                                 
+     10000           $10,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+      9500            $9,500.00                                                 
+      9000            $9,000.00                                                 
+      8000            $8,000.00                                                 
+      7500            $7,500.00                                                 
+      7000            $7,000.00                                                 
+     10500           $10,500.00                                                 
+      9500            $9,500.00                                                 
+      7200            $7,200.00                                                 
+      6800            $6,800.00                                                 
+      6400            $6,400.00                                                 
+      6200            $6,200.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+     11500           $11,500.00                                                 
+     10000           $10,000.00                                                 
+      9600            $9,600.00                                                 
+      7400            $7,400.00                                                 
+      7300            $7,300.00                                                 
+      6100            $6,100.00                                                 
+     11000           $11,000.00                                                 
+      8800            $8,800.00                                                 
+      8600            $8,600.00                                                 
+      8400            $8,400.00                                                 
+      7000            $7,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+      6200            $6,200.00                                                 
+      3200            $3,200.00                                                 
+      3100            $3,100.00                                                 
+      2500            $2,500.00                                                 
+      2800            $2,800.00                                                 
+      4200            $4,200.00                                                 
+      4100            $4,100.00                                                 
+      3400            $3,400.00                                                 
+      3000            $3,000.00                                                 
+      3800            $3,800.00                                                 
+      3600            $3,600.00                                                 
+
+    SALARY TO_CHAR(SALARY,'L90G                                                 
+---------- --------------------                                                 
+      2900            $2,900.00                                                 
+      2500            $2,500.00                                                 
+      4000            $4,000.00                                                 
+      3900            $3,900.00                                                 
+      3200            $3,200.00                                                 
+      2800            $2,800.00                                                 
+      3100            $3,100.00                                                 
+      3000            $3,000.00                                                 
+
+107 rows selected.
+
+SQL> select salary,to_char(salary,'U90g000d00') from employees;
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      2600            $2,600.00                                                 
+      2600            $2,600.00                                                 
+      4400            $4,400.00                                                 
+     13000           $13,000.00                                                 
+      6000            $6,000.00                                                 
+      6500            $6,500.00                                                 
+     10000           $10,000.00                                                 
+     12008           $12,008.00                                                 
+      8300            $8,300.00                                                 
+     24000           $24,000.00                                                 
+     17000           $17,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+     17000           $17,000.00                                                 
+      9000            $9,000.00                                                 
+      6000            $6,000.00                                                 
+      4800            $4,800.00                                                 
+      4800            $4,800.00                                                 
+      4200            $4,200.00                                                 
+     12008           $12,008.00                                                 
+      9000            $9,000.00                                                 
+      8200            $8,200.00                                                 
+      7700            $7,700.00                                                 
+      7800            $7,800.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      6900            $6,900.00                                                 
+     11000           $11,000.00                                                 
+      3100            $3,100.00                                                 
+      2900            $2,900.00                                                 
+      2800            $2,800.00                                                 
+      2600            $2,600.00                                                 
+      2500            $2,500.00                                                 
+      8000            $8,000.00                                                 
+      8200            $8,200.00                                                 
+      7900            $7,900.00                                                 
+      6500            $6,500.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      5800            $5,800.00                                                 
+      3200            $3,200.00                                                 
+      2700            $2,700.00                                                 
+      2400            $2,400.00                                                 
+      2200            $2,200.00                                                 
+      3300            $3,300.00                                                 
+      2800            $2,800.00                                                 
+      2500            $2,500.00                                                 
+      2100            $2,100.00                                                 
+      3300            $3,300.00                                                 
+      2900            $2,900.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      2400            $2,400.00                                                 
+      2200            $2,200.00                                                 
+      3600            $3,600.00                                                 
+      3200            $3,200.00                                                 
+      2700            $2,700.00                                                 
+      2500            $2,500.00                                                 
+      3500            $3,500.00                                                 
+      3100            $3,100.00                                                 
+      2600            $2,600.00                                                 
+      2500            $2,500.00                                                 
+     14000           $14,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+     13500           $13,500.00                                                 
+     12000           $12,000.00                                                 
+     11000           $11,000.00                                                 
+     10500           $10,500.00                                                 
+     10000           $10,000.00                                                 
+      9500            $9,500.00                                                 
+      9000            $9,000.00                                                 
+      8000            $8,000.00                                                 
+      7500            $7,500.00                                                 
+      7000            $7,000.00                                                 
+     10000           $10,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      9500            $9,500.00                                                 
+      9000            $9,000.00                                                 
+      8000            $8,000.00                                                 
+      7500            $7,500.00                                                 
+      7000            $7,000.00                                                 
+     10500           $10,500.00                                                 
+      9500            $9,500.00                                                 
+      7200            $7,200.00                                                 
+      6800            $6,800.00                                                 
+      6400            $6,400.00                                                 
+      6200            $6,200.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+     11500           $11,500.00                                                 
+     10000           $10,000.00                                                 
+      9600            $9,600.00                                                 
+      7400            $7,400.00                                                 
+      7300            $7,300.00                                                 
+      6100            $6,100.00                                                 
+     11000           $11,000.00                                                 
+      8800            $8,800.00                                                 
+      8600            $8,600.00                                                 
+      8400            $8,400.00                                                 
+      7000            $7,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      6200            $6,200.00                                                 
+      3200            $3,200.00                                                 
+      3100            $3,100.00                                                 
+      2500            $2,500.00                                                 
+      2800            $2,800.00                                                 
+      4200            $4,200.00                                                 
+      4100            $4,100.00                                                 
+      3400            $3,400.00                                                 
+      3000            $3,000.00                                                 
+      3800            $3,800.00                                                 
+      3600            $3,600.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      2900            $2,900.00                                                 
+      2500            $2,500.00                                                 
+      4000            $4,000.00                                                 
+      3900            $3,900.00                                                 
+      3200            $3,200.00                                                 
+      2800            $2,800.00                                                 
+      3100            $3,100.00                                                 
+      3000            $3,000.00                                                 
+
+107 rows selected.
+
+SQL> alter session set nls_dual_currency='Rs.';
+
+Session altered.
+
+SQL> select salary,to_char(salary,'U90g000d00') from employees;
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      2600          Rs.2,600.00                                                 
+      2600          Rs.2,600.00                                                 
+      4400          Rs.4,400.00                                                 
+     13000         Rs.13,000.00                                                 
+      6000          Rs.6,000.00                                                 
+      6500          Rs.6,500.00                                                 
+     10000         Rs.10,000.00                                                 
+     12008         Rs.12,008.00                                                 
+      8300          Rs.8,300.00                                                 
+     24000         Rs.24,000.00                                                 
+     17000         Rs.17,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+     17000         Rs.17,000.00                                                 
+      9000          Rs.9,000.00                                                 
+      6000          Rs.6,000.00                                                 
+      4800          Rs.4,800.00                                                 
+      4800          Rs.4,800.00                                                 
+      4200          Rs.4,200.00                                                 
+     12008         Rs.12,008.00                                                 
+      9000          Rs.9,000.00                                                 
+      8200          Rs.8,200.00                                                 
+      7700          Rs.7,700.00                                                 
+      7800          Rs.7,800.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      6900          Rs.6,900.00                                                 
+     11000         Rs.11,000.00                                                 
+      3100          Rs.3,100.00                                                 
+      2900          Rs.2,900.00                                                 
+      2800          Rs.2,800.00                                                 
+      2600          Rs.2,600.00                                                 
+      2500          Rs.2,500.00                                                 
+      8000          Rs.8,000.00                                                 
+      8200          Rs.8,200.00                                                 
+      7900          Rs.7,900.00                                                 
+      6500          Rs.6,500.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      5800          Rs.5,800.00                                                 
+      3200          Rs.3,200.00                                                 
+      2700          Rs.2,700.00                                                 
+      2400          Rs.2,400.00                                                 
+      2200          Rs.2,200.00                                                 
+      3300          Rs.3,300.00                                                 
+      2800          Rs.2,800.00                                                 
+      2500          Rs.2,500.00                                                 
+      2100          Rs.2,100.00                                                 
+      3300          Rs.3,300.00                                                 
+      2900          Rs.2,900.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      2400          Rs.2,400.00                                                 
+      2200          Rs.2,200.00                                                 
+      3600          Rs.3,600.00                                                 
+      3200          Rs.3,200.00                                                 
+      2700          Rs.2,700.00                                                 
+      2500          Rs.2,500.00                                                 
+      3500          Rs.3,500.00                                                 
+      3100          Rs.3,100.00                                                 
+      2600          Rs.2,600.00                                                 
+      2500          Rs.2,500.00                                                 
+     14000         Rs.14,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+     13500         Rs.13,500.00                                                 
+     12000         Rs.12,000.00                                                 
+     11000         Rs.11,000.00                                                 
+     10500         Rs.10,500.00                                                 
+     10000         Rs.10,000.00                                                 
+      9500          Rs.9,500.00                                                 
+      9000          Rs.9,000.00                                                 
+      8000          Rs.8,000.00                                                 
+      7500          Rs.7,500.00                                                 
+      7000          Rs.7,000.00                                                 
+     10000         Rs.10,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      9500          Rs.9,500.00                                                 
+      9000          Rs.9,000.00                                                 
+      8000          Rs.8,000.00                                                 
+      7500          Rs.7,500.00                                                 
+      7000          Rs.7,000.00                                                 
+     10500         Rs.10,500.00                                                 
+      9500          Rs.9,500.00                                                 
+      7200          Rs.7,200.00                                                 
+      6800          Rs.6,800.00                                                 
+      6400          Rs.6,400.00                                                 
+      6200          Rs.6,200.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+     11500         Rs.11,500.00                                                 
+     10000         Rs.10,000.00                                                 
+      9600          Rs.9,600.00                                                 
+      7400          Rs.7,400.00                                                 
+      7300          Rs.7,300.00                                                 
+      6100          Rs.6,100.00                                                 
+     11000         Rs.11,000.00                                                 
+      8800          Rs.8,800.00                                                 
+      8600          Rs.8,600.00                                                 
+      8400          Rs.8,400.00                                                 
+      7000          Rs.7,000.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      6200          Rs.6,200.00                                                 
+      3200          Rs.3,200.00                                                 
+      3100          Rs.3,100.00                                                 
+      2500          Rs.2,500.00                                                 
+      2800          Rs.2,800.00                                                 
+      4200          Rs.4,200.00                                                 
+      4100          Rs.4,100.00                                                 
+      3400          Rs.3,400.00                                                 
+      3000          Rs.3,000.00                                                 
+      3800          Rs.3,800.00                                                 
+      3600          Rs.3,600.00                                                 
+
+    SALARY TO_CHAR(SALARY,'U90G                                                 
+---------- --------------------                                                 
+      2900          Rs.2,900.00                                                 
+      2500          Rs.2,500.00                                                 
+      4000          Rs.4,000.00                                                 
+      3900          Rs.3,900.00                                                 
+      3200          Rs.3,200.00                                                 
+      2800          Rs.2,800.00                                                 
+      3100          Rs.3,100.00                                                 
+      3000          Rs.3,000.00                                                 
+
+107 rows selected.
+
+SQL> select salary,to_char(salary,'%90g000d00') from employees;
+select salary,to_char(salary,'%90g000d00') from employees
+                             *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> select salary,to_char(salary,'Rs.90g000d00') from employees;
+select salary,to_char(salary,'Rs.90g000d00') from employees
+                             *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> select salary,to_char(salary,'$90g000d00') from employees;
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+      2600   $2,600.00                                                          
+      2600   $2,600.00                                                          
+      4400   $4,400.00                                                          
+     13000  $13,000.00                                                          
+      6000   $6,000.00                                                          
+      6500   $6,500.00                                                          
+     10000  $10,000.00                                                          
+     12008  $12,008.00                                                          
+      8300   $8,300.00                                                          
+     24000  $24,000.00                                                          
+     17000  $17,000.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+     17000  $17,000.00                                                          
+      9000   $9,000.00                                                          
+      6000   $6,000.00                                                          
+      4800   $4,800.00                                                          
+      4800   $4,800.00                                                          
+      4200   $4,200.00                                                          
+     12008  $12,008.00                                                          
+      9000   $9,000.00                                                          
+      8200   $8,200.00                                                          
+      7700   $7,700.00                                                          
+      7800   $7,800.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+      6900   $6,900.00                                                          
+     11000  $11,000.00                                                          
+      3100   $3,100.00                                                          
+      2900   $2,900.00                                                          
+      2800   $2,800.00                                                          
+      2600   $2,600.00                                                          
+      2500   $2,500.00                                                          
+      8000   $8,000.00                                                          
+      8200   $8,200.00                                                          
+      7900   $7,900.00                                                          
+      6500   $6,500.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+      5800   $5,800.00                                                          
+      3200   $3,200.00                                                          
+      2700   $2,700.00                                                          
+      2400   $2,400.00                                                          
+      2200   $2,200.00                                                          
+      3300   $3,300.00                                                          
+      2800   $2,800.00                                                          
+      2500   $2,500.00                                                          
+      2100   $2,100.00                                                          
+      3300   $3,300.00                                                          
+      2900   $2,900.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+      2400   $2,400.00                                                          
+      2200   $2,200.00                                                          
+      3600   $3,600.00                                                          
+      3200   $3,200.00                                                          
+      2700   $2,700.00                                                          
+      2500   $2,500.00                                                          
+      3500   $3,500.00                                                          
+      3100   $3,100.00                                                          
+      2600   $2,600.00                                                          
+      2500   $2,500.00                                                          
+     14000  $14,000.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+     13500  $13,500.00                                                          
+     12000  $12,000.00                                                          
+     11000  $11,000.00                                                          
+     10500  $10,500.00                                                          
+     10000  $10,000.00                                                          
+      9500   $9,500.00                                                          
+      9000   $9,000.00                                                          
+      8000   $8,000.00                                                          
+      7500   $7,500.00                                                          
+      7000   $7,000.00                                                          
+     10000  $10,000.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+      9500   $9,500.00                                                          
+      9000   $9,000.00                                                          
+      8000   $8,000.00                                                          
+      7500   $7,500.00                                                          
+      7000   $7,000.00                                                          
+     10500  $10,500.00                                                          
+      9500   $9,500.00                                                          
+      7200   $7,200.00                                                          
+      6800   $6,800.00                                                          
+      6400   $6,400.00                                                          
+      6200   $6,200.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+     11500  $11,500.00                                                          
+     10000  $10,000.00                                                          
+      9600   $9,600.00                                                          
+      7400   $7,400.00                                                          
+      7300   $7,300.00                                                          
+      6100   $6,100.00                                                          
+     11000  $11,000.00                                                          
+      8800   $8,800.00                                                          
+      8600   $8,600.00                                                          
+      8400   $8,400.00                                                          
+      7000   $7,000.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+      6200   $6,200.00                                                          
+      3200   $3,200.00                                                          
+      3100   $3,100.00                                                          
+      2500   $2,500.00                                                          
+      2800   $2,800.00                                                          
+      4200   $4,200.00                                                          
+      4100   $4,100.00                                                          
+      3400   $3,400.00                                                          
+      3000   $3,000.00                                                          
+      3800   $3,800.00                                                          
+      3600   $3,600.00                                                          
+
+    SALARY TO_CHAR(SAL                                                          
+---------- -----------                                                          
+      2900   $2,900.00                                                          
+      2500   $2,500.00                                                          
+      4000   $4,000.00                                                          
+      3900   $3,900.00                                                          
+      3200   $3,200.00                                                          
+      2800   $2,800.00                                                          
+      3100   $3,100.00                                                          
+      3000   $3,000.00                                                          
+
+107 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> rem only $ will be accepted
+SQL> 
+SQL> 
+SQL> 
+SQL> select sysdate,to_date('2005 MARCH,   19','YYYY MONTH,   DD') from dual;
+
+SYSDATE   TO_DATE('                                                             
+--------- ---------                                                             
+19-MAR-19 19-MAR-05                                                             
+
+SQL> select sysdate,to_date('2005 MARCH,   19','YYYY Month,   DD') from dual;
+
+SYSDATE   TO_DATE('                                                             
+--------- ---------                                                             
+19-MAR-19 19-MAR-05                                                             
+
+SQL> select sysdate,to_date('2005 MARCH,   19','YYYY Month,DD') from dual;
+
+SYSDATE   TO_DATE('                                                             
+--------- ---------                                                             
+19-MAR-19 19-MAR-05                                                             
+
+SQL> 
+SQL> 
+SQL> 
+SQL> rem *
+SQL> 
+SQL> 
+SQL> 
+SQL> select sysdate,to_date('2005 MARCH,   19','FXYYYY Month,DD') from dual;
+select sysdate,to_date('2005 MARCH,   19','FXYYYY Month,DD') from dual
+                       *
+ERROR at line 1:
+ORA-01858: a non-numeric character was found where a numeric was expected 
+
+
+SQL> select to_number('23,456.98','99,999.99') from dual;
+
+TO_NUMBER('23,456.98','99,999.99')                                              
+----------------------------------                                              
+                          23456.98                                              
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem general function
+SQL> 
+SQL> 
+SQL> 
+SQL> select first_name,commission_pct from employees;
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Donald                                                                          
+Douglas                                                                         
+Jennifer                                                                        
+Michael                                                                         
+Pat                                                                             
+Susan                                                                           
+Hermann                                                                         
+Shelley                                                                         
+William                                                                         
+Steven                                                                          
+Neena                                                                           
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Lex                                                                             
+Alexander                                                                       
+Bruce                                                                           
+David                                                                           
+Valli                                                                           
+Diana                                                                           
+Nancy                                                                           
+Daniel                                                                          
+John                                                                            
+Ismael                                                                          
+Jose Manuel                                                                     
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Luis                                                                            
+Den                                                                             
+Alexander                                                                       
+Shelli                                                                          
+Sigal                                                                           
+Guy                                                                             
+Karen                                                                           
+Matthew                                                                         
+Adam                                                                            
+Payam                                                                           
+Shanta                                                                          
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Kevin                                                                           
+Julia                                                                           
+Irene                                                                           
+James                                                                           
+Steven                                                                          
+Laura                                                                           
+Mozhe                                                                           
+James                                                                           
+TJ                                                                              
+Jason                                                                           
+Michael                                                                         
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Ki                                                                              
+Hazel                                                                           
+Renske                                                                          
+Stephen                                                                         
+John                                                                            
+Joshua                                                                          
+Trenna                                                                          
+Curtis                                                                          
+Randall                                                                         
+Peter                                                                           
+John                             .4                                             
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Karen                            .3                                             
+Alberto                          .3                                             
+Gerald                           .3                                             
+Eleni                            .2                                             
+Peter                            .3                                             
+David                           .25                                             
+Peter                           .25                                             
+Christopher                      .2                                             
+Nanette                          .2                                             
+Oliver                          .15                                             
+Janette                         .35                                             
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Patrick                         .35                                             
+Allan                           .35                                             
+Lindsey                          .3                                             
+Louise                           .3                                             
+Sarath                          .25                                             
+Clara                           .25                                             
+Danielle                        .15                                             
+Mattea                           .1                                             
+David                            .1                                             
+Sundar                           .1                                             
+Amit                             .1                                             
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Lisa                            .25                                             
+Harrison                         .2                                             
+Tayler                           .2                                             
+William                         .15                                             
+Elizabeth                       .15                                             
+Sundita                          .1                                             
+Ellen                            .3                                             
+Alyssa                          .25                                             
+Jonathon                         .2                                             
+Jack                             .2                                             
+Kimberely                       .15                                             
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Charles                          .1                                             
+Winston                                                                         
+Jean                                                                            
+Martha                                                                          
+Girard                                                                          
+Nandita                                                                         
+Alexis                                                                          
+Julia                                                                           
+Anthony                                                                         
+Kelly                                                                           
+Jennifer                                                                        
+
+FIRST_NAME           COMMISSION_PCT                                             
+-------------------- --------------                                             
+Timothy                                                                         
+Randall                                                                         
+Sarah                                                                           
+Britney                                                                         
+Samuel                                                                          
+Vance                                                                           
+Alana                                                                           
+Kevin                                                                           
+
+107 rows selected.
+
+SQL> select first_name,commission_pct,nvl(commission_pct,0) from employees;
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Donald                                                  0                       
+Douglas                                                 0                       
+Jennifer                                                0                       
+Michael                                                 0                       
+Pat                                                     0                       
+Susan                                                   0                       
+Hermann                                                 0                       
+Shelley                                                 0                       
+William                                                 0                       
+Steven                                                  0                       
+Neena                                                   0                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Lex                                                     0                       
+Alexander                                               0                       
+Bruce                                                   0                       
+David                                                   0                       
+Valli                                                   0                       
+Diana                                                   0                       
+Nancy                                                   0                       
+Daniel                                                  0                       
+John                                                    0                       
+Ismael                                                  0                       
+Jose Manuel                                             0                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Luis                                                    0                       
+Den                                                     0                       
+Alexander                                               0                       
+Shelli                                                  0                       
+Sigal                                                   0                       
+Guy                                                     0                       
+Karen                                                   0                       
+Matthew                                                 0                       
+Adam                                                    0                       
+Payam                                                   0                       
+Shanta                                                  0                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Kevin                                                   0                       
+Julia                                                   0                       
+Irene                                                   0                       
+James                                                   0                       
+Steven                                                  0                       
+Laura                                                   0                       
+Mozhe                                                   0                       
+James                                                   0                       
+TJ                                                      0                       
+Jason                                                   0                       
+Michael                                                 0                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Ki                                                      0                       
+Hazel                                                   0                       
+Renske                                                  0                       
+Stephen                                                 0                       
+John                                                    0                       
+Joshua                                                  0                       
+Trenna                                                  0                       
+Curtis                                                  0                       
+Randall                                                 0                       
+Peter                                                   0                       
+John                             .4                    .4                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Karen                            .3                    .3                       
+Alberto                          .3                    .3                       
+Gerald                           .3                    .3                       
+Eleni                            .2                    .2                       
+Peter                            .3                    .3                       
+David                           .25                   .25                       
+Peter                           .25                   .25                       
+Christopher                      .2                    .2                       
+Nanette                          .2                    .2                       
+Oliver                          .15                   .15                       
+Janette                         .35                   .35                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Patrick                         .35                   .35                       
+Allan                           .35                   .35                       
+Lindsey                          .3                    .3                       
+Louise                           .3                    .3                       
+Sarath                          .25                   .25                       
+Clara                           .25                   .25                       
+Danielle                        .15                   .15                       
+Mattea                           .1                    .1                       
+David                            .1                    .1                       
+Sundar                           .1                    .1                       
+Amit                             .1                    .1                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Lisa                            .25                   .25                       
+Harrison                         .2                    .2                       
+Tayler                           .2                    .2                       
+William                         .15                   .15                       
+Elizabeth                       .15                   .15                       
+Sundita                          .1                    .1                       
+Ellen                            .3                    .3                       
+Alyssa                          .25                   .25                       
+Jonathon                         .2                    .2                       
+Jack                             .2                    .2                       
+Kimberely                       .15                   .15                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Charles                          .1                    .1                       
+Winston                                                 0                       
+Jean                                                    0                       
+Martha                                                  0                       
+Girard                                                  0                       
+Nandita                                                 0                       
+Alexis                                                  0                       
+Julia                                                   0                       
+Anthony                                                 0                       
+Kelly                                                   0                       
+Jennifer                                                0                       
+
+FIRST_NAME           COMMISSION_PCT NVL(COMMISSION_PCT,0)                       
+-------------------- -------------- ---------------------                       
+Timothy                                                 0                       
+Randall                                                 0                       
+Sarah                                                   0                       
+Britney                                                 0                       
+Samuel                                                  0                       
+Vance                                                   0                       
+Alana                                                   0                       
+Kevin                                                   0                       
+
+107 rows selected.
+
+SQL> select first_name,commission_pct,nvl2(commission_pct,1,0) from employees;
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Donald                                                     0                    
+Douglas                                                    0                    
+Jennifer                                                   0                    
+Michael                                                    0                    
+Pat                                                        0                    
+Susan                                                      0                    
+Hermann                                                    0                    
+Shelley                                                    0                    
+William                                                    0                    
+Steven                                                     0                    
+Neena                                                      0                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Lex                                                        0                    
+Alexander                                                  0                    
+Bruce                                                      0                    
+David                                                      0                    
+Valli                                                      0                    
+Diana                                                      0                    
+Nancy                                                      0                    
+Daniel                                                     0                    
+John                                                       0                    
+Ismael                                                     0                    
+Jose Manuel                                                0                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Luis                                                       0                    
+Den                                                        0                    
+Alexander                                                  0                    
+Shelli                                                     0                    
+Sigal                                                      0                    
+Guy                                                        0                    
+Karen                                                      0                    
+Matthew                                                    0                    
+Adam                                                       0                    
+Payam                                                      0                    
+Shanta                                                     0                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Kevin                                                      0                    
+Julia                                                      0                    
+Irene                                                      0                    
+James                                                      0                    
+Steven                                                     0                    
+Laura                                                      0                    
+Mozhe                                                      0                    
+James                                                      0                    
+TJ                                                         0                    
+Jason                                                      0                    
+Michael                                                    0                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Ki                                                         0                    
+Hazel                                                      0                    
+Renske                                                     0                    
+Stephen                                                    0                    
+John                                                       0                    
+Joshua                                                     0                    
+Trenna                                                     0                    
+Curtis                                                     0                    
+Randall                                                    0                    
+Peter                                                      0                    
+John                             .4                        1                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Karen                            .3                        1                    
+Alberto                          .3                        1                    
+Gerald                           .3                        1                    
+Eleni                            .2                        1                    
+Peter                            .3                        1                    
+David                           .25                        1                    
+Peter                           .25                        1                    
+Christopher                      .2                        1                    
+Nanette                          .2                        1                    
+Oliver                          .15                        1                    
+Janette                         .35                        1                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Patrick                         .35                        1                    
+Allan                           .35                        1                    
+Lindsey                          .3                        1                    
+Louise                           .3                        1                    
+Sarath                          .25                        1                    
+Clara                           .25                        1                    
+Danielle                        .15                        1                    
+Mattea                           .1                        1                    
+David                            .1                        1                    
+Sundar                           .1                        1                    
+Amit                             .1                        1                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Lisa                            .25                        1                    
+Harrison                         .2                        1                    
+Tayler                           .2                        1                    
+William                         .15                        1                    
+Elizabeth                       .15                        1                    
+Sundita                          .1                        1                    
+Ellen                            .3                        1                    
+Alyssa                          .25                        1                    
+Jonathon                         .2                        1                    
+Jack                             .2                        1                    
+Kimberely                       .15                        1                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Charles                          .1                        1                    
+Winston                                                    0                    
+Jean                                                       0                    
+Martha                                                     0                    
+Girard                                                     0                    
+Nandita                                                    0                    
+Alexis                                                     0                    
+Julia                                                      0                    
+Anthony                                                    0                    
+Kelly                                                      0                    
+Jennifer                                                   0                    
+
+FIRST_NAME           COMMISSION_PCT NVL2(COMMISSION_PCT,1,0)                    
+-------------------- -------------- ------------------------                    
+Timothy                                                    0                    
+Randall                                                    0                    
+Sarah                                                      0                    
+Britney                                                    0                    
+Samuel                                                     0                    
+Vance                                                      0                    
+Alana                                                      0                    
+Kevin                                                      0                    
+
+107 rows selected.
+
+SQL> select first_name,commission_pct,nvl2(commission_pct,'SAL+COM','SAl') from employees;
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Donald                              SAl                                         
+Douglas                             SAl                                         
+Jennifer                            SAl                                         
+Michael                             SAl                                         
+Pat                                 SAl                                         
+Susan                               SAl                                         
+Hermann                             SAl                                         
+Shelley                             SAl                                         
+William                             SAl                                         
+Steven                              SAl                                         
+Neena                               SAl                                         
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Lex                                 SAl                                         
+Alexander                           SAl                                         
+Bruce                               SAl                                         
+David                               SAl                                         
+Valli                               SAl                                         
+Diana                               SAl                                         
+Nancy                               SAl                                         
+Daniel                              SAl                                         
+John                                SAl                                         
+Ismael                              SAl                                         
+Jose Manuel                         SAl                                         
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Luis                                SAl                                         
+Den                                 SAl                                         
+Alexander                           SAl                                         
+Shelli                              SAl                                         
+Sigal                               SAl                                         
+Guy                                 SAl                                         
+Karen                               SAl                                         
+Matthew                             SAl                                         
+Adam                                SAl                                         
+Payam                               SAl                                         
+Shanta                              SAl                                         
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Kevin                               SAl                                         
+Julia                               SAl                                         
+Irene                               SAl                                         
+James                               SAl                                         
+Steven                              SAl                                         
+Laura                               SAl                                         
+Mozhe                               SAl                                         
+James                               SAl                                         
+TJ                                  SAl                                         
+Jason                               SAl                                         
+Michael                             SAl                                         
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Ki                                  SAl                                         
+Hazel                               SAl                                         
+Renske                              SAl                                         
+Stephen                             SAl                                         
+John                                SAl                                         
+Joshua                              SAl                                         
+Trenna                              SAl                                         
+Curtis                              SAl                                         
+Randall                             SAl                                         
+Peter                               SAl                                         
+John                             .4 SAL+COM                                     
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Karen                            .3 SAL+COM                                     
+Alberto                          .3 SAL+COM                                     
+Gerald                           .3 SAL+COM                                     
+Eleni                            .2 SAL+COM                                     
+Peter                            .3 SAL+COM                                     
+David                           .25 SAL+COM                                     
+Peter                           .25 SAL+COM                                     
+Christopher                      .2 SAL+COM                                     
+Nanette                          .2 SAL+COM                                     
+Oliver                          .15 SAL+COM                                     
+Janette                         .35 SAL+COM                                     
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Patrick                         .35 SAL+COM                                     
+Allan                           .35 SAL+COM                                     
+Lindsey                          .3 SAL+COM                                     
+Louise                           .3 SAL+COM                                     
+Sarath                          .25 SAL+COM                                     
+Clara                           .25 SAL+COM                                     
+Danielle                        .15 SAL+COM                                     
+Mattea                           .1 SAL+COM                                     
+David                            .1 SAL+COM                                     
+Sundar                           .1 SAL+COM                                     
+Amit                             .1 SAL+COM                                     
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Lisa                            .25 SAL+COM                                     
+Harrison                         .2 SAL+COM                                     
+Tayler                           .2 SAL+COM                                     
+William                         .15 SAL+COM                                     
+Elizabeth                       .15 SAL+COM                                     
+Sundita                          .1 SAL+COM                                     
+Ellen                            .3 SAL+COM                                     
+Alyssa                          .25 SAL+COM                                     
+Jonathon                         .2 SAL+COM                                     
+Jack                             .2 SAL+COM                                     
+Kimberely                       .15 SAL+COM                                     
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Charles                          .1 SAL+COM                                     
+Winston                             SAl                                         
+Jean                                SAl                                         
+Martha                              SAl                                         
+Girard                              SAl                                         
+Nandita                             SAl                                         
+Alexis                              SAl                                         
+Julia                               SAl                                         
+Anthony                             SAl                                         
+Kelly                               SAl                                         
+Jennifer                            SAl                                         
+
+FIRST_NAME           COMMISSION_PCT NVL2(CO                                     
+-------------------- -------------- -------                                     
+Timothy                             SAl                                         
+Randall                             SAl                                         
+Sarah                               SAl                                         
+Britney                             SAl                                         
+Samuel                              SAl                                         
+Vance                               SAl                                         
+Alana                               SAl                                         
+Kevin                               SAl                                         
+
+107 rows selected.
+
+SQL> select first_name,commission_pct,nvl(commission_pct,'SAL') from employees;
+select first_name,commission_pct,nvl(commission_pct,'SAL') from employees
+                                                    *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> spool off

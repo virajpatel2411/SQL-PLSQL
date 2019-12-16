@@ -1,0 +1,119 @@
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL>  rem read consistency
+SQL> 
+SQL> 
+SQL> 
+SQL> desc royal_new
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(33)
+ HIREDATE                                           DATE
+
+SQL> select * from royal_new;
+
+        NO NAME                              HIREDATE                           
+---------- --------------------------------- ---------                          
+       201 Michael Hartstein                 17-FEB-04                          
+       205 Shelley Higgins                   07-JUN-02                          
+       100 Steven King                       17-JUN-03                          
+       101 Neena Kochhar                     21-SEP-05                          
+       102 Lex De Haan                       13-JAN-01                          
+       108 Nancy Greenberg                   17-AUG-02                          
+       114 Den Raphaely                      07-DEC-02                          
+       145 John Russell                      01-OCT-04                          
+       146 Karen Partners                    05-JAN-05                          
+       147 Alberto Errazuriz                 10-MAR-05                          
+       148 Gerald Cambrault                  15-OCT-07                          
+
+        NO NAME                              HIREDATE                           
+---------- --------------------------------- ---------                          
+       149 Eleni Zlotkey                     29-JAN-08                          
+       162 Clara Vishney                     11-NOV-05                          
+       168 Lisa Ozer                         11-MAR-05                          
+       174 Ellen Abel                        11-MAY-04                          
+       165 Viraj Patel                       24-MAR-19                          
+       125 DUDISSUIH                         24-MAR-19                          
+       125 DUDISSUIH                                                            
+       125 DUDISSUIH                         24-MAR-19                          
+
+19 rows selected.
+
+SQL> 
+SQL> update royal_new set name='Vir' where no=165;
+
+1 row updated.
+
+SQL> rem lock created in other session lock1.txt
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem first commit or rollback fro releasing lock
+SQL> 
+SQL> 
+SQL> rem when locked no prompt is availabel
+SQL> 
+SQL> 
+SQL> 
+SQL> commit;
+
+Commit complete.
+
+SQL> rem lock released in other sesion(file) lock1.txt
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem deadlock
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> update royal_new set name='Vira' where no=165;
+
+1 row updated.
+
+SQL> update royal_new set name='Vira' where no=100;
+update royal_new set name='Vira' where no=100
+       *
+ERROR at line 1:
+ORA-00060: deadlock detected while waiting for resource 
+
+
+SQL> 
+SQL> 
+SQL> rem deadlock error generated
+SQL> 
+SQL> 
+SQL> we need to commit or rollback
+SP2-0734: unknown command beginning "we need to..." - rest of line ignored.
+SQL> 
+SQL> 
+SQL> rem we need to commit or rollback
+SQL> 
+SQL> 
+SQL> 
+SQL> update royal_new set name='Vira' where no=100;
+
+1 row updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem For undertand lock need to open lock and lock1 txt files
+SQL> 
+SQL> 
+SQL> 
+SQL> spool off

@@ -1,0 +1,1589 @@
+SQL> --uhhuhhuhuhuhuhuhuhhhhuhhuhhhuuhuhuhuhuhuhuhuhuhuhuhhuhuhuhuhhhhuhuhuhuhuhuhuhuhuhuhuhuhuhuhuhuhhuhuhuhuhuhhhhhuhuhuhuhhu
+SQL> ed
+SP2-0107: Nothing to save.
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> create or replace function get_sal(id employees.employees_id%type) return number is
+  2  
+  3  	sal employees.salary%type;
+  4  
+  5  begin
+  6  
+  7  	select salary into sal from employees where employee_id = id;
+  8  
+  9  	return sal;
+ 10  
+ 11  end get_sal;
+ 12  /
+
+Warning: Function created with compilation errors.
+
+SQL> create or replace function get_sal(id employees.employees_id%type) return number is
+  2  	sal employees.salary%type := 0;
+  3  begin
+  4  	select salary into sal from employees where employee_id = id;
+  5  	return sal;
+  6  end get_sal;
+  7  /
+
+Warning: Function created with compilation errors.
+
+SQL> create or replace function get_sal(id employees.employee_id%type) return number is
+  2  	sal employees.salary%type := 0;
+  3  begin
+  4  	select salary into sal from employees where employee_id = id;
+  5  	return sal;
+  6  end get_sal;
+  7  /
+
+Function created.
+
+SQL> execute dbms_output.put_line(get_sal(100));
+24000                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> select job_id,get_sal(employee_id) from employees;
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+AC_ACCOUNT                 8300                                                 
+AC_MGR                    12008                                                 
+AD_ASST                    4400                                                 
+AD_PRES                   24000                                                 
+AD_VP                     17000                                                 
+AD_VP                     17000                                                 
+FI_ACCOUNT                 9000                                                 
+FI_ACCOUNT                 8200                                                 
+FI_ACCOUNT                 7700                                                 
+FI_ACCOUNT                 7800                                                 
+FI_ACCOUNT                 6900                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+FI_MGR                    12008                                                 
+HR_REP                     6500                                                 
+IT_PROG                    9000                                                 
+IT_PROG                    6000                                                 
+IT_PROG                    4800                                                 
+IT_PROG                    4800                                                 
+IT_PROG                    4200                                                 
+MK_MAN                    13000                                                 
+MK_REP                     6000                                                 
+PR_REP                    10000                                                 
+PU_CLERK                   3100                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+PU_CLERK                   2900                                                 
+PU_CLERK                   2800                                                 
+PU_CLERK                   2600                                                 
+PU_CLERK                   2500                                                 
+PU_MAN                    11000                                                 
+SA_MAN                    14000                                                 
+SA_MAN                    13500                                                 
+SA_MAN                    12000                                                 
+SA_MAN                    11000                                                 
+SA_MAN                    10500                                                 
+SA_REP                    10000                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+SA_REP                     9500                                                 
+SA_REP                     9000                                                 
+SA_REP                     8000                                                 
+SA_REP                     7500                                                 
+SA_REP                     7000                                                 
+SA_REP                    10000                                                 
+SA_REP                     9500                                                 
+SA_REP                     9000                                                 
+SA_REP                     8000                                                 
+SA_REP                     7500                                                 
+SA_REP                     7000                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+SA_REP                    10500                                                 
+SA_REP                     9500                                                 
+SA_REP                     7200                                                 
+SA_REP                     6800                                                 
+SA_REP                     6400                                                 
+SA_REP                     6200                                                 
+SA_REP                    11500                                                 
+SA_REP                    10000                                                 
+SA_REP                     9600                                                 
+SA_REP                     7400                                                 
+SA_REP                     7300                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+SA_REP                     6100                                                 
+SA_REP                    11000                                                 
+SA_REP                     8800                                                 
+SA_REP                     8600                                                 
+SA_REP                     8400                                                 
+SA_REP                     7000                                                 
+SA_REP                     6200                                                 
+SH_CLERK                   2600                                                 
+SH_CLERK                   2600                                                 
+SH_CLERK                   3200                                                 
+SH_CLERK                   3100                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+SH_CLERK                   2500                                                 
+SH_CLERK                   2800                                                 
+SH_CLERK                   4200                                                 
+SH_CLERK                   4100                                                 
+SH_CLERK                   3400                                                 
+SH_CLERK                   3000                                                 
+SH_CLERK                   3800                                                 
+SH_CLERK                   3600                                                 
+SH_CLERK                   2900                                                 
+SH_CLERK                   2500                                                 
+SH_CLERK                   4000                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+SH_CLERK                   3900                                                 
+SH_CLERK                   3200                                                 
+SH_CLERK                   2800                                                 
+SH_CLERK                   3100                                                 
+SH_CLERK                   3000                                                 
+ST_CLERK                   3200                                                 
+ST_CLERK                   2700                                                 
+ST_CLERK                   2400                                                 
+ST_CLERK                   2200                                                 
+ST_CLERK                   3300                                                 
+ST_CLERK                   2800                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+ST_CLERK                   2500                                                 
+ST_CLERK                   2100                                                 
+ST_CLERK                   3300                                                 
+ST_CLERK                   2900                                                 
+ST_CLERK                   2400                                                 
+ST_CLERK                   2200                                                 
+ST_CLERK                   3600                                                 
+ST_CLERK                   3200                                                 
+ST_CLERK                   2700                                                 
+ST_CLERK                   2500                                                 
+ST_CLERK                   3500                                                 
+
+JOB_ID     GET_SAL(EMPLOYEE_ID)                                                 
+---------- --------------------                                                 
+ST_CLERK                   3100                                                 
+ST_CLERK                   2600                                                 
+ST_CLERK                   2500                                                 
+ST_MAN                     8000                                                 
+ST_MAN                     8200                                                 
+ST_MAN                     7900                                                 
+ST_MAN                     6500                                                 
+ST_MAN                     5800                                                 
+
+107 rows selected.
+
+SQL> cretae or replace function tax(sal in number)
+SP2-0734: unknown command beginning "cretae or ..." - rest of line ignored.
+SQL> create or replace function tax(sal in number)
+  2  	return number is
+  3   val employees.salary%type := 0;
+  4  begin
+  5  	val = (sal*(0.08));
+  6  return val;
+  7  end tax;
+  8  /
+
+Warning: Function created with compilation errors.
+
+SQL> create or replace function tax(sal in number)
+  2  	return number is
+  3  begin
+  4  	val = (sal*(0.08));
+  5  /
+
+Warning: Function created with compilation errors.
+
+SQL> create or replace function tax(sal in number)
+  2  	return number is
+  3  begin
+  4  	return (sal*(0.08));
+  5  end tax;
+  6  /
+
+Function created.
+
+SQL> select employee_name,salary,tax(salary) from employees;
+select employee_name,salary,tax(salary) from employees
+       *
+ERROR at line 1:
+ORA-00904: "EMPLOYEE_NAME": invalid identifier 
+
+
+SQL> select first_name,salary,tax(salary) from employees;
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Donald                     2600         208                                     
+Douglas                    2600         208                                     
+Jennifer                   4400         352                                     
+Michael                   13000        1040                                     
+Pat                        6000         480                                     
+Susan                      6500         520                                     
+Hermann                   10000         800                                     
+Shelley                   12008      960.64                                     
+William                    8300         664                                     
+Steven                    24000        1920                                     
+Neena                     17000        1360                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Lex                       17000        1360                                     
+Alexander                  9000         720                                     
+Bruce                      6000         480                                     
+David                      4800         384                                     
+Valli                      4800         384                                     
+Diana                      4200         336                                     
+Nancy                     12008      960.64                                     
+Daniel                     9000         720                                     
+John                       8200         656                                     
+Ismael                     7700         616                                     
+Jose Manuel                7800         624                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Luis                       6900         552                                     
+Den                       11000         880                                     
+Alexander                  3100         248                                     
+Shelli                     2900         232                                     
+Sigal                      2800         224                                     
+Guy                        2600         208                                     
+Karen                      2500         200                                     
+Matthew                    8000         640                                     
+Adam                       8200         656                                     
+Payam                      7900         632                                     
+Shanta                     6500         520                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Kevin                      5800         464                                     
+Julia                      3200         256                                     
+Irene                      2700         216                                     
+James                      2400         192                                     
+Steven                     2200         176                                     
+Laura                      3300         264                                     
+Mozhe                      2800         224                                     
+James                      2500         200                                     
+TJ                         2100         168                                     
+Jason                      3300         264                                     
+Michael                    2900         232                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Ki                         2400         192                                     
+Hazel                      2200         176                                     
+Renske                     3600         288                                     
+Stephen                    3200         256                                     
+John                       2700         216                                     
+Joshua                     2500         200                                     
+Trenna                     3500         280                                     
+Curtis                     3100         248                                     
+Randall                    2600         208                                     
+Peter                      2500         200                                     
+John                      14000        1120                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Karen                     13500        1080                                     
+Alberto                   12000         960                                     
+Gerald                    11000         880                                     
+Eleni                     10500         840                                     
+Peter                     10000         800                                     
+David                      9500         760                                     
+Peter                      9000         720                                     
+Christopher                8000         640                                     
+Nanette                    7500         600                                     
+Oliver                     7000         560                                     
+Janette                   10000         800                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Patrick                    9500         760                                     
+Allan                      9000         720                                     
+Lindsey                    8000         640                                     
+Louise                     7500         600                                     
+Sarath                     7000         560                                     
+Clara                     10500         840                                     
+Danielle                   9500         760                                     
+Mattea                     7200         576                                     
+David                      6800         544                                     
+Sundar                     6400         512                                     
+Amit                       6200         496                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Lisa                      11500         920                                     
+Harrison                  10000         800                                     
+Tayler                     9600         768                                     
+William                    7400         592                                     
+Elizabeth                  7300         584                                     
+Sundita                    6100         488                                     
+Ellen                     11000         880                                     
+Alyssa                     8800         704                                     
+Jonathon                   8600         688                                     
+Jack                       8400         672                                     
+Kimberely                  7000         560                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Charles                    6200         496                                     
+Winston                    3200         256                                     
+Jean                       3100         248                                     
+Martha                     2500         200                                     
+Girard                     2800         224                                     
+Nandita                    4200         336                                     
+Alexis                     4100         328                                     
+Julia                      3400         272                                     
+Anthony                    3000         240                                     
+Kelly                      3800         304                                     
+Jennifer                   3600         288                                     
+
+FIRST_NAME               SALARY TAX(SALARY)                                     
+-------------------- ---------- -----------                                     
+Timothy                    2900         232                                     
+Randall                    2500         200                                     
+Sarah                      4000         320                                     
+Britney                    3900         312                                     
+Samuel                     3200         256                                     
+Vance                      2800         224                                     
+Alana                      3100         248                                     
+Kevin                      3000         240                                     
+
+107 rows selected.
+
+SQL> create or replace function del_rows(table_name varchar2)
+  2  	return number is
+  3  begin
+  4  	execute immediate 'delete from '|| table_name;
+  5  return sql%rowcount;
+  6  end;
+  7  /
+
+Function created.
+
+SQL> execute dbms_output.put_line(del_rows('employees_name')|| ' rows deleted.');
+BEGIN dbms_output.put_line(del_rows('employees_name')|| ' rows deleted.'); END;
+
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+ORA-06512: at "HR.DEL_ROWS", line 4 
+ORA-06512: at line 1 
+
+
+SQL> 
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+C                              SYNONYM                                          
+COUNTRIES                      TABLE                                            
+COUNT_DEPART                   VIEW                                             
+D                              SYNONYM                                          
+D10                            VIEW                                             
+DEPARTMENTS                    TABLE                                            
+DEPT                           TABLE                                            
+EMPLOYEES                      TABLE                                            
+EMPLOYEE_DETAILS               TABLE                                            
+EMP_DETAILS_VIEW               VIEW                                             
+EMP_SAL                        VIEW                                             
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+J                              SYNONYM                                          
+JH                             SYNONYM                                          
+JOBS                           TABLE                                            
+JOB_HISTORY                    TABLE                                            
+L                              SYNONYM                                          
+LOCATIONS                      TABLE                                            
+R                              SYNONYM                                          
+REGIONS                        TABLE                                            
+ROYAL_NEW                      TABLE                                            
+T                              TABLE                                            
+V                              SYNONYM                                          
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+VEMP                           VIEW                                             
+VIRAJ                          TABLE                                            
+
+24 rows selected.
+
+SQL> desc royal_new;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(33)
+ HIREDATE                                           DATE
+
+SQL> execute dbms_output.put_line(del_rows('royal_new')|| ' rows deleted.');
+19 rows deleted.                                                                
+
+PL/SQL procedure successfully completed.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from royal_new;
+
+        NO NAME                              HIREDATE                           
+---------- --------------------------------- ---------                          
+       201 Michael Hartstein                 17-FEB-04                          
+       205 Shelley Higgins                   07-JUN-02                          
+       100 Vira                              17-JUN-03                          
+       101 Neena Kochhar                     21-SEP-05                          
+       102 Lex De Haan                       13-JAN-01                          
+       108 Nancy Greenberg                   17-AUG-02                          
+       114 Den Raphaely                      07-DEC-02                          
+       145 John Russell                      01-OCT-04                          
+       146 Karen Partners                    05-JAN-05                          
+       147 Alberto Errazuriz                 10-MAR-05                          
+       148 Gerald Cambrault                  15-OCT-07                          
+
+        NO NAME                              HIREDATE                           
+---------- --------------------------------- ---------                          
+       149 Eleni Zlotkey                     29-JAN-08                          
+       162 Clara Vishney                     11-NOV-05                          
+       168 Lisa Ozer                         11-MAR-05                          
+       174 Ellen Abel                        11-MAY-04                          
+       165 Vira                              24-MAR-19                          
+       125 DUDISSUIH                         24-MAR-19                          
+       125 DUDISSUIH                                                            
+       125 DUDISSUIH                         24-MAR-19                          
+
+19 rows selected.
+
+SQL> select * from user_objects where object_type=FUNCTIONS;
+select * from user_objects where object_type=FUNCTIONS
+                                             *
+ERROR at line 1:
+ORA-00904: "FUNCTIONS": invalid identifier 
+
+
+SQL> select * from user_objects where object_type='FUNCTIONS';
+
+no rows selected
+
+SQL> select * from user_objects;
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+T                                                                               
+                                    75348          75351 TABLE                  
+07-APR-19 07-APR-19 2019-04-07:10:18:56 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+SQ1                                                                             
+                                    75352                SEQUENCE               
+07-APR-19 07-APR-19 2019-04-07:10:22:43 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+V                                                                               
+                                    75354                SYNONYM                
+07-APR-19 07-APR-19 2019-04-07:10:26:35 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+C                                                                               
+                                    75355                SYNONYM                
+07-APR-19 07-APR-19 2019-04-07:10:27:15 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+D                                                                               
+                                    75356                SYNONYM                
+07-APR-19 07-APR-19 2019-04-07:10:27:28 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+J                                                                               
+                                    75357                SYNONYM                
+07-APR-19 07-APR-19 2019-04-07:10:27:39 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+JH                                                                              
+                                    75358                SYNONYM                
+07-APR-19 07-APR-19 2019-04-07:10:27:53 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+L                                                                               
+                                    75359                SYNONYM                
+07-APR-19 07-APR-19 2019-04-07:10:28:10 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+R                                                                               
+                                    75360                SYNONYM                
+07-APR-19 07-APR-19 2019-04-07:10:28:17 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+IND_EMP                                                                         
+                                    75361          75361 INDEX                  
+07-APR-19 07-APR-19 2019-04-07:10:51:13 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+REGIONS                                                                         
+                                    73934          73304 TABLE                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:14 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+REG_ID_PK                                                                       
+                                    73935          73305 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:14 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+COUNTRIES                                                                       
+                                    73936                TABLE                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+COUNTRY_C_ID_PK                                                                 
+                                    73937          73307 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+LOCATIONS                                                                       
+                                    73938          73308 TABLE                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+LOC_ID_PK                                                                       
+                                    73939          73309 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+LOC_CITY_IX                                                                     
+                                    73940          73331 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+LOC_STATE_PROVINCE_IX                                                           
+                                    73941          73332 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+LOC_COUNTRY_IX                                                                  
+                                    73942          73333 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+DEPARTMENTS                                                                     
+                                    73943          73311 TABLE                  
+02-MAR-19 24-MAR-19 2019-03-24:10:30:57 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+DEPT_ID_PK                                                                      
+                                    73944          73312 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+DEPT_LOCATION_IX                                                                
+                                    73945          73327 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+JOBS                                                                            
+                                    73946          73314 TABLE                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+JOB_ID_PK                                                                       
+                                    73947          73315 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMPLOYEES                                                                       
+                                    73948          73316 TABLE                  
+02-MAR-19 11-MAY-19 2019-05-11:12:41:03 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMP_EMAIL_UK                                                                    
+                                    73949          73317 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMP_EMP_ID_PK                                                                   
+                                    73950          73318 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMP_DEPARTMENT_IX                                                               
+                                    73951          73323 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMP_JOB_IX                                                                      
+                                    73952          73324 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMP_MANAGER_IX                                                                  
+                                    73953          73325 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMP_NAME_IX                                                                     
+                                    73954          73326 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+JOB_HISTORY                                                                     
+                                    73955          73320 TABLE                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:15 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+JHIST_EMP_ID_ST_DATE_PK                                                         
+                                    73956          73321 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:16 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+JHIST_JOB_IX                                                                    
+                                    73957          73328 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:16 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+JHIST_EMPLOYEE_IX                                                               
+                                    73958          73329 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:16 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+JHIST_DEPARTMENT_IX                                                             
+                                    73959          73330 INDEX                  
+02-MAR-19 02-MAR-19 2019-03-02:15:20:16 VALID   N N N          4                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+LOCATIONS_SEQ                                                                   
+                                    74405                SEQUENCE               
+02-MAR-19 02-MAR-19 2019-03-02:15:20:30 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+DEPARTMENTS_SEQ                                                                 
+                                    74406                SEQUENCE               
+02-MAR-19 02-MAR-19 2019-03-02:15:20:30 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMPLOYEES_SEQ                                                                   
+                                    74407                SEQUENCE               
+02-MAR-19 02-MAR-19 2019-03-02:15:20:30 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMP_DETAILS_VIEW                                                                
+                                    74408                VIEW                   
+02-MAR-19 21-MAR-19 2019-03-02:15:20:30 INVALID N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+SECURE_DML                                                                      
+                                    74409                PROCEDURE              
+02-MAR-19 02-MAR-19 2019-03-02:15:20:30 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+SECURE_EMPLOYEES                                                                
+                                    74410                TRIGGER                
+02-MAR-19 02-MAR-19 2019-03-02:15:20:30 INVALID N N N          3                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+ADD_JOB_HISTORY                                                                 
+                                    74411                PROCEDURE              
+02-MAR-19 02-MAR-19 2019-03-02:15:20:30 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+UPDATE_JOB_HISTORY                                                              
+                                    74412                TRIGGER                
+02-MAR-19 02-MAR-19 2019-03-02:15:20:30 INVALID N N N          3                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+VIRAJ                                                                           
+                                    75264          75264 TABLE                  
+06-APR-19 06-APR-19 2019-04-06:16:56:44 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+VEMP                                                                            
+                                    75263                VIEW                   
+06-APR-19 06-APR-19 2019-04-06:16:58:23 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMP_SAL                                                                         
+                                    75265                VIEW                   
+06-APR-19 06-APR-19 2019-04-06:17:05:09 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+COUNT_DEPART                                                                    
+                                    75266                VIEW                   
+06-APR-19 06-APR-19 2019-04-06:17:19:35 INVALID N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+ROYAL_NEW                                                                       
+                                    75110          75112 TABLE                  
+23-MAR-19 24-MAR-19 2019-03-24:12:55:14 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EMPLOYEE_DETAILS                                                                
+                                    75114          75114 TABLE                  
+23-MAR-19 23-MAR-19 2019-03-23:12:41:49 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+TAX                                                                             
+                                    76471                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:34:06 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+DEL_ROWS                                                                        
+                                    76472                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:42:08 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+GET_SAL                                                                         
+                                    76470                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:27:47 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+S1                                                                              
+                                    76254                SEQUENCE               
+11-MAY-19 11-MAY-19 2019-05-11:12:45:04 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+D10                                                                             
+                                    76253                VIEW                   
+11-MAY-19 11-MAY-19 2019-05-11:12:41:56 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+S2                                                                              
+                                    76256                SEQUENCE               
+11-MAY-19 11-MAY-19 2019-05-11:12:47:51 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+DEPT                                                                            
+                                    76367          76367 TABLE                  
+18-MAY-19 18-MAY-19 2019-05-18:12:10:42 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+ADD_DEPT                                                                        
+                                    76368                PROCEDURE              
+18-MAY-19 18-MAY-19 2019-05-18:12:13:11 INVALID N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+ADD_DEPARTMENT_VIRAJ                                                            
+                                    76369                PROCEDURE              
+18-MAY-19 18-MAY-19 2019-05-18:12:18:37 INVALID N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+ADDVIRAJ                                                                        
+                                    76370                PROCEDURE              
+18-MAY-19 18-MAY-19 2019-05-18:12:22:14 INVALID N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+EARTH                                                                           
+                                    76371                PROCEDURE              
+18-MAY-19 18-MAY-19 2019-05-18:12:25:03 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+UNIVERSE                                                                        
+                                    76372                PROCEDURE              
+18-MAY-19 18-MAY-19 2019-05-18:12:28:36 VALID   N N N          1                
+                                                                                
+                                                                                
+
+62 rows selected.
+
+SQL> select * from user_objects where object_type='FUNCTION';
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+TAX                                                                             
+                                    76471                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:34:06 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+GET_SAL                                                                         
+                                    76470                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:27:47 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+--------------------------------------------------------------------------------
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+DEL_ROWS                                                                        
+                                    76472                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:42:08 VALID   N N N          1                
+                                                                                
+                                                                                
+
+SQL> set col object_name for 60
+SP2-0158: unknown SET option "col"
+SQL> set col object_name for a60
+SP2-0158: unknown SET option "col"
+SQL> col object_name for a60
+SQL> select * from user_objects where object_type='FUNCTION';
+
+OBJECT_NAME                                                                     
+------------------------------------------------------------                    
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+DEL_ROWS                                                                        
+                                    76472                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:42:08 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+------------------------------------------------------------                    
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+GET_SAL                                                                         
+                                    76470                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:27:47 VALID   N N N          1                
+                                                                                
+                                                                                
+
+OBJECT_NAME                                                                     
+------------------------------------------------------------                    
+SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE            
+------------------------------ ---------- -------------- -------------------    
+CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                
+--------- --------- ------------------- ------- - - - ----------                
+EDITION_NAME                                                                    
+------------------------------                                                  
+TAX                                                                             
+                                    76471                FUNCTION               
+20-MAY-19 20-MAY-19 2019-05-20:14:34:06 VALID   N N N          1                
+                                                                                
+                                                                                
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from royal_new;
+
+        NO NAME                              HIREDATE                           
+---------- --------------------------------- ---------                          
+       201 Michael Hartstein                 17-FEB-04                          
+       205 Shelley Higgins                   07-JUN-02                          
+       100 Vira                              17-JUN-03                          
+       101 Neena Kochhar                     21-SEP-05                          
+       102 Lex De Haan                       13-JAN-01                          
+       108 Nancy Greenberg                   17-AUG-02                          
+       114 Den Raphaely                      07-DEC-02                          
+       145 John Russell                      01-OCT-04                          
+       146 Karen Partners                    05-JAN-05                          
+       147 Alberto Errazuriz                 10-MAR-05                          
+       148 Gerald Cambrault                  15-OCT-07                          
+
+        NO NAME                              HIREDATE                           
+---------- --------------------------------- ---------                          
+       149 Eleni Zlotkey                     29-JAN-08                          
+       162 Clara Vishney                     11-NOV-05                          
+       168 Lisa Ozer                         11-MAR-05                          
+       174 Ellen Abel                        11-MAY-04                          
+       165 Vira                              24-MAR-19                          
+       125 DUDISSUIH                         24-MAR-19                          
+       125 DUDISSUIH                                                            
+       125 DUDISSUIH                         24-MAR-19                          
+
+19 rows selected.
+
+SQL> create or replace trigger secure_royal
+  2  	before insert on royal_new
+  3  begin
+  4   if(to_char(sysdate,dy) in ('SAT','SUN')) or
+  5   (to_char(sydate,'hh24:mi') not between '08:00' and '14:00') then
+  6  raise_application_error(-20500,'Not a valid time to insert');
+  7  end if;
+  8  end;
+  9  /
+
+Warning: Trigger created with compilation errors.
+
+SQL> create or replace trigger secure_royal
+  2  	before insert on royal_new
+  3  begin
+  4   if(to_char(sysdate,'dy') in ('SAT','SUN')) or
+  5   (to_char(sydate,'hh24:mi') not between '08:00' and '14:00') then
+  6  raise_application_error(-20500,'Not a valid time to insert');
+  7  end if;
+  8  end;
+  9  /
+
+Warning: Trigger created with compilation errors.
+
+SQL> create or replace trigger secure_royal
+  2  	before insert on royal_new
+  3  begin
+  4   if(to_char(sysdate,'DY') in ('SAT','SUN')) or
+  5   (to_char(sydate,'hh24:mi') not between '08:00' and '14:00') then
+  6  raise_application_error(-20500,'Not a valid time to insert');
+  7  /
+
+Warning: Trigger created with compilation errors.
+
+SQL> create or replace trigger secure_royal
+  2  	before insert on royal_new
+  3  begin
+  4   if(to_char(sysdate,'DY') in ('SAT','SUN')) or
+  5   (to_char(sysdate,'hh24:mi') not between '08:00' and '14:00') then
+  6  raise_application_error(-20500,'Not a valid time to insert');
+  7  end if;
+  8  end;
+  9  /
+
+Trigger created.
+
+SQL> desc royal_new
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NO                                                 NUMBER(10)
+ NAME                                      NOT NULL VARCHAR2(33)
+ HIREDATE                                           DATE
+
+SQL> insert into royal_new values(10,'Viraj',sysdate);
+insert into royal_new values(10,'Viraj',sysdate)
+            *
+ERROR at line 1:
+ORA-20500: Not a valid time to insert 
+ORA-06512: at "HR.SECURE_ROYAL", line 4 
+ORA-04088: error during execution of trigger 'HR.SECURE_ROYAL' 
+
+
+SQL> drop trigger secure_royal;
+
+Trigger dropped.
+
+SQL> insert into royal_new values(10,'Viraj',sysdate);
+
+1 row created.
+
+SQL> spool off;

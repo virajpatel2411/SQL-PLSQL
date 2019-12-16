@@ -1,0 +1,819 @@
+SQL> set lines 300
+SQL> set pages 20
+SQL> set serveroutput on
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE FUNCTION del_rows(p_table_name VARCHAR2)
+  2  RETURN NUMBER IS
+  3  BEGIN
+  4    EXECUTE IMMEDIATE 'DELETE FROM '|| p_table_name;
+  5    RETURN SQL%ROWCOUNT;
+  6  END;
+  7  /
+CREATE FUNCTION del_rows(p_table_name VARCHAR2)
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE(del_rows('EMPLOYEE_NAMES')|| ' rows deleted.');
+  3  END;
+  4  /
+0 rows deleted.                                                                                                                                                                                                                                                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE or replace FUNCTION del_rows(p_table_name VARCHAR2)
+  2  RETURN NUMBER IS
+  3  BEGIN
+  4    EXECUTE IMMEDIATE 'DELETE FROM '|| p_table_name;
+  5    RETURN SQL%ROWCOUNT;
+  6  END;
+  7  /
+
+Function created.
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE(del_rows('EMPLOYEE_NAMES')|| ' rows deleted.');
+  3  END;
+  4  /
+0 rows deleted.                                                                                                                                                                                                                                                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from employee_names;
+
+no rows selected
+
+SQL> desc employee_names;
+ Name                                                                                                                                                                          Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------------------------------------------------------
+ ID                                                                                                                                                                            NOT NULL NUMBER(4)
+ NAME                                                                                                                                                                                   VARCHAR2(40)
+ SALARY                                                                                                                                                                                 NUMBER(8,2)
+
+SQL> insert into employee_names values(1,'jay',5000);
+
+1 row created.
+
+SQL> insert into employee_names values(2,'kiran',6000);
+
+1 row created.
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE(del_rows('EMPLOYEE_NAMES')|| ' rows deleted.');
+  3  END;
+  4  /
+2 rows deleted.                                                                                                                                                                                                                                                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE PROCEDURE add_row(p_table_name VARCHAR2,
+  2     p_id NUMBER, p_name VARCHAR2) IS
+  3  BEGIN
+  4    EXECUTE IMMEDIATE 'INSERT INTO '|| p_table_name||
+  5          ' VALUES (:1, :2)' USING p_id, p_name;
+  6  END;
+  7  /
+CREATE PROCEDURE add_row(p_table_name VARCHAR2,
+                 *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE or replace PROCEDURE add_row(p_table_name VARCHAR2,
+  2     p_id NUMBER, p_name VARCHAR2) IS
+  3  BEGIN
+  4    EXECUTE IMMEDIATE 'INSERT INTO '|| p_table_name||
+  5          ' VALUES (:1, :2)' USING p_id, p_name;
+  6* END;
+SQL> /
+
+Procedure created.
+
+SQL> begin
+  2  add_row('Employee_names',3,'lalit');
+  3  end;
+  4  /
+begin
+*
+ERROR at line 1:
+ORA-00947: not enough values 
+ORA-06512: at "HR.ADD_ROW", line 4 
+ORA-06512: at line 2 
+
+
+SQL> alter table employee_names drop column salary;
+
+Table altered.
+
+SQL> begin
+  2  add_row('Employee_names',3,'lalit');
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from employee_names;
+
+        ID NAME                                                                                                                                                                                                                                                                                             
+---------- ----------------------------------------                                                                                                                                                                                                                                                         
+         3 lalit                                                                                                                                                                                                                                                                                            
+
+SQL> CREATE OR REPLACE FUNCTION get_emp(p_emp_id NUMBER)
+  2  RETURN employees%ROWTYPE IS
+  3    v_stmt VARCHAR2(200);
+  4    v_emprec employees%ROWTYPE;
+  5  BEGIN
+  6    v_stmt := 'SELECT * FROM employees ' ||
+  7            'WHERE employee_id = :id';
+  8    EXECUTE IMMEDIATE v_stmt INTO v_emprec USING p_emp_id;
+  9  
+ 10    RETURN v_emprec;
+ 11  END;
+ 12  /
+
+Function created.
+
+SQL> DECLARE
+  2    v_emprec employees%ROWTYPE := get_emp(100);
+  3  BEGIN
+  4    DBMS_OUTPUT.PUT_LINE('Emp: '|| v_emprec.last_name);
+  5  END;
+  6  /
+Emp: King                                                                                                                                                                                                                                                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2    v_emprec employees%ROWTYPE := get_emp(50);
+  3  BEGIN
+  4    DBMS_OUTPUT.PUT_LINE('Emp: '|| v_emprec.last_name);
+  5* END;
+SQL> /
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at "HR.GET_EMP", line 8 
+ORA-06512: at line 2 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2    v_emprec employees%ROWTYPE := get_emp(150);
+  3  BEGIN
+  4    DBMS_OUTPUT.PUT_LINE('Emp: '|| v_emprec.last_name);
+  5* END;
+SQL> /
+Emp: Tucker                                                                                                                                                                                                                                                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE OR REPLACE PROCEDURE list_employees(p_deptid NUMBER) IS
+  2    TYPE emp_refcsr_type IS REF CURSOR;
+  3    cur_emp  emp_refcsr_type;
+  4    rec_emp  employees%ROWTYPE;
+  5    v_stmt varchar2(200) := 'SELECT * FROM employees';
+  6  
+  7  BEGIN
+  8    IF p_deptid IS NULL THEN
+  9      OPEN cur_emp FOR v_stmt;
+ 10    ELSE
+ 11      v_stmt := v_stmt || ' WHERE department_id = :id';
+ 12      OPEN cur_emp FOR v_stmt USING p_deptid;
+ 13    END IF;
+ 14    LOOP
+ 15      FETCH cur_emp INTO rec_emp;
+ 16      EXIT WHEN cur_emp%NOTFOUND;
+ 17      DBMS_OUTPUT.PUT_LINE(rec_emp.department_id ||
+ 18                      ' ' || rec_emp.last_name);
+ 19    END LOOP;
+ 20    CLOSE cur_emp;
+ 21  END;
+ 22  /
+
+Procedure created.
+
+SQL> execute list_employees(50);
+50 OConnell                                                                                                                                                                                                                                                                                                 
+50 Grant                                                                                                                                                                                                                                                                                                    
+50 b                                                                                                                                                                                                                                                                                                        
+50 b                                                                                                                                                                                                                                                                                                        
+50 Russell                                                                                                                                                                                                                                                                                                  
+50 Weiss                                                                                                                                                                                                                                                                                                    
+50 Fripp                                                                                                                                                                                                                                                                                                    
+50 Kaufling                                                                                                                                                                                                                                                                                                 
+50 Vollman                                                                                                                                                                                                                                                                                                  
+50 Mourgos                                                                                                                                                                                                                                                                                                  
+50 Nayer                                                                                                                                                                                                                                                                                                    
+50 Mikkilineni                                                                                                                                                                                                                                                                                              
+50 Landry                                                                                                                                                                                                                                                                                                   
+50 Markle                                                                                                                                                                                                                                                                                                   
+50 Bissot                                                                                                                                                                                                                                                                                                   
+50 Atkinson                                                                                                                                                                                                                                                                                                 
+50 Marlow                                                                                                                                                                                                                                                                                                   
+50 Olson                                                                                                                                                                                                                                                                                                    
+50 Mallin                                                                                                                                                                                                                                                                                                   
+50 Rogers                                                                                                                                                                                                                                                                                                   
+50 Gee                                                                                                                                                                                                                                                                                                      
+50 Philtanker                                                                                                                                                                                                                                                                                               
+50 Ladwig                                                                                                                                                                                                                                                                                                   
+50 Stiles                                                                                                                                                                                                                                                                                                   
+50 Seo                                                                                                                                                                                                                                                                                                      
+50 Patel                                                                                                                                                                                                                                                                                                    
+50 Rajs                                                                                                                                                                                                                                                                                                     
+50 Davies                                                                                                                                                                                                                                                                                                   
+50 Matos                                                                                                                                                                                                                                                                                                    
+50 Vargas                                                                                                                                                                                                                                                                                                   
+50 Taylor                                                                                                                                                                                                                                                                                                   
+50 Fleaur                                                                                                                                                                                                                                                                                                   
+50 Sullivan                                                                                                                                                                                                                                                                                                 
+50 Geoni                                                                                                                                                                                                                                                                                                    
+50 Sarchand                                                                                                                                                                                                                                                                                                 
+50 Bull                                                                                                                                                                                                                                                                                                     
+50 Dellinger                                                                                                                                                                                                                                                                                                
+50 Cabrio                                                                                                                                                                                                                                                                                                   
+50 Chung                                                                                                                                                                                                                                                                                                    
+50 Dilly                                                                                                                                                                                                                                                                                                    
+50 Gates                                                                                                                                                                                                                                                                                                    
+50 Perkins                                                                                                                                                                                                                                                                                                  
+50 Bell                                                                                                                                                                                                                                                                                                     
+50 Everett                                                                                                                                                                                                                                                                                                  
+50 McCain                                                                                                                                                                                                                                                                                                   
+50 Jones                                                                                                                                                                                                                                                                                                    
+50 Walsh                                                                                                                                                                                                                                                                                                    
+50 Feeney                                                                                                                                                                                                                                                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> execute list_employees(null);
+50 OConnell                                                                                                                                                                                                                                                                                                 
+50 Grant                                                                                                                                                                                                                                                                                                    
+10 Whalen                                                                                                                                                                                                                                                                                                   
+20 Hartstein                                                                                                                                                                                                                                                                                                
+20 Fay                                                                                                                                                                                                                                                                                                      
+40 Mavris                                                                                                                                                                                                                                                                                                   
+70 Baer                                                                                                                                                                                                                                                                                                     
+110 Higgins                                                                                                                                                                                                                                                                                                 
+110 Gietz                                                                                                                                                                                                                                                                                                   
+60 Smith                                                                                                                                                                                                                                                                                                    
+50 b                                                                                                                                                                                                                                                                                                        
+50 b                                                                                                                                                                                                                                                                                                        
+60 Smith                                                                                                                                                                                                                                                                                                    
+50 Russell                                                                                                                                                                                                                                                                                                  
+Smith                                                                                                                                                                                                                                                                                                       
+90 King                                                                                                                                                                                                                                                                                                     
+90 Kochhar                                                                                                                                                                                                                                                                                                  
+90 De Haan                                                                                                                                                                                                                                                                                                  
+60 Hunold                                                                                                                                                                                                                                                                                                   
+60 Ernst                                                                                                                                                                                                                                                                                                    
+60 Austin                                                                                                                                                                                                                                                                                                   
+60 Pataballa                                                                                                                                                                                                                                                                                                
+60 Lorentz                                                                                                                                                                                                                                                                                                  
+100 Greenberg                                                                                                                                                                                                                                                                                               
+100 Faviet                                                                                                                                                                                                                                                                                                  
+100 Chen                                                                                                                                                                                                                                                                                                    
+100 Sciarra                                                                                                                                                                                                                                                                                                 
+100 Urman                                                                                                                                                                                                                                                                                                   
+100 Popp                                                                                                                                                                                                                                                                                                    
+30 Raphaely                                                                                                                                                                                                                                                                                                 
+30 Khoo                                                                                                                                                                                                                                                                                                     
+30 Baida                                                                                                                                                                                                                                                                                                    
+30 Tobias                                                                                                                                                                                                                                                                                                   
+30 Himuro                                                                                                                                                                                                                                                                                                   
+30 Colmenares                                                                                                                                                                                                                                                                                               
+50 Weiss                                                                                                                                                                                                                                                                                                    
+50 Fripp                                                                                                                                                                                                                                                                                                    
+50 Kaufling                                                                                                                                                                                                                                                                                                 
+50 Vollman                                                                                                                                                                                                                                                                                                  
+50 Mourgos                                                                                                                                                                                                                                                                                                  
+50 Nayer                                                                                                                                                                                                                                                                                                    
+50 Mikkilineni                                                                                                                                                                                                                                                                                              
+50 Landry                                                                                                                                                                                                                                                                                                   
+50 Markle                                                                                                                                                                                                                                                                                                   
+50 Bissot                                                                                                                                                                                                                                                                                                   
+50 Atkinson                                                                                                                                                                                                                                                                                                 
+50 Marlow                                                                                                                                                                                                                                                                                                   
+50 Olson                                                                                                                                                                                                                                                                                                    
+50 Mallin                                                                                                                                                                                                                                                                                                   
+50 Rogers                                                                                                                                                                                                                                                                                                   
+50 Gee                                                                                                                                                                                                                                                                                                      
+50 Philtanker                                                                                                                                                                                                                                                                                               
+50 Ladwig                                                                                                                                                                                                                                                                                                   
+50 Stiles                                                                                                                                                                                                                                                                                                   
+50 Seo                                                                                                                                                                                                                                                                                                      
+50 Patel                                                                                                                                                                                                                                                                                                    
+50 Rajs                                                                                                                                                                                                                                                                                                     
+50 Davies                                                                                                                                                                                                                                                                                                   
+50 Matos                                                                                                                                                                                                                                                                                                    
+50 Vargas                                                                                                                                                                                                                                                                                                   
+80 Russell                                                                                                                                                                                                                                                                                                  
+80 Partners                                                                                                                                                                                                                                                                                                 
+80 Errazuriz                                                                                                                                                                                                                                                                                                
+80 Cambrault                                                                                                                                                                                                                                                                                                
+80 Zlotkey                                                                                                                                                                                                                                                                                                  
+80 Tucker                                                                                                                                                                                                                                                                                                   
+80 Bernstein                                                                                                                                                                                                                                                                                                
+80 Hall                                                                                                                                                                                                                                                                                                     
+80 Olsen                                                                                                                                                                                                                                                                                                    
+80 Cambrault                                                                                                                                                                                                                                                                                                
+80 Tuvault                                                                                                                                                                                                                                                                                                  
+80 King                                                                                                                                                                                                                                                                                                     
+80 Sully                                                                                                                                                                                                                                                                                                    
+80 McEwen                                                                                                                                                                                                                                                                                                   
+80 Smith                                                                                                                                                                                                                                                                                                    
+80 Doran                                                                                                                                                                                                                                                                                                    
+80 Sewall                                                                                                                                                                                                                                                                                                   
+80 Vishney                                                                                                                                                                                                                                                                                                  
+80 Greene                                                                                                                                                                                                                                                                                                   
+80 Marvins                                                                                                                                                                                                                                                                                                  
+80 Lee                                                                                                                                                                                                                                                                                                      
+80 Ande                                                                                                                                                                                                                                                                                                     
+80 Banda                                                                                                                                                                                                                                                                                                    
+80 Ozer                                                                                                                                                                                                                                                                                                     
+80 Bloom                                                                                                                                                                                                                                                                                                    
+80 Kumar                                                                                                                                                                                                                                                                                                    
+80 Abel                                                                                                                                                                                                                                                                                                     
+80 Hutton                                                                                                                                                                                                                                                                                                   
+80 Taylor                                                                                                                                                                                                                                                                                                   
+80 Livingston                                                                                                                                                                                                                                                                                               
+Grant                                                                                                                                                                                                                                                                                                       
+80 Johnson                                                                                                                                                                                                                                                                                                  
+50 Taylor                                                                                                                                                                                                                                                                                                   
+50 Fleaur                                                                                                                                                                                                                                                                                                   
+50 Sullivan                                                                                                                                                                                                                                                                                                 
+50 Geoni                                                                                                                                                                                                                                                                                                    
+50 Sarchand                                                                                                                                                                                                                                                                                                 
+50 Bull                                                                                                                                                                                                                                                                                                     
+50 Dellinger                                                                                                                                                                                                                                                                                                
+50 Cabrio                                                                                                                                                                                                                                                                                                   
+50 Chung                                                                                                                                                                                                                                                                                                    
+50 Dilly                                                                                                                                                                                                                                                                                                    
+50 Gates                                                                                                                                                                                                                                                                                                    
+50 Perkins                                                                                                                                                                                                                                                                                                  
+50 Bell                                                                                                                                                                                                                                                                                                     
+50 Everett                                                                                                                                                                                                                                                                                                  
+50 McCain                                                                                                                                                                                                                                                                                                   
+50 Jones                                                                                                                                                                                                                                                                                                    
+50 Walsh                                                                                                                                                                                                                                                                                                    
+50 Feeney                                                                                                                                                                                                                                                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE OR REPLACE PROCEDURE process_data IS
+  2    TYPE cur_ref_type 	IS REF CURSOR; -- weak ref cursor
+  3    TYPE cur_ref_emp_type IS REF CURSOR  -- strong ref. cursor
+  4       RETURN employees%ROWTYPE;
+  5    v_dept_csr	cur_ref_type;
+  6    v_emp_csr  	cur_ref_emp_type;
+  7    rec_emp       employees%rowtype;
+  8    rec_dept      departments%rowtype;
+  9  BEGIN
+ 10    OPEN v_emp_csr FOR SELECT * FROM employees;
+ 11    LOOP
+ 12      FETCH v_emp_csr INTO rec_emp;
+ 13      EXIT when v_emp_csr%NOTFOUND;
+ 14      DBMS_OUTPUT.PUT_LINE(rec_emp.employee_id ||' '|| rec_emp.last_name);
+ 15    END LOOP;
+ 16    CLOSE v_emp_csr;
+ 17  
+ 18    OPEN v_dept_csr FOR SELECT * from departments;
+ 19    LOOP
+ 20      FETCH v_dept_csr INTO rec_dept;
+ 21      EXIT when v_dept_csr%NOTFOUND;
+ 22      DBMS_OUTPUT.PUT_LINE(rec_dept.department_id ||' '|| rec_dept.department_name);
+ 23    END LOOP;
+ 24    CLOSE v_dept_csr;
+ 25  END;
+ 26  /
+
+Procedure created.
+
+SQL> execute process_data;
+198 OConnell                                                                                                                                                                                                                                                                                                
+199 Grant                                                                                                                                                                                                                                                                                                   
+200 Whalen                                                                                                                                                                                                                                                                                                  
+201 Hartstein                                                                                                                                                                                                                                                                                               
+202 Fay                                                                                                                                                                                                                                                                                                     
+203 Mavris                                                                                                                                                                                                                                                                                                  
+204 Baer                                                                                                                                                                                                                                                                                                    
+205 Higgins                                                                                                                                                                                                                                                                                                 
+206 Gietz                                                                                                                                                                                                                                                                                                   
+300 Smith                                                                                                                                                                                                                                                                                                   
+1000 b                                                                                                                                                                                                                                                                                                      
+1001 b                                                                                                                                                                                                                                                                                                      
+3000 Smith                                                                                                                                                                                                                                                                                                  
+1200 Russell                                                                                                                                                                                                                                                                                                
+999 Smith                                                                                                                                                                                                                                                                                                   
+100 King                                                                                                                                                                                                                                                                                                    
+101 Kochhar                                                                                                                                                                                                                                                                                                 
+102 De Haan                                                                                                                                                                                                                                                                                                 
+103 Hunold                                                                                                                                                                                                                                                                                                  
+104 Ernst                                                                                                                                                                                                                                                                                                   
+105 Austin                                                                                                                                                                                                                                                                                                  
+106 Pataballa                                                                                                                                                                                                                                                                                               
+107 Lorentz                                                                                                                                                                                                                                                                                                 
+108 Greenberg                                                                                                                                                                                                                                                                                               
+109 Faviet                                                                                                                                                                                                                                                                                                  
+110 Chen                                                                                                                                                                                                                                                                                                    
+111 Sciarra                                                                                                                                                                                                                                                                                                 
+112 Urman                                                                                                                                                                                                                                                                                                   
+113 Popp                                                                                                                                                                                                                                                                                                    
+114 Raphaely                                                                                                                                                                                                                                                                                                
+115 Khoo                                                                                                                                                                                                                                                                                                    
+116 Baida                                                                                                                                                                                                                                                                                                   
+117 Tobias                                                                                                                                                                                                                                                                                                  
+118 Himuro                                                                                                                                                                                                                                                                                                  
+119 Colmenares                                                                                                                                                                                                                                                                                              
+120 Weiss                                                                                                                                                                                                                                                                                                   
+121 Fripp                                                                                                                                                                                                                                                                                                   
+122 Kaufling                                                                                                                                                                                                                                                                                                
+123 Vollman                                                                                                                                                                                                                                                                                                 
+124 Mourgos                                                                                                                                                                                                                                                                                                 
+125 Nayer                                                                                                                                                                                                                                                                                                   
+126 Mikkilineni                                                                                                                                                                                                                                                                                             
+127 Landry                                                                                                                                                                                                                                                                                                  
+128 Markle                                                                                                                                                                                                                                                                                                  
+129 Bissot                                                                                                                                                                                                                                                                                                  
+130 Atkinson                                                                                                                                                                                                                                                                                                
+131 Marlow                                                                                                                                                                                                                                                                                                  
+132 Olson                                                                                                                                                                                                                                                                                                   
+133 Mallin                                                                                                                                                                                                                                                                                                  
+134 Rogers                                                                                                                                                                                                                                                                                                  
+135 Gee                                                                                                                                                                                                                                                                                                     
+136 Philtanker                                                                                                                                                                                                                                                                                              
+137 Ladwig                                                                                                                                                                                                                                                                                                  
+138 Stiles                                                                                                                                                                                                                                                                                                  
+139 Seo                                                                                                                                                                                                                                                                                                     
+140 Patel                                                                                                                                                                                                                                                                                                   
+141 Rajs                                                                                                                                                                                                                                                                                                    
+142 Davies                                                                                                                                                                                                                                                                                                  
+143 Matos                                                                                                                                                                                                                                                                                                   
+144 Vargas                                                                                                                                                                                                                                                                                                  
+145 Russell                                                                                                                                                                                                                                                                                                 
+146 Partners                                                                                                                                                                                                                                                                                                
+147 Errazuriz                                                                                                                                                                                                                                                                                               
+148 Cambrault                                                                                                                                                                                                                                                                                               
+149 Zlotkey                                                                                                                                                                                                                                                                                                 
+150 Tucker                                                                                                                                                                                                                                                                                                  
+151 Bernstein                                                                                                                                                                                                                                                                                               
+152 Hall                                                                                                                                                                                                                                                                                                    
+153 Olsen                                                                                                                                                                                                                                                                                                   
+154 Cambrault                                                                                                                                                                                                                                                                                               
+155 Tuvault                                                                                                                                                                                                                                                                                                 
+156 King                                                                                                                                                                                                                                                                                                    
+157 Sully                                                                                                                                                                                                                                                                                                   
+158 McEwen                                                                                                                                                                                                                                                                                                  
+159 Smith                                                                                                                                                                                                                                                                                                   
+160 Doran                                                                                                                                                                                                                                                                                                   
+161 Sewall                                                                                                                                                                                                                                                                                                  
+162 Vishney                                                                                                                                                                                                                                                                                                 
+163 Greene                                                                                                                                                                                                                                                                                                  
+164 Marvins                                                                                                                                                                                                                                                                                                 
+165 Lee                                                                                                                                                                                                                                                                                                     
+166 Ande                                                                                                                                                                                                                                                                                                    
+167 Banda                                                                                                                                                                                                                                                                                                   
+168 Ozer                                                                                                                                                                                                                                                                                                    
+169 Bloom                                                                                                                                                                                                                                                                                                   
+173 Kumar                                                                                                                                                                                                                                                                                                   
+174 Abel                                                                                                                                                                                                                                                                                                    
+175 Hutton                                                                                                                                                                                                                                                                                                  
+176 Taylor                                                                                                                                                                                                                                                                                                  
+177 Livingston                                                                                                                                                                                                                                                                                              
+178 Grant                                                                                                                                                                                                                                                                                                   
+179 Johnson                                                                                                                                                                                                                                                                                                 
+180 Taylor                                                                                                                                                                                                                                                                                                  
+181 Fleaur                                                                                                                                                                                                                                                                                                  
+182 Sullivan                                                                                                                                                                                                                                                                                                
+183 Geoni                                                                                                                                                                                                                                                                                                   
+184 Sarchand                                                                                                                                                                                                                                                                                                
+185 Bull                                                                                                                                                                                                                                                                                                    
+186 Dellinger                                                                                                                                                                                                                                                                                               
+187 Cabrio                                                                                                                                                                                                                                                                                                  
+188 Chung                                                                                                                                                                                                                                                                                                   
+189 Dilly                                                                                                                                                                                                                                                                                                   
+190 Gates                                                                                                                                                                                                                                                                                                   
+191 Perkins                                                                                                                                                                                                                                                                                                 
+192 Bell                                                                                                                                                                                                                                                                                                    
+193 Everett                                                                                                                                                                                                                                                                                                 
+194 McCain                                                                                                                                                                                                                                                                                                  
+195 Jones                                                                                                                                                                                                                                                                                                   
+196 Walsh                                                                                                                                                                                                                                                                                                   
+197 Feeney                                                                                                                                                                                                                                                                                                  
+640 ADVERTISING                                                                                                                                                                                                                                                                                             
+600 TRAINING                                                                                                                                                                                                                                                                                                
+610 EDUCATION                                                                                                                                                                                                                                                                                               
+620 reserch                                                                                                                                                                                                                                                                                                 
+630 Unknown                                                                                                                                                                                                                                                                                                 
+650 Unknown                                                                                                                                                                                                                                                                                                 
+660 hr                                                                                                                                                                                                                                                                                                      
+670 Media                                                                                                                                                                                                                                                                                                   
+690 Advertising                                                                                                                                                                                                                                                                                             
+700 Media                                                                                                                                                                                                                                                                                                   
+720 Advertising                                                                                                                                                                                                                                                                                             
+280 hr                                                                                                                                                                                                                                                                                                      
+410 TRAINING                                                                                                                                                                                                                                                                                                
+420 EDUCATION                                                                                                                                                                                                                                                                                               
+980 Education                                                                                                                                                                                                                                                                                               
+770 Training                                                                                                                                                                                                                                                                                                
+430 Unknown                                                                                                                                                                                                                                                                                                 
+390 Training                                                                                                                                                                                                                                                                                                
+440 ADVERTISING                                                                                                                                                                                                                                                                                             
+450 Unknown                                                                                                                                                                                                                                                                                                 
+480 Advertising                                                                                                                                                                                                                                                                                             
+530 Media                                                                                                                                                                                                                                                                                                   
+10 Administration                                                                                                                                                                                                                                                                                           
+20 Marketing                                                                                                                                                                                                                                                                                                
+30 Purchasing                                                                                                                                                                                                                                                                                               
+40 Human Resources                                                                                                                                                                                                                                                                                          
+50 Shipping                                                                                                                                                                                                                                                                                                 
+60 IT                                                                                                                                                                                                                                                                                                       
+70 Public Relations                                                                                                                                                                                                                                                                                         
+80 Sales                                                                                                                                                                                                                                                                                                    
+90 Executive                                                                                                                                                                                                                                                                                                
+100 Finance                                                                                                                                                                                                                                                                                                 
+110 Accounting                                                                                                                                                                                                                                                                                              
+120 Treasury                                                                                                                                                                                                                                                                                                
+130 Corporate Tax                                                                                                                                                                                                                                                                                           
+140 Control And Credit                                                                                                                                                                                                                                                                                      
+150 Shareholder Services                                                                                                                                                                                                                                                                                    
+160 Benefits                                                                                                                                                                                                                                                                                                
+170 Manufacturing                                                                                                                                                                                                                                                                                           
+180 Construction                                                                                                                                                                                                                                                                                            
+190 Contracting                                                                                                                                                                                                                                                                                             
+200 Operations                                                                                                                                                                                                                                                                                              
+210 IT Support                                                                                                                                                                                                                                                                                              
+220 NOC                                                                                                                                                                                                                                                                                                     
+230 IT Helpdesk                                                                                                                                                                                                                                                                                             
+240 Government Sales                                                                                                                                                                                                                                                                                        
+250 Retail Sales                                                                                                                                                                                                                                                                                            
+260 Recruiting                                                                                                                                                                                                                                                                                              
+270 Payroll                                                                                                                                                                                                                                                                                                 
+550 Training                                                                                                                                                                                                                                                                                                
+370 Public relation                                                                                                                                                                                                                                                                                         
+470 Public relation                                                                                                                                                                                                                                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE OR REPLACE FUNCTION annual_sal( p_emp_id NUMBER)
+  2  RETURN NUMBER IS
+  3    v_plsql varchar2(200) :=
+  4      'DECLARE '||
+  5      ' rec_emp employees%ROWTYPE; '||
+  6      'BEGIN '||
+  7      ' rec_emp := get_emp(:empid); ' ||
+  8      ' :res := rec_emp.salary  * 12; ' ||
+  9      'END;';
+ 10    v_result NUMBER;
+ 11  BEGIN
+ 12   EXECUTE IMMEDIATE v_plsql
+ 13           USING IN p_emp_id, OUT v_result;
+ 14    RETURN v_result;
+ 15  END;
+ 16  /
+
+Function created.
+
+SQL> EXECUTE DBMS_OUTPUT.PUT_LINE(annual_sal(100));
+71304.24                                                                                                                                                                                                                                                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE OR REPLACE PROCEDURE compile_plsql(p_name VARCHAR2,
+  2   p_plsql_type VARCHAR2, p_options VARCHAR2 := NULL) IS
+  3    v_stmt varchar2(200) := 'ALTER '|| p_plsql_type ||
+  4                          ' '|| p_name || ' COMPILE';
+  5  BEGIN
+  6   IF p_options IS NOT NULL THEN
+  7     v_stmt := v_stmt || ' ' || p_options;
+  8   END IF;
+  9   EXECUTE IMMEDIATE v_stmt;
+ 10  END;
+ 11  /
+
+Procedure created.
+
+SQL> EXEC compile_plsql ('list_employees', 'procedure');
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC compile_plsql ('get_emp', 'function');
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC compile_plsql ('mypack', 'package', 'specification')
+BEGIN compile_plsql ('mypack', 'package', 'specification'); END;
+
+*
+ERROR at line 1:
+ORA-04043: object MYPACK does not exist 
+ORA-06512: at "HR.COMPILE_PLSQL", line 9 
+ORA-06512: at line 1 
+
+
+SQL> select * from user_objects where object_type='PACKAGE';
+
+OBJECT_NAME                                                                                                                      SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE         CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                              
+-------------------------------------------------------------------------------------------------------------------------------- ------------------------------ ---------- -------------- ------------------- --------- --------- ------------------- ------- - - - ----------                              
+EDITION_NAME                                                                                                                                                                                                                                                                                                
+------------------------------                                                                                                                                                                                                                                                                              
+TAXES_PKG                                                                                                                                                            75872                PACKAGE             18-JUL-16 18-JUL-16 2016-07-18:11:59:14 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+T11                                                                                                                                                                  81803                PACKAGE             07-MAR-17 07-MAR-17 2017-03-07:16:31:34 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+PKG1                                                                                                                                                                 75874                PACKAGE             18-JUL-16 18-JUL-16 2016-07-18:12:18:37 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+PKG                                                                                                                                                                  74598                PACKAGE             09-AUG-16 25-NOV-16 2016-11-25:16:21:08 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+MY_PKG                                                                                                                                                               76379                PACKAGE             03-AUG-16 24-NOV-16 2016-11-24:16:49:00 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+
+OBJECT_NAME                                                                                                                      SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE         CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                              
+-------------------------------------------------------------------------------------------------------------------------------- ------------------------------ ---------- -------------- ------------------- --------- --------- ------------------- ------- - - - ----------                              
+EDITION_NAME                                                                                                                                                                                                                                                                                                
+------------------------------                                                                                                                                                                                                                                                                              
+GLOBAL_CONSTS                                                                                                                                                        75756                PACKAGE             15-JUL-16 15-JUL-16 2016-07-15:12:32:38 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+ERROR_PKG                                                                                                                                                            76117                PACKAGE             25-JUL-16 25-JUL-16 2016-07-25:11:33:30 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+EMP_PKG                                                                                                                                                              75884                PACKAGE             20-JUL-16 10-MAR-17 2017-03-10:16:24:17 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+DEPT_PKG                                                                                                                                                             75870                PACKAGE             18-JUL-16 28-OCT-16 2016-07-18:11:36:44 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+CURS_PKG                                                                                                                                                             75876                PACKAGE             18-JUL-16 18-JUL-16 2016-07-18:12:52:00 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+
+OBJECT_NAME                                                                                                                      SUBOBJECT_NAME                  OBJECT_ID DATA_OBJECT_ID OBJECT_TYPE         CREATED   LAST_DDL_ TIMESTAMP           STATUS  T G S  NAMESPACE                              
+-------------------------------------------------------------------------------------------------------------------------------- ------------------------------ ---------- -------------- ------------------- --------- --------- ------------------- ------- - - - ----------                              
+EDITION_NAME                                                                                                                                                                                                                                                                                                
+------------------------------                                                                                                                                                                                                                                                                              
+CONSTANT_PKG                                                                                                                                                         76118                PACKAGE             25-JUL-16 25-JUL-16 2016-07-25:11:33:51 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+COMM_PKG                                                                                                                                                             75754                PACKAGE             15-JUL-16 15-JUL-16 2016-07-15:12:04:18 VALID   N N N          1                              
+                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                            
+
+12 rows selected.
+
+SQL> EXEC compile_plsql ('EMP_PKG', 'package', 'specification')
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC compile_plsql ('EMP_PKG', 'package', 'BODY')
+
+PL/SQL procedure successfully completed.
+
+SQL> EXIT
+SQL> set lines 300
+SQL> set pages 20
+SQL> CREATE OR REPLACE FUNCTION delete_all_rows
+  2    (p_table_name VARCHAR2) RETURN NUMBER IS
+  3     v_cur_id INTEGER;
+  4     v_rows_del    NUMBER;
+  5  BEGIN
+  6    v_cur_id := DBMS_SQL.OPEN_CURSOR;
+  7    DBMS_SQL.PARSE(v_cur_id,'DELETE FROM '|| p_table_name, DBMS_SQL.NATIVE);
+  8    v_rows_del := DBMS_SQL.EXECUTE (v_cur_id);
+  9    DBMS_SQL.CLOSE_CURSOR(v_cur_id);
+ 10    RETURN v_rows_del;
+ 11  END;
+ 12  /
+
+Function created.
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE TABLE temp_emp AS SELECT * FROM employees;
+CREATE TABLE temp_emp AS SELECT * FROM employees
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('Rows Deleted: ' || delete_all_rows('temp_emp'));
+  3  END;
+  4  /
+Rows Deleted: 0                                                                                                                                                                                                                                                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> DROP TABLE temp_emp;
+
+Table dropped.
+
+SQL> CREATE TABLE temp_emp AS SELECT * FROM employees;
+
+Table created.
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('Rows Deleted: ' || delete_all_rows('temp_emp'));
+  3  END;
+  4  /
+Rows Deleted: 110                                                                                                                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON
+SQL> 
+SQL> CREATE OR REPLACE PROCEDURE insert_row (p_table_name VARCHAR2,
+  2    p_id VARCHAR2, p_name VARCHAR2, p_region NUMBER) IS
+  3    v_cur_id     INTEGER;
+  4    v_stmt       VARCHAR2(200);
+  5    v_rows_added NUMBER;
+  6  
+  7  BEGIN
+  8    v_stmt := 'INSERT INTO '|| p_table_name ||
+  9       	    ' VALUES (:cid, :cname, :rid)';
+ 10    v_cur_id := DBMS_SQL.OPEN_CURSOR;
+ 11    DBMS_SQL.PARSE(v_cur_id, v_stmt, DBMS_SQL.NATIVE);
+ 12    DBMS_SQL.BIND_VARIABLE(v_cur_id, ':cid', p_id);
+ 13    DBMS_SQL.BIND_VARIABLE(v_cur_id, ':cname', p_name);
+ 14    DBMS_SQL.BIND_VARIABLE(v_cur_id, ':rid', p_region);
+ 15    v_rows_added := DBMS_SQL.EXECUTE(v_cur_id);
+ 16    DBMS_SQL.CLOSE_CURSOR(v_cur_id);
+ 17    DBMS_OUTPUT.PUT_LINE(v_rows_added ||' row added');
+ 18  END;
+ 19  /
+
+Procedure created.
+
+SQL> 
+SQL> EXECUTE insert_row('countries', 'LB', 'Lebanon', 4);
+BEGIN insert_row('countries', 'LB', 'Lebanon', 4); END;
+
+*
+ERROR at line 1:
+ORA-00001: unique constraint (HR.COUNTRY_C_ID_PK) violated 
+ORA-06512: at "SYS.DBMS_SQL", line 1575 
+ORA-06512: at "HR.INSERT_ROW", line 15 
+ORA-06512: at line 1 
+
+
+SQL> select * from countries;
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                                                                                                                                                      
+-- ---------------------------------------- ----------                                                                                                                                                                                                                                                      
+AR Argentina                                         2                                                                                                                                                                                                                                                      
+AU Australia                                         3                                                                                                                                                                                                                                                      
+BE Belgium                                           1                                                                                                                                                                                                                                                      
+BR Brazil                                            2                                                                                                                                                                                                                                                      
+CA Canada                                            2                                                                                                                                                                                                                                                      
+CH Switzerland                                       1                                                                                                                                                                                                                                                      
+CN China                                             3                                                                                                                                                                                                                                                      
+DE Germany                                           1                                                                                                                                                                                                                                                      
+DK Denmark                                           1                                                                                                                                                                                                                                                      
+EG Egypt                                             4                                                                                                                                                                                                                                                      
+FR France                                            1                                                                                                                                                                                                                                                      
+IL Israel                                            4                                                                                                                                                                                                                                                      
+IN India                                             3                                                                                                                                                                                                                                                      
+IT Italy                                             1                                                                                                                                                                                                                                                      
+JP Japan                                             3                                                                                                                                                                                                                                                      
+KW Kuwait                                            4                                                                                                                                                                                                                                                      
+LB Lebanon                                           4                                                                                                                                                                                                                                                      
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                                                                                                                                                      
+-- ---------------------------------------- ----------                                                                                                                                                                                                                                                      
+ML Malaysia                                          3                                                                                                                                                                                                                                                      
+MX Mexico                                            2                                                                                                                                                                                                                                                      
+NG Nigeria                                           4                                                                                                                                                                                                                                                      
+NL Netherlands                                       1                                                                                                                                                                                                                                                      
+SG Singapore                                         3                                                                                                                                                                                                                                                      
+UK United Kingdom                                    1                                                                                                                                                                                                                                                      
+US United States of America                          2                                                                                                                                                                                                                                                      
+ZM Zambia                                            4                                                                                                                                                                                                                                                      
+ZW Zimbabwe                                          4                                                                                                                                                                                                                                                      
+
+26 rows selected.
+
+SQL> EXECUTE insert_row('countries', 'LA', 'LosAngles', 4);
+1 row added                                                                                                                                                                                                                                                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> spool off

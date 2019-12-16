@@ -1,0 +1,12 @@
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> rem transaction control statements
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> spool off

@@ -1,0 +1,322 @@
+SQL> rem role is a group of permissions
+SQL> create role mgr;
+create role mgr
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> conn hr/hr
+Connected.
+SQL> create role mgr;
+create role mgr
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+SQL> conn sys as sysdba
+Connected.
+SQL> grant create role to hr;
+
+Grant succeeded.
+
+SQL> conn hr/hr
+Connected.
+SQL> create role mgr;
+
+Role created.
+
+SQL> conn sys as sysdba
+Connected.
+SQL> revoke create role from hr;
+
+Revoke succeeded.
+
+SQL> create role mgr;
+create role mgr
+            *
+ERROR at line 1:
+ORA-01921: role name 'MGR' conflicts with another user or role name 
+
+
+SQL> create role adm;
+
+Role created.
+
+SQL> grant create session,create table,create view to adm;
+
+Grant succeeded.
+
+SQL> create user a1 identified by a1
+  2  default tablespace users
+  3  temporary tablespace temp
+  4  quota unlimited on users;
+
+User created.
+
+SQL> create user a2 identified by a2
+  2  default tablespace users
+  3  temporary tablespace temp
+  4  quota unlimited on users;
+
+User created.
+
+SQL> grant adm to a1,a2;
+
+Grant succeeded.
+
+SQL> conn a1/a1
+Connected.
+SQL> conn sys as sysdba
+Connected.
+SQL> select name from v$database;
+
+NAME                                                                            
+---------                                                                       
+ORCL                                                                            
+
+SQL> desc v$database
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DBID                                               NUMBER
+ NAME                                               VARCHAR2(9)
+ CREATED                                            DATE
+ RESETLOGS_CHANGE#                                  NUMBER
+ RESETLOGS_TIME                                     DATE
+ PRIOR_RESETLOGS_CHANGE#                            NUMBER
+ PRIOR_RESETLOGS_TIME                               DATE
+ LOG_MODE                                           VARCHAR2(12)
+ CHECKPOINT_CHANGE#                                 NUMBER
+ ARCHIVE_CHANGE#                                    NUMBER
+ CONTROLFILE_TYPE                                   VARCHAR2(7)
+ CONTROLFILE_CREATED                                DATE
+ CONTROLFILE_SEQUENCE#                              NUMBER
+ CONTROLFILE_CHANGE#                                NUMBER
+ CONTROLFILE_TIME                                   DATE
+ OPEN_RESETLOGS                                     VARCHAR2(11)
+ VERSION_TIME                                       DATE
+ OPEN_MODE                                          VARCHAR2(20)
+ PROTECTION_MODE                                    VARCHAR2(20)
+ PROTECTION_LEVEL                                   VARCHAR2(20)
+ REMOTE_ARCHIVE                                     VARCHAR2(8)
+ ACTIVATION#                                        NUMBER
+ SWITCHOVER#                                        NUMBER
+ DATABASE_ROLE                                      VARCHAR2(16)
+ ARCHIVELOG_CHANGE#                                 NUMBER
+ ARCHIVELOG_COMPRESSION                             VARCHAR2(8)
+ SWITCHOVER_STATUS                                  VARCHAR2(20)
+ DATAGUARD_BROKER                                   VARCHAR2(8)
+ GUARD_STATUS                                       VARCHAR2(7)
+ SUPPLEMENTAL_LOG_DATA_MIN                          VARCHAR2(8)
+ SUPPLEMENTAL_LOG_DATA_PK                           VARCHAR2(3)
+ SUPPLEMENTAL_LOG_DATA_UI                           VARCHAR2(3)
+ FORCE_LOGGING                                      VARCHAR2(3)
+ PLATFORM_ID                                        NUMBER
+ PLATFORM_NAME                                      VARCHAR2(101)
+ RECOVERY_TARGET_INCARNATION#                       NUMBER
+ LAST_OPEN_INCARNATION#                             NUMBER
+ CURRENT_SCN                                        NUMBER
+ FLASHBACK_ON                                       VARCHAR2(18)
+ SUPPLEMENTAL_LOG_DATA_FK                           VARCHAR2(3)
+ SUPPLEMENTAL_LOG_DATA_ALL                          VARCHAR2(3)
+ DB_UNIQUE_NAME                                     VARCHAR2(30)
+ STANDBY_BECAME_PRIMARY_SCN                         NUMBER
+ FS_FAILOVER_STATUS                                 VARCHAR2(22)
+ FS_FAILOVER_CURRENT_TARGET                         VARCHAR2(30)
+ FS_FAILOVER_THRESHOLD                              NUMBER
+ FS_FAILOVER_OBSERVER_PRESENT                       VARCHAR2(7)
+ FS_FAILOVER_OBSERVER_HOST                          VARCHAR2(512)
+ CONTROLFILE_CONVERTED                              VARCHAR2(3)
+ PRIMARY_DB_UNIQUE_NAME                             VARCHAR2(30)
+ SUPPLEMENTAL_LOG_DATA_PL                           VARCHAR2(3)
+ MIN_REQUIRED_CAPTURE_CHANGE#                       NUMBER
+
+SQL> select name,dbid,created from v$database;
+
+NAME            DBID CREATED                                                    
+--------- ---------- ---------                                                  
+ORCL      1529643916 02-MAR-19                                                  
+
+SQL> desc v$log
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GROUP#                                             NUMBER
+ THREAD#                                            NUMBER
+ SEQUENCE#                                          NUMBER
+ BYTES                                              NUMBER
+ BLOCKSIZE                                          NUMBER
+ MEMBERS                                            NUMBER
+ ARCHIVED                                           VARCHAR2(3)
+ STATUS                                             VARCHAR2(16)
+ FIRST_CHANGE#                                      NUMBER
+ FIRST_TIME                                         DATE
+ NEXT_CHANGE#                                       NUMBER
+ NEXT_TIME                                          DATE
+
+SQL> desc $datafile
+ERROR:
+ORA-00911: invalid character 
+ORA-00911: invalid character 
+
+
+SQL> desc v$datafile
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FILE#                                              NUMBER
+ CREATION_CHANGE#                                   NUMBER
+ CREATION_TIME                                      DATE
+ TS#                                                NUMBER
+ RFILE#                                             NUMBER
+ STATUS                                             VARCHAR2(7)
+ ENABLED                                            VARCHAR2(10)
+ CHECKPOINT_CHANGE#                                 NUMBER
+ CHECKPOINT_TIME                                    DATE
+ UNRECOVERABLE_CHANGE#                              NUMBER
+ UNRECOVERABLE_TIME                                 DATE
+ LAST_CHANGE#                                       NUMBER
+ LAST_TIME                                          DATE
+ OFFLINE_CHANGE#                                    NUMBER
+ ONLINE_CHANGE#                                     NUMBER
+ ONLINE_TIME                                        DATE
+ BYTES                                              NUMBER
+ BLOCKS                                             NUMBER
+ CREATE_BYTES                                       NUMBER
+ BLOCK_SIZE                                         NUMBER
+ NAME                                               VARCHAR2(513)
+ PLUGGED_IN                                         NUMBER
+ BLOCK1_OFFSET                                      NUMBER
+ AUX_NAME                                           VARCHAR2(513)
+ FIRST_NONLOGGED_SCN                                NUMBER
+ FIRST_NONLOGGED_TIME                               DATE
+ FOREIGN_DBID                                       NUMBER
+ FOREIGN_CREATION_CHANGE#                           NUMBER
+ FOREIGN_CREATION_TIME                              DATE
+ PLUGGED_READONLY                                   VARCHAR2(3)
+ PLUGIN_CHANGE#                                     NUMBER
+ PLUGIN_RESETLOGS_CHANGE#                           NUMBER
+ PLUGIN_RESETLOGS_TIME                              DATE
+
+SQL> select file#,name,Ts# from v$datafile;
+
+     FILE#                                                                      
+----------                                                                      
+NAME                                                                            
+--------------------------------------------------------------------------------
+       TS#                                                                      
+----------                                                                      
+         1                                                                      
+D:\APP\201701439\ORADATA\ORCL\SYSTEM01.DBF                                      
+         0                                                                      
+                                                                                
+         2                                                                      
+D:\APP\201701439\ORADATA\ORCL\SYSAUX01.DBF                                      
+         1                                                                      
+
+     FILE#                                                                      
+----------                                                                      
+NAME                                                                            
+--------------------------------------------------------------------------------
+       TS#                                                                      
+----------                                                                      
+                                                                                
+         3                                                                      
+D:\APP\201701439\ORADATA\ORCL\UNDOTBS01.DBF                                     
+         2                                                                      
+                                                                                
+         4                                                                      
+D:\APP\201701439\ORADATA\ORCL\USERS01.DBF                                       
+
+     FILE#                                                                      
+----------                                                                      
+NAME                                                                            
+--------------------------------------------------------------------------------
+       TS#                                                                      
+----------                                                                      
+         4                                                                      
+                                                                                
+         5                                                                      
+D:\APP\201701439\ORADATA\ORCL\EXAMPLE01.DBF                                     
+         6                                                                      
+                                                                                
+
+SQL> set lines 180
+SQL> /
+
+     FILE#                                                                                                                                                                          
+----------                                                                                                                                                                          
+NAME                                                                                                                                                                                
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+       TS#                                                                                                                                                                          
+----------                                                                                                                                                                          
+         1                                                                                                                                                                          
+D:\APP\201701439\ORADATA\ORCL\SYSTEM01.DBF                                                                                                                                          
+         0                                                                                                                                                                          
+                                                                                                                                                                                    
+         2                                                                                                                                                                          
+D:\APP\201701439\ORADATA\ORCL\SYSAUX01.DBF                                                                                                                                          
+         1                                                                                                                                                                          
+
+     FILE#                                                                                                                                                                          
+----------                                                                                                                                                                          
+NAME                                                                                                                                                                                
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+       TS#                                                                                                                                                                          
+----------                                                                                                                                                                          
+                                                                                                                                                                                    
+         3                                                                                                                                                                          
+D:\APP\201701439\ORADATA\ORCL\UNDOTBS01.DBF                                                                                                                                         
+         2                                                                                                                                                                          
+                                                                                                                                                                                    
+         4                                                                                                                                                                          
+D:\APP\201701439\ORADATA\ORCL\USERS01.DBF                                                                                                                                           
+
+     FILE#                                                                                                                                                                          
+----------                                                                                                                                                                          
+NAME                                                                                                                                                                                
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+       TS#                                                                                                                                                                          
+----------                                                                                                                                                                          
+         4                                                                                                                                                                          
+                                                                                                                                                                                    
+         5                                                                                                                                                                          
+D:\APP\201701439\ORADATA\ORCL\EXAMPLE01.DBF                                                                                                                                         
+         6                                                                                                                                                                          
+                                                                                                                                                                                    
+
+SQL> 
+SQL> col NAME FOR A60
+SQL> /
+
+     FILE# NAME                                                                TS#                                                                                                  
+---------- ------------------------------------------------------------ ----------                                                                                                  
+         1 D:\APP\201701439\ORADATA\ORCL\SYSTEM01.DBF                            0                                                                                                  
+         2 D:\APP\201701439\ORADATA\ORCL\SYSAUX01.DBF                            1                                                                                                  
+         3 D:\APP\201701439\ORADATA\ORCL\UNDOTBS01.DBF                           2                                                                                                  
+         4 D:\APP\201701439\ORADATA\ORCL\USERS01.DBF                             4                                                                                                  
+         5 D:\APP\201701439\ORADATA\ORCL\EXAMPLE01.DBF                           6                                                                                                  
+
+SQL> desc v$tablespace
+ Name                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------
+ TS#                                                                                                            NUMBER
+ NAME                                                                                                           VARCHAR2(30)
+ INCLUDED_IN_DATABASE_BACKUP                                                                                    VARCHAR2(3)
+ BIGFILE                                                                                                        VARCHAR2(3)
+ FLASHBACK_ON                                                                                                   VARCHAR2(3)
+ ENCRYPT_IN_BACKUP                                                                                              VARCHAR2(3)
+
+SQL> select Ts#,name from v$tablespace;
+
+       TS# NAME                                                                                                                                                                     
+---------- ------------------------------------------------------------                                                                                                             
+         0 SYSTEM                                                                                                                                                                   
+         1 SYSAUX                                                                                                                                                                   
+         2 UNDOTBS1                                                                                                                                                                 
+         4 USERS                                                                                                                                                                    
+         3 TEMP                                                                                                                                                                     
+         6 EXAMPLE                                                                                                                                                                  
+
+6 rows selected.
+
+SQL> spool off;
